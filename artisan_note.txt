@@ -1,0 +1,20 @@
+创建数据库迁移
+php artisan migrate:make create_users_table
+
+运行所有数据迁移
+php artisan migrate
+
+运行某个数据迁移
+php artisan migrate --path=app/foo/migrations
+
+
+数据填充（先定义好填充类）
+php artisan db:seed
+指定运行某个数据填充类
+php artisan db:seed --class=UserTableSeeder
+
+创建一个model（前提是已经安装way/generators插件，在required-dev中配置）
+php artisan generate:model article
+
+创建一个Controller
+php artisan controller:make AuthController
