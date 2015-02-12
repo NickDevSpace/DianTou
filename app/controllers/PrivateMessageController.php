@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Class FinancingController
- * 融资，要不要用
- */
-class FinancingController extends \BaseController {
+class PrivateMessageController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -24,9 +20,7 @@ class FinancingController extends \BaseController {
 	 */
 	public function create()
 	{
-        $project_id = Input::get('project_id');
-        $project = Project::find($project_id);
-        return View::make('financings.financing-create', array('project'=>$project));
+		//
 	}
 
 
@@ -37,16 +31,8 @@ class FinancingController extends \BaseController {
 	 */
 	public function store()
 	{
-
-        $project_no = Input::get('project_no');
-        $financing_seq = 1;
-        $financial_needs = Input::get('financial_needs');
-        $transfer_ratio = Input::get('transfer_ratio');
-        $min_sub_amt = Input::get('min_sub_amt');
-        $capital_usage = Input::get('capital_usage');
-        $financing_days = Input::get('financing_days');
-        $state = '1';
-    }
+		//
+	}
 
 
 	/**
