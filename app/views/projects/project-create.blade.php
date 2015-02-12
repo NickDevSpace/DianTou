@@ -1,10 +1,12 @@
 @extends('layouts.master')
+@section('page_title')
+发起项目 | 点投
+@stop
 @section('head')
     <style>
         .project-form {
             padding: 100px 0;
         }
-
 
         .footer p {
             color: #7f8c8d;

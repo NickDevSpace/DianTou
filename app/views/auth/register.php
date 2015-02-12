@@ -44,8 +44,8 @@
             <label for="password">密码:</label>
             <input type="password" name="password" id="password" value="">
             <br>
-            <label for="re-password">重复密码:</label>
-            <input type="password" name="re-password" id="re-password" value="">
+            <label for="password_confirm">重复密码:</label>
+            <input type="password" name="password_confirm" id="password_confirm" value="">
             <br>
             <div>
                 <label>省份</label>
@@ -62,7 +62,11 @@
                 <input type="submit" name="" value="注 册" class="am-btn am-btn-primary am-btn-sm am-fl">
             </div>
         </form>
-
+        <?php echo $errors->first('mobile'); ?>
+        <?php echo $errors->first('password'); ?>
+        <?php echo $errors->first('password-confirm'); ?>
+        <?php echo $errors->first('province_code'); ?>
+        <?php echo $errors->first('city_code'); ?>
 
 
         <hr>

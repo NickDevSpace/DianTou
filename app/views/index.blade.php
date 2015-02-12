@@ -1,11 +1,13 @@
 @extends('layouts.master')
+@section('page_title')
+首页 | 点投
+@stop
 @section('head')
     <style>
         .get {
             background: #1E5B94;
             color: #fff;
             text-align: center;
-            padding: 100px 0;
         }
 
         .get-title {
@@ -20,26 +22,11 @@
         }
 
         .detail {
+            margin-top:25px;
             background: #fff;
         }
 
-        .detail-h2 {
-            text-align: center;
-            font-size: 150%;
-            margin: 40px 0;
-        }
 
-        .detail-h3 {
-            color: #1f8dd6;
-        }
-
-        .detail-p {
-            color: #7f8c8d;
-        }
-
-        .detail-mb {
-            margin-bottom: 30px;
-        }
 
         .hope {
             background: #0bb59b;
@@ -58,22 +45,6 @@
             font-size: 140%;
         }
 
-        .about {
-            background: #fff;
-            padding: 40px 0;
-            color: #7f8c8d;
-        }
-
-        .about-color {
-            color: #34495e;
-        }
-
-        .about-title {
-            font-size: 180%;
-            padding: 30px 0 50px 0;
-            text-align: center;
-        }
-
         .footer p {
             color: #7f8c8d;
             margin: 0;
@@ -86,71 +57,79 @@
 
 @section('content')
 <div class="get">
-    <div class="am-g">
-        <div class="am-u-lg-12">
-            <h1 class="get-title">Amaze UI - HTML5 跨屏前端框架</h1>
-
-            <p>
-                期待你的参与，共同打造一个简单易用的前端框架
-            </p>
-
-            <p>
-                <a href="http://amazeui.org" class="am-btn am-btn-sm get-btn">获取新get技能√</a>
-            </p>
-        </div>
+    <div class="am-slider am-slider-default" data-am-flexslider>
+      <ul class="am-slides">
+        <li><img src="http://zcr3.ncfstatic.com/attachment/201502/09/16/1423469876.jpg" /></li>
+        <li><img src="http://zcr3.ncfstatic.com/attachment/201502/10/10/1423536403.jpg" /></li>
+        <li><img src="http://zcr3.ncfstatic.com/attachment/201502/10/15/1423553026.jpg" /></li>
+      </ul>
     </div>
 </div>
 
+<div class="am-container">
+
+<h1>热门项目</h1>
+<hr/>
 <div class="detail">
-    <div class="am-g am-container">
-        <div class="am-u-lg-12">
-            <h2 class="detail-h2">One Web 、Any Device，期待和你一起去实现!</h2>
 
-            <div class="am-g">
-                <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
-
-                    <h3 class="detail-h3">
-                        <i class="am-icon-mobile am-icon-sm"></i>
-                        为移动而生
-                    </h3>
-
-                    <p class="detail-p">
-                        Amaze UI 采用业内先进的 mobile first 理念，从小屏逐步扩展到大屏，最终实现所有屏幕适配，适应移动互联潮流。
-                    </p>
-                </div>
-                <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
-                    <h3 class="detail-h3">
-                        <i class="am-icon-cogs am-icon-sm"></i>
-                        组件丰富，模块化
-                    </h3>
-
-                    <p class="detail-p">
-                        Amaze UI 含近 20 个 CSS 组件、10 个 JS 组件，更有 17 款包含近 60 个主题的 Widgets，可快速构建界面出色、体验优秀的跨屏页面，大幅度提升你的开发效率。
-                    </p>
-                </div>
-                <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
-                    <h3 class="detail-h3">
-                        <i class="am-icon-check-square-o am-icon-sm"></i>
-                        本地化支持
-                    </h3>
-
-                    <p class="detail-p">
-                        相比国外的前端框架，Amaze UI 专注解决中文排版优化问题，根据操作系统调整字体，实现最佳中文排版效果；针对国内主流浏览器及 App 内置浏览器提供更好的兼容性支持，为你节省大量兼容性调试时间。
-                    </p>
-                </div>
-                <div class="am-u-lg-3 am-u-md-6 am-u-sm-12 detail-mb">
-                    <h3 class="detail-h3">
-                        <i class="am-icon-send-o am-icon-sm"></i>
-                        轻量级，高性能
-                    </h3>
-
-                    <p class="detail-p">
-                        Amaze UI 非常注重性能，基于轻量的 Zepto.js 开发，并使用 CSS3 来做动画交互，平滑、高效，更适合移动设备，让你的 Web 应用可以高速载入。
-                    </p>
-                </div>
-            </div>
-        </div>
+<div class="am-g">
+  <div class="am-u-sm-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>图片标题</h3>
+        <p>...</p>
+        <p>
+          <button class="am-btn am-btn-primary">按钮</button>
+          <button class="am-btn am-btn-default">按钮</button>
+        </p>
+      </div>
     </div>
+  </div>
+
+  <div class="am-u-sm-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201501/29/11/54c9aa7e77355_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>图片标题</h3>
+        <p>...</p>
+        <p>
+          <button class="am-btn am-btn-primary">按钮</button>
+          <button class="am-btn am-btn-default">按钮</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="am-u-sm-3">
+      <div class="am-thumbnail">
+        <img src="http://zcr2.ncfstatic.com/attachment/201501/22/21/bd7392444a32523f0183d4eeeb0a759f59_230x175.jpg" alt=""/>
+        <div class="am-thumbnail-caption">
+          <h3>图片标题</h3>
+          <p>...</p>
+          <p>
+            <button class="am-btn am-btn-primary">按钮</button>
+            <button class="am-btn am-btn-default">按钮</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="am-u-sm-3">
+        <div class="am-thumbnail">
+          <img src="http://zcr2.ncfstatic.com/attachment/201501/22/21/bd7392444a32523f0183d4eeeb0a759f59_230x175.jpg" alt=""/>
+          <div class="am-thumbnail-caption">
+            <h3>图片标题</h3>
+            <p>...</p>
+            <p>
+              <button class="am-btn am-btn-primary">按钮</button>
+              <button class="am-btn am-btn-default">按钮</button>
+            </p>
+          </div>
+        </div>
+      </div>
+  </div>
 </div>
 
 <div class="hope">

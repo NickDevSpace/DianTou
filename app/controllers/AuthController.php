@@ -12,22 +12,41 @@ class AuthController extends \BaseController {
     }
 
     public function postRegister(){
-        $mobile = Input::get('mobile');
-        $password = Input::get('password');
-        $nickname = Input::get('nickname');
-        $province_code = Input::get('province_code');
-        $city_code = Input::get('city_code');
+        $inputs = array(
+            'mobile' => Input::get('mobile'),
+            'password' => Input::get('password'),
+            'password_confirmation' => Input::get('password_confirmation'),
+            'nickname' => Input::get('nickname'),
+            'province_code' => Input::get('province_code'),
+            'city_code' => Input::get('city_code')
+        );
+        $validator = Validator::make(
+            $inputs,
+            array(
+                'mobile' => 'numeric',
+                'password' => 'required|min:6|confirmed',
+                'nickname' => 'required|alpha_dash',
+                'province_code' => 'alpha_num',
+                'city_code' => 'alpha_num'
+            )
+        );
 
-        $user = new User();
-        $user->mobile = $mobile;
-        $user->password = Hash::make($password);
-        $user->nickname = $nickname;
-        $user->province_code = $province_code;
-        $user->city_code = $city_code;
-        $user->save();
+        if(!$validator->fails()){
+            $user = new User();
+            $user->mobile = $inputs['mobile'];
+            $user->password = Hash::make($inputs['password']);
+            $user->nickname = $inputs['nickname'];
+            $user->province_code = $inputs['province_code'];
+            $user->city_code = $inputs['city_code'];
+            $user->save();
 
-        Auth::loginUsingId($user->id);
-        return Redirect::route('home');
+            Auth::loginUsingId($user->id);
+            return Redirect::route('home');
+        }else{
+            return Redirect::route('auth.register')->withErrors($validator);;
+        }
+
+
     }
     public function getLogin()
     {
