@@ -3,6 +3,10 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateCommentsTable
+ * 每个项目页面底下的评论
+ */
 class CreateCommentsTable extends Migration {
 
 	/**

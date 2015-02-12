@@ -3,6 +3,10 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreatePrivateMessagesTable
+ * 用于站内信发送
+ */
 class CreatePrivateMessagesTable extends Migration {
 
 	/**
@@ -18,6 +22,7 @@ class CreatePrivateMessagesTable extends Migration {
             $table->integer('from_user');
             $table->integer('to_user');
             $table->text('content');
+            $table->char('is_read', 1)->default('N');
             $table->timestamps();
         });
 	}
