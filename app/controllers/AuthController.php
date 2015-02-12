@@ -59,16 +59,34 @@ class AuthController extends \BaseController {
      */
     public function postLogin()
     {
-
-        $mobile = Input::get('mobile');
-        $password = Input::get('password');
-
-        if (Auth::attempt(array('mobile' => $mobile, 'password' => $password)))
-        {
-            return Redirect::route('home');
+        $inputs = array(
+            'mobile' => Input::get('mobile'),
+            'password' => Input::get('password'),
+            'remember' => Input::get('remember-me') == null ? false : true
+        );
+        $validator = Validator::make(
+            $inputs,
+            array(
+                'mobile' => 'numeric|required',
+                'password' => 'required|min:6'
+            )
+        );
+        if(!$validator->fails()){
+            if (Auth::attempt(array('mobile' => $inputs['mobile'], 'password' => $inputs['password'], 'active' => 'Y'), $inputs['remember']))
+            {
+                $user = Auth::user();
+                $user->last_login = new DateTime();
+                $user->last_login_ip = Request::ip();
+                $user->save();
+                return Redirect::route('home');
+            }else{
+                return Redirect::route('auth.login');
+            }
+        }else{
+            return Redirect::route('auth.login')->withErrors($validator);
         }
 
-        return Redirect::route('auth.login');
+
     }
 
     /**

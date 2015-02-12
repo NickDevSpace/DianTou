@@ -45,7 +45,7 @@
             <input type="password" name="password" id="password" value="">
             <br>
             <label for="remember-me">
-                <input id="remember-me" type="checkbox">
+                <input id="remember-me" type="checkbox" name="remember-me">
                 记住密码
             </label>
             <br />
