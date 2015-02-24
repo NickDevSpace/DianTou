@@ -11,7 +11,11 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="alternate icon" type="image/png" href="{{{asset('assets/i/favicon.png')}}}">
     <link rel="stylesheet" href="{{{asset('assets/css/amazeui.min.css')}}}"/>
+    <link rel="stylesheet" href="{{{asset('assets/css/app.css')}}}"/>
     @yield('head')
+    <script>
+        var BASE_URL = '{{{ url('/') }}}';
+    </script>
 </head>
 <body>
 
@@ -79,7 +83,7 @@
 <script src="{{{asset('assets/js/jquery.min.js')}}}"></script>
 <script src="{{{asset('assets/js/amazeui.min.js')}}}"></script>
 <!--<![endif]-->
-
 <script src="{{{asset('assets/js/app.js')}}}"></script>
+@yield('scripts')
 </body>
 </html>

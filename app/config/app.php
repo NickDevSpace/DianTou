@@ -191,4 +191,7 @@ return array(
 
 	),
 
+    'tmpUploadDir' => 'upload/tmp',
+    'projectUploadDir' => 'upload/project',
+
 );

@@ -26,7 +26,7 @@ class CreateProjectsTable extends Migration {
             $table->string('project_name', 100);        //项目名称
             $table->string('cover_img', 255);       //封面（显示在项目列表中的图片）
             $table->string('big_point', 255);       //一句话亮点
-            $table->string('industry_id', 10);      //行业
+            $table->string('industry_code', 10);      //行业
             $table->string('province_code', 10);        //省份
             $table->string('city_code', 10);        //城市
             $table->string('address', 255)->nullable();     //详细地址
@@ -51,10 +51,11 @@ class CreateProjectsTable extends Migration {
             $table->string('company_img_uri')->nullable();      //公司图片
 
             //融资需求
-            $table->decimal('total_financing_amt',17,2);     //总金额
+            $table->decimal('total_amt',17,2);     //总金额
             $table->decimal('retain_amt',17,2);      //项目方保留金额
             $table->decimal('fin_amt',17,2);       //融资金额
-            $table->decimal('min_sub_amt',17,2);     //最小认购金额
+            $table->integer('share_count');           //认购份数
+            $table->decimal('amt_per_share',17,2);     //最小认购金额
             $table->integer('fin_days');        //融资天数
             $table->date('fin_start_date');      //融资开始时间
             $table->date('fin_end_date');        //融资结束时间
@@ -75,7 +76,7 @@ class CreateProjectsTable extends Migration {
             $table->text('team_members')->nullable();       //团队信息，直接存JSON，在前台拆开展示
 
             $table->char('visibility',1)->default('1');     //项目页显示权限：1.所有人可见 2.注册用户可见  3.认证用户可见
-            $table->char('state', 1)->default('1');   //审核中  审核失败  审核通过  预热中  融资中  融资失败  融资成功 项目分红
+            $table->char('state', 1)->default('1');   //草稿暂存 审核中  审核失败  审核通过  预热中  融资中  融资失败  融资成功 项目分红
 
             $table->integer('user_id');     //发起人
 

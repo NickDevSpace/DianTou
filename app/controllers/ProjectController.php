@@ -23,16 +23,13 @@ class ProjectController extends \BaseController {
 		//
         $user = Auth::user();
 
-        $stage_data = Dict::where('dict_name', '=', 'project_stage')->get();
-        $stage_select = parent::toSelectable($stage_data, 'key', 'value');
-        $province_data = Province::all();
-        $province_select = parent::toSelectable($province_data, 'province_code', 'province_name');
-        $city_data = City::all();
-        $city_select = parent::toSelectable($city_data, 'city_code', 'city_name');
+        $province_select = Province::all();
+
+        $industry_select = Industry::where('parent', '=', 'I')->where('enabled', '=', 'Y')->get();
+
         return View::make('projects.project-create', array('user'=>$user,
-                                                            'stage_select' => $stage_select,
                                                             'province_select' => $province_select,
-                                                            'city_select' => $city_select));
+                                                            'industry_select' => $industry_select));
 
 	}
 

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('ProvinceTableSeeder');
         $this->call('CityTableSeeder');
         $this->call('DictTableSeeder');
+        $this->call('IndustryTableSeeder');
         //$this->call('SentrySeeder');
 	}
 
@@ -82,6 +83,88 @@ class CityTableSeeder extends Seeder {
 
     }
 }
+
+class IndustryTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('industries')->delete();
+        Industry::create(array(
+            'industry_code' => 'I01',
+            'industry_name' => '美食',
+            'parent' => 'I'
+
+        ));
+        Industry::create(array(
+            'industry_code' => 'I0101',
+            'industry_name' => '烧烤',
+            'parent' => 'I01'
+        ));
+        Industry::create(array(
+            'industry_code' => 'I0102',
+            'industry_name' => '火锅',
+            'parent' => 'I01'
+        ));
+        Industry::create(array(
+            'industry_code' => 'I0103',
+            'industry_name' => '日料',
+            'parent' => 'I01'
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'I02',
+            'industry_name' => '休闲娱乐',
+            'parent' => 'I'
+
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'I0201',
+            'industry_name' => '电影',
+            'parent' => 'I02'
+
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'I0202',
+            'industry_name' => '健身',
+            'parent' => 'I02'
+
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'I03',
+            'industry_name' => '零售',
+            'parent' => 'I'
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'IA0301',
+            'industry_name' => '综合零售',
+            'parent' => 'I03'
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'IA0302',
+            'industry_name' => '服饰/鞋帽',
+            'parent' => 'I03'
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'IA0303',
+            'industry_name' => '珠宝首饰',
+            'parent' => 'I03'
+        ));
+
+        Industry::create(array(
+            'industry_code' => 'IA0304',
+            'industry_name' => '水果',
+            'parent' => 'I03'
+        ));
+
+    }
+}
+
+
 
 class DictTableSeeder extends Seeder {
     public function run()
@@ -156,6 +239,7 @@ class DictTableSeeder extends Seeder {
 
     }
 }
+
 
 /**
  * Class SentrySeeder

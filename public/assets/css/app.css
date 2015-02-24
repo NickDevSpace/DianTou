@@ -1,1 +1,48 @@
 /* Write your styles */
+.footer p {
+    color: #7f8c8d;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+    background: #2d3e50;
+}
+
+.webuploader-container {
+    position: relative;
+}
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.webuploader-pick {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #5EB95E;
+    padding: 8px 15px;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+}
+.webuploader-pick-hover {
+    background: #429842;
+}
+
+.webuploader-pick-disable {
+    opacity: 0.6;
+    pointer-events:none;
+}
+
+.img-preview {
+    width: 160px;
+    height: 90px;
+    margin-top: 1em;
+    border: 1px solid #ccc;
+}
+
+.cropper-wraper {
+    position: relative;
+    width:100%;
+    height:500px;
+}

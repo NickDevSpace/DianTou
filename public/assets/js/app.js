@@ -2,16 +2,6 @@
   'use strict';
 
   $(function() {
-    var $fullText = $('.admin-fullText');
-    $('#admin-fullscreen').on('click', function() {
-      $.AMUI.fullscreen.toggle();
-    });
-
-    $(document).on($.AMUI.fullscreen.raw.fullscreenchange, function() {
-      $.AMUI.fullscreen.isFullscreen ? $fullText.text('关闭全屏') : $fullText.text('开启全屏');
-    });
-
-
 
       $('#login-btn').click(function(){
           window.location.href = "/auth/login";
@@ -21,3 +11,12 @@
       });
   });
 })(jQuery);
+
+
+function dump_obj(myObject) {
+    var s = "";
+    for (var property in myObject) {
+        s = s + "\n "+property +": " + myObject[property] ;
+    }
+    alert(s);
+}

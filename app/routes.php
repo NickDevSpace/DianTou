@@ -26,4 +26,5 @@ Route::group(array('before' => 'auth'), function()
     Route::get('users/show-all', array('as' => 'user.all', 'uses' => 'UserController@showAll'));
     Route::resource('projects', 'ProjectController');
     Route::resource('financings', 'FinancingController');
+    Route::controller('x', 'XController');
 });
