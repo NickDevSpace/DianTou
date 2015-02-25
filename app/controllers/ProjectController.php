@@ -2,23 +2,15 @@
 
 class ProjectController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	
 	public function index()
 	{
 		//
 	}
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
+	
+	public function getCreate()
 	{
 		//
         $user = Auth::user();
@@ -34,118 +26,81 @@ class ProjectController extends \BaseController {
 	}
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
+	
+	public function postSave()
 	{
-        $project_name = Input::get('project_name');
-        $cover_img = Input::get('cover_img');
-        $big_point = Input::get('big_point');
-        $project_stage = Input::get('project_stage');
-        $team_size = Input::get('team_size');
-        $industry_id = Input::get('industry_id');
-        $province_code = Input::get('province_code');
-        $city_code = Input::get('city_code');
-        $address = Input::get('address');
-        $business_plan_doc = Input::get('business_plan_doc');
-        $video_url = Input::get('video_url');
-        $user_demand = Input::get('user_demand');
-        $solution = Input::get('solution');
-        $solution_advantage = Input::get('solution_advantage');
-        $market_analysis = Input::get('market_analysis');
-        $development_plan = Input::get('development_plan');
-        $other = Input::get('other');
-        $project_album = Input::get('project_album');
-        $revenue_driver = Input::get('revenue_driver');
-        $cost_structure = Input::get('cost_structure');
-        $financial_data = Input::get('financial_data');
-        $profit_forecast = Input::get('profit_forecast');
-        $team_members = Input::get('team_members');
-        $has_company = Input::get('has_company');
-        $company_info = Input::get('company_info');
-        $state = 1;
-
         $project = new Project();
-        $project->project_name = $project_name;
-        $project->project_no = 'P'.date('YmdHis',time());
-        $project->cover_img = $cover_img;
-        $project->big_point = $big_point;
-        $project->project_stage = $project_stage;
-        $project->team_size = $team_size;
-        $project->industry_id = $industry_id;
-        $project->province_code = $province_code;
-        $project->city_code = $city_code;
-        $project->address = $address;
-        $project->business_plan_doc = $business_plan_doc;
-        $project->video_url = $video_url;
-        $project->user_demand = $user_demand;
-        $project->solution = $solution;
-        $project->solution_advantage = $solution_advantage;
-        $project->market_analysis = $market_analysis;
-        $project->development_plan = $development_plan;
-        $project->other = $other;
-        $project->project_album = $project_album;
-        $project->revenue_driver = $revenue_driver;
-        $project->cost_structure = $cost_structure;
-        $project->financial_data = $financial_data;
-        $project->profit_forecast = $profit_forecast;
-        $project->team_members = $team_members;
-        $project->has_company = $has_company;
-        $project->company_info = $company_info;
-        $project->state = $state;
+		$project->project_no = date('YmdHis', time());
+        $project->project_name = Input::get('project_name');
+        $project->project_cover = Input::get('project_cover');
+        $project->sub_title = Input::get('sub_title');
+        $project->industry_code = Input::get('industry_code');
+        $project->province_code = Input::get('province_code');
+        $project->city_code = Input::get('city_code');
+        $project->address = Input::get('address');
+		$project->detail = Input::get('detail');
+        $project->business_plan = Input::get('business_plan');
+		
+		//融资信息
+		$project->total_amt = Input::get('total_amt');
+		$project->retain_amt = Input::get('retain_amt');
+		$project->fin_amt = Input::get('fin_amt');
+		$project->share_count = Input::get('share_count');
+		$project->amt_per_share = Input::get('amt_per_share');
+		$project->fin_days = Input::get('fin_days');
+		$project->fin_start_date = Input::get('fin_start_date');
+		$project->fin_end_date = Input::get('fin_end_date');
+		
+		//公司信息
+        $project->has_company = Input::get('has_company', 'N');
+		$project->company_name = Input::get('company_name');
+		$project->legal_person = Input::get('legal_person');
+		$project->startup_date = Input::get('startup_date');
+		$project->registered_address = Input::get('registered_address');
+		$project->legal_id_card = Input::get('legal_id_card');
+		$project->legal_cre_rpt = Input::get('legal_cre_rpt');
+		$project->biz_lic = Input::get('biz_lic');
+		$project->biz_lic_copy = Input::get('biz_lic_copy');
+		$project->tax_reg_card = Input::get('tax_reg_card');
+		$project->tax_reg_card_copy = Input::get('tax_reg_card_copy');
+		$project->org_code_cert = Input::get('org_code_cert');
+		$project->org_code_cert_copy = Input::Get('org_code_cert_copy');
+		$project->finance_rpt = Input::get('finance_rpt');
+		$project->hyg_lic = Input::get('hyg_lic');
+		$project->company_photo = Input::get('company_photo');
+		
+		$project->state = 1;
+		
         $project->save();
 
         return Redirect::route('projects.show', $project->id);
 	}
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
+	
+	public function getShow($id)
 	{
 		$project = Project::find($id);
         return View::make('projects.project-show', array('project' => $project));
 	}
 
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
+	
+	public function getEdit($id)
 	{
 		//
 	}
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
+	
+	public function postUpdate($id)
 	{
 		//
 	}
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
+	
+	public function postDelete($id)
 	{
 		//
 	}

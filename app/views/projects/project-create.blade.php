@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{{asset('assets/vendor/jcrop/css/jquery.Jcrop.css')}}}"/>
     <style>
         .project-form {
-            padding: 100px 0;
+            padding: 75px 0;
         }
 
 
@@ -20,13 +20,14 @@
     <div class="am-g">
         <div class="am-container">
             <div class="am-progress">
-                <div class="am-progress-bar"  style="width: 50%">第一步：填写项目信息</div>
-                <div class="am-progress-bar am-progress-bar-success"  style="width: 30%">第二步：完善项目信息</div>
-                <div class="am-progress-bar am-progress-bar-warning"  style="width: 20%">第三步：等待审核</div>
+				<div class="am-progress-bar"  style="width: 20%">第一步：身份认证</div>
+                <div class="am-progress-bar am-progress-bar-success"  style="width: 50%">第一步：填写项目信息</div>
+                <div class="am-progress-bar am-progress-bar-warning"  style="width: 30%">第三步：等待审核</div>
+                
 
             </div>
 
-            <form id="project-create-form" action="/project/create" class="am-form am-form-horizontal">
+            <form id="project-create-form" action="/project/save" method="post" class="am-form am-form-horizontal">
                 <legend>基本信息</legend>
                 <div class="am-form-group">
                     <label for="i-project-name" class="am-u-sm-2 am-form-label">项目名称</label>
@@ -45,9 +46,9 @@
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-project-title" class="am-u-sm-2 am-form-label">项目标语</label>
+                    <label for="i-sub-title" class="am-u-sm-2 am-form-label">项目标语</label>
                     <div class="am-u-sm-10">
-                        <input type="text" name="project_title" placeholder="输入项目标语" data-validate-message="项目标语不能为空" required>
+                        <input type="text" name="sub_title" placeholder="输入项目标语" data-validate-message="项目标语不能为空" required>
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -75,9 +76,9 @@
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="address" class="am-u-sm-2 am-form-label">项目介绍</label>
+                    <label for="i-detail" class="am-u-sm-2 am-form-label">项目介绍</label>
                     <div class="am-u-sm-10">
-                        <textarea name="content" style="width:100%;height:400px;visibility:hidden;">
+                        <textarea id="i-detail" name="detail" style="width:100%;height:400px;visibility:hidden;">
                         <h2>关于我（也可使用个性化小标题）</h2>
                         向支持者介绍你自己或你的团队，并详细说明你与所发起的项目之间的背景，让支持者能够在最短时间内了解你，以拉近彼此之间的距离。
                         <h2>我想要做什么（也可使用个性化小标题）</h2>
@@ -90,10 +91,10 @@
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="business_plan_doc" class="am-u-sm-2 am-form-label">项目计划书</label>
+                    <label for="business_plan" class="am-u-sm-2 am-form-label">项目计划书</label>
                     <div class="am-u-sm-10">
                         <div id="plan-picker" >选择文件</div>
-                        <input type="hidden" name="business_plan_doc"/>
+                        <input type="hidden" name="business_plan"/>
                     </div>
                 </div>
 
@@ -113,7 +114,7 @@
                 <div class="am-form-group">
                     <label for="has_company" class="am-u-sm-2 am-form-label">投资人出资</label>
                     <div class="am-u-sm-10">
-                        <input type="number" name="fin_amt"  disabled placeholder="投资人出资（元）">
+                        <input type="number" name="fin_amt"  readonly="true" placeholder="投资人出资（元）">
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -125,7 +126,7 @@
                 <div class="am-form-group">
                     <label for="has_company" class="am-u-sm-2 am-form-label">每份金额</label>
                     <div class="am-u-sm-10">
-                        <input type="number" name="amt_per_share" placeholder="每份金额" disabled >
+                        <input type="number" name="amt_per_share" readonly="true" placeholder="每份金额" >
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -136,46 +137,40 @@
                 </div>
                 <legend>公司信息</legend>
                 <div class="am-form-group">
-                    <label for="has_company" class="am-u-sm-2 am-form-label">是否已成立公司</label>
+                    <label for="i-has-company" class="am-u-sm-2 am-form-label">是否已成立公司</label>
                     <div class="am-u-sm-10">
                         <?php echo Form::select('has_company', array('Y'=>'是', 'N'=>'否'));?>
-                        <input type="hidden" id="company_info" name="company_info">
+                        <input type="hidden" id="i-has-company" name="has_company">
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="company_name" class="am-u-sm-2 am-form-label">公司名称</label>
+                    <label for="i-company-name" class="am-u-sm-2 am-form-label">公司名称</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="company_name" name="company_name" placeholder="公司名称">
+                        <input type="text" id="i-company-name" name="company_name" placeholder="公司名称">
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="legal_person" class="am-u-sm-2 am-form-label">法人代表</label>
+                    <label for="i-legal-person" class="am-u-sm-2 am-form-label">法人代表</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="legal_person" name="legal_person" placeholder="法人代表">
+                        <input type="text" id="i-legal-person" name="legal_person" placeholder="法人代表">
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="startup_date" class="am-u-sm-2 am-form-label">成立日期</label>
+                    <label for="i-startup-date" class="am-u-sm-2 am-form-label">成立日期</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="startup_date" name="startup_date" class="am-form-field" placeholder="成立日期" data-am-datepicker="{theme: 'success'}" readonly/>
+                        <input type="text" id="i-startup-date" name="startup_date" class="am-form-field" placeholder="成立日期" data-am-datepicker="{theme: 'success'}" readonly/>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="registered_address" class="am-u-sm-2 am-form-label">注册地址</label>
+                    <label for="i-registered-address" class="am-u-sm-2 am-form-label">注册地址</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="registered_address" name="registered_address" placeholder="注册地址">
+                        <input type="text" id="i-registered-address" name="registered_address" placeholder="注册地址">
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="registered_capital" class="am-u-sm-2 am-form-label">注册资金</label>
+                    <label for="i-registered-capital" class="am-u-sm-2 am-form-label">注册资金</label>
                     <div class="am-u-sm-10">
-                        <input type="text" id="registered_capital" name="registered_capital" placeholder="注册资金">
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="organization_code" class="am-u-sm-2 am-form-label">组织机构代码</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="organization_code" name="organization_code" placeholder="组织机构代码">
+                        <input type="text" id="i-registered-capital" name="registered_capital" placeholder="注册资金">
                     </div>
                 </div>
                 <div class="am-form-group resource-upload-wrapper" >
@@ -335,7 +330,7 @@
 <script>
     var editor;
     KindEditor.ready(function(K) {
-        editor = K.create('textarea[name="content"]', {
+        editor = K.create('textarea[name="detail"]', {
             resizeType : 1,
             allowPreviewEmoticons : false,
             allowImageUpload : false,
