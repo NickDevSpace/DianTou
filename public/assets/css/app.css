@@ -46,3 +46,89 @@
     width:100%;
     height:500px;
 }
+/** 更改am-container的宽度 **/
+.am-container{
+	max-width:1210px;
+}
+/** 更改了上面header的默认样式 **/
+.am-topbar{
+	background:none repeat scroll 0 0 #222e2a;
+	border-width: 0px;
+	color:#a4bfb4;
+}
+.am-topbar a{
+	color:#a4bfb4;
+}
+.am-topbar-brand a:hover {
+	color: #a4bfb4;
+}
+.am-topbar-nav > li > a:hover, .am-topbar-nav > li > a:focus{
+	background-color:#3f4f49;
+	color:#a4bfb4;
+}
+
+.am-topbar-nav > li > a:hover:after {
+	opacity: 1;
+	border-bottom-color: #a4bfb4;
+}
+.am-topbar-nav > li.am-active > a,
+.am-topbar-nav > li.am-active > a:hover,
+.am-topbar-nav > li.am-active > a:focus {
+	border-radius: 0;
+	color: #0e90d2;
+	background: none;
+}
+.am-topbar-nav > li.am-active > a:after {
+	opacity: 1;
+	border-bottom-color: #0e90d2;
+}
+
+/** 添加一种颜色的按钮 **/
+.am-btn-diantou {
+  color: #a4bfb4;
+  background-color: transparent;
+  border:0px;
+}
+.am-btn-diantou:hover,
+.am-btn-diantou:focus,
+.am-btn-diantou:active,
+.am-btn-diantou.am-active,
+.am-active .am-btn-diantou.am-dropdown-toggle {
+  color: #a4bfb4;
+  background-color: #3f4f49;
+}
+.am-btn-diantou:active,
+.am-btn-diantou.am-btn-active,
+.am-active .am-btn-diantou.am-dropdown-toggle {
+  background-image: none;
+}
+.am-btn-diantou.am-disabled,
+.am-btn-diantou[disabled],
+fieldset[disabled] .am-btn-diantou,
+.am-btn-diantou.am-disabled:hover,
+.am-btn-diantou[disabled]:hover,
+fieldset[disabled] .am-btn-diantou:hover,
+.am-btn-diantou.am-disabled:focus,
+.am-btn-diantou[disabled]:focus,
+fieldset[disabled] .am-btn-diantou:focus,
+.am-btn-diantou.am-disabled:active,
+.am-btn-diantou[disabled]:active,
+fieldset[disabled] .am-btn-diantou:active,
+.am-btn-diantou.am-disabled.am-btn-active,
+.am-btn-diantou[disabled].am-btn-active,
+fieldset[disabled] .am-btn-diantou.am-btn-active {
+  background-color: #3f4f49;
+}
+.am-btn-group .am-btn-diantou,
+.am-btn-group-stacked .am-btn-diantou {
+}
+
+.dt-profile-dropdown{
+	display:block;
+	padding:10px;
+	
+}
+
+.dt-profile-dropdown:hover{
+	background-color:#3f4f49;
+}

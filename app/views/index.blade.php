@@ -52,6 +52,11 @@
             text-align: center;
             background: #2d3e50;
         }
+		
+		.am-thumbnail .am-progress{
+			margin-bottom:1rem;
+		}
+		
     </style>
 @stop
 
@@ -65,7 +70,6 @@
       </ul>
     </div>
 </div>
-
 <div class="am-container">
 
 <h1>热门项目</h1>
@@ -73,63 +77,146 @@
 <div class="detail">
 
 <div class="am-g">
-  <div class="am-u-sm-3">
+	
+	
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
     <div class="am-thumbnail">
       <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
       <div class="am-thumbnail-caption">
-        <h3>图片标题</h3>
-        <p>...</p>
-        <p>
-          <button class="am-btn am-btn-primary">按钮</button>
-          <button class="am-btn am-btn-default">按钮</button>
-        </p>
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
       </div>
     </div>
   </div>
 
-  <div class="am-u-sm-3">
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
     <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201501/29/11/54c9aa7e77355_230x175.jpg" alt=""/>
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
       <div class="am-thumbnail-caption">
-        <h3>图片标题</h3>
-        <p>...</p>
-        <p>
-          <button class="am-btn am-btn-primary">按钮</button>
-          <button class="am-btn am-btn-default">按钮</button>
-        </p>
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
       </div>
     </div>
   </div>
-
-  <div class="am-u-sm-3">
-      <div class="am-thumbnail">
-        <img src="http://zcr2.ncfstatic.com/attachment/201501/22/21/bd7392444a32523f0183d4eeeb0a759f59_230x175.jpg" alt=""/>
-        <div class="am-thumbnail-caption">
-          <h3>图片标题</h3>
-          <p>...</p>
-          <p>
-            <button class="am-btn am-btn-primary">按钮</button>
-            <button class="am-btn am-btn-default">按钮</button>
-          </p>
-        </div>
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
       </div>
     </div>
   </div>
-
-  <div class="am-u-sm-3">
-        <div class="am-thumbnail">
-          <img src="http://zcr2.ncfstatic.com/attachment/201501/22/21/bd7392444a32523f0183d4eeeb0a759f59_230x175.jpg" alt=""/>
-          <div class="am-thumbnail-caption">
-            <h3>图片标题</h3>
-            <p>...</p>
-            <p>
-              <button class="am-btn am-btn-primary">按钮</button>
-              <button class="am-btn am-btn-default">按钮</button>
-            </p>
-          </div>
-        </div>
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
       </div>
+    </div>
   </div>
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
+      </div>
+    </div>
+  </div>
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
+      </div>
+    </div>
+  </div>
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
+      </div>
+    </div>
+  </div>
+  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+    <div class="am-thumbnail">
+      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+      <div class="am-thumbnail-caption">
+        <h3>北京烤鸭店</h3>
+        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+        <div class="am-progress am-progress-sm">
+			<div class="am-progress-bar" style="width: 30%"></div>
+		</div>
+		<div style="font-size:12px; overflow:hidden;">
+		<div style="clear:both"></div>
+		<span class="am-fl">30%</span>
+		<span class="am-fr">剩余20天</span>
+		</div>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
 <div class="hope">

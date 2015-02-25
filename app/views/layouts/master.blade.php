@@ -22,7 +22,7 @@
 <header class="am-topbar am-topbar-fixed-top">
     <div class="am-container">
         <h1 class="am-topbar-brand">
-            <a href="#">点投</a>
+            <a href="{{{ url('/') }}}">点投</a>
         </h1>
 
 
@@ -35,20 +35,21 @@
                 <li class="am-active"><a href="/">首页</a></li>
                 <li><a href="#">浏览项目</a></li>
                 <li><a href="{{{action('ProjectController@getCreate')}}}">发起项目</a></li>
+				
             </ul>
-
+			
             <?php if(Auth::check()): ?>
             <div class="am-topbar-right">
-                <li class="am-dropdown" data-am-dropdown>
-                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+				
+                <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                    <a class="am-dropdown-toggle dt-profile-dropdown" data-am-dropdown-toggle href="javascript:;">
                         <?php echo Auth::user()->mobile; ?> <span class="am-icon-caret-down"></span>
                     </a>
                     <ul class="am-dropdown-content">
-                        <li class="am-dropdown-header">标题</li>
                         <li><a href="#">我的项目</a></li>
                         <li><a href="/auth/logout">注销</a></li>
                     </ul>
-                </li>
+                </div>
             </div>
             <?php else: ?>
             <div class="am-topbar-right">
