@@ -46,7 +46,7 @@
                         <?php echo Auth::user()->mobile; ?> <span class="am-icon-caret-down"></span>
                     </a>
                     <ul class="am-dropdown-content">
-                        <li><a href="#">我的项目</a></li>
+                        <li><a href="{{{action('UserController@getProfile')}}}">个人中心</a></li>
                         <li><a href="/auth/logout">注销</a></li>
                     </ul>
                 </div>

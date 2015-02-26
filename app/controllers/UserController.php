@@ -7,6 +7,16 @@ class UserController extends \BaseController {
         $users = User::all();
         return View::make('users.show-all', array('users'=>$users));
     }
+	
+	public function getProfile(){
+		$user = Auth::user();
+		$province_select = Province::all();
+		return View::make('users.profile', array('user'=>$user, 'province_select'=>$province_select));
+	}
+	
+	public function postSaveUserInfo(){
+		
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
