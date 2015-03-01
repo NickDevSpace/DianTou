@@ -299,34 +299,18 @@
   </div>
 </div>
 
-<div id="loading-modal" class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
-  <div class="am-modal-dialog">
-    <div class="am-modal-hd">TITLE</div>
-    <div class="am-modal-bd">
-      <span class="am-icon-spinner am-icon-spin"></span>
-    </div>
-  </div>
-</div>
-
-<div id="alert-modal" class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-  <div class="am-modal-dialog">
-    <div class="am-modal-hd">TITLE</div>
-    <div class="am-modal-bd">
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn">确定</span>
-    </div>
-  </div>
 </div>
 
 @stop
 
-@section('scripts')
+@section('vendor_scripts')
 <script src="{{{asset('assets/js/json2.js')}}}"></script>
 <script src="{{{asset('assets/vendor/kindeditor/kindeditor-min.js')}}}"></script>
 <script src="{{{asset('assets/vendor/kindeditor/lang/zh_CN.js')}}}"></script>
 <script src="{{{asset('assets/vendor/webuploader/webuploader.min.js')}}}"></script>
 <script src="{{{asset('assets/vendor/jcrop/js/jquery.Jcrop.min.js')}}}"></script>
+@stop
+@section('page_scripts')
 <script>
     var editor;
     KindEditor.ready(function(K) {
@@ -340,33 +324,6 @@
                 'insertunorderedlist', '|', 'emoticons', 'image', 'link']
         });
     });
-
-
-    var ModalManager = {
-        $loadingModal : $('#loading-modal'),
-        $alertModal : $('#alert-modal'),
-        showLoadingModal : function(title){
-            this.$loadingModal.modal('close');
-            this.$loadingModal.find('.am-modal-hd').html(title);
-            this.$loadingModal.modal({
-                closeViaDimmer : false
-            });
-        },
-        closeLoadingModal : function(){
-            this.$loadingModal.modal('close');
-        },
-        showAlertModal : function(title, content){
-            this.$alertModal.find('.am-modal-hd').html(title);
-            this.$alertModal.find('.am-modal-bd').html(content);
-            this.$alertModal.modal({
-                closeViaDimmer : false
-            });
-        },
-        closeAlertModal : function(){
-            this.$alertModal.modal('close');
-        }
-
-    };
 
 
     var coverCroper = {
@@ -604,23 +561,23 @@
         ctx: {},
         uploader: null,
         cbUploadStart: function( file ) {
-           ModalManager.showLoadingModal('正在上传，请稍后...');
+           App.ModalManager.showLoadingModal('正在上传，请稍后...');
         },
         cbUploadError: function( file, reason ) {
-           ModalManager.showAlertModal('提示', '上传失败！请重试！');
+           App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
         },
         cbUploadSuccess: function( file, response ) {
             if(response.errno == 0){
-                ModalManager.showAlertModal('提示', '上传成功！');
+                App.ModalManager.showAlertModal('提示', '上传成功！');
             }else{
-                ModalManager.showAlertModal('提示', '上传失败！请重试！');
+                App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
             }
         },
         cbUploadComplete: function(file){
-            ModalManager.closeLoadingModal();
+            App.ModalManager.closeLoadingModal();
         },
         cbError: function(error){
-            ModalManager.showAlertModal('错误', type);
+            App.ModalManager.showAlertModal('错误', type);
         }
 
     }
@@ -733,7 +690,7 @@
                     });
 
                 }else{
-                    ModalManager.showAlertModal('提示', '上传失败！请重试！');
+                    App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
                 }
             }
         }
@@ -755,9 +712,9 @@
             onUploadSuccess: function( file, response ){
                 var me = this;
                 if(response.errno == 0){
-                    ModalManager.showAlertModal('提示', '上传成功！');
+                    App.ModalManager.showAlertModal('提示', '上传成功！');
                 }else{
-                    ModalManager.showAlertModal('提示', '上传失败！请重试！');
+                    App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
                 }
             }
         };

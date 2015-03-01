@@ -20,8 +20,11 @@
 
 @stop
 @section('content')
+
+
 <div class="content-wrapper">
         <div class="am-container">
+			
             <div class="am-u-sm-3">
 				<div style="margin-top:40px;">
 					<img src="https://avatars2.githubusercontent.com/u/6135346?v=3&s=460" width="230" height="230" class="am-img-thumbnail"/>
@@ -40,85 +43,64 @@
 				
 				<div class="p-nav">
 					<ul class="am-nav am-nav-tabs">
-						<li class="am-active"><a href="#">信息修改</a></li>
-						<li><a href="#">实名认证</a></li>
-						<li><a href="#">密码修改</a></li>
+						<li class="am-active"><a href="{{{action('IController@getInfo')}}}">信息修改</a></li>
+						<li><a href="{{{action('IController@getAuth')}}}">实名认证</a></li>
+						<li><a href="{{{action('IController@getPasswd')}}}">密码修改</a></li>
 						<li style="float:right">个人信息</li>
 					</ul>
 					
 				</div>
 				
 				<div class="p-content">
-					<form id="user-info-form" action="{{{action('UserController@postSaveUserInfo')}}}" method="post" class="am-form am-form-horizontal">
+					<form id="i-info-form" action="{{{action('IController@postInfo')}}}" method="post" class="am-form am-form-horizontal">
 						<div class="am-form-group">
 							<label for="i-project-name" class="am-u-sm-2 am-form-label">昵称</label>
 							<div class="am-u-sm-10">
-								<input type="text" id="i-project-name" name="project_name" placeholder="输入项目名称" data-validate-message="项目名称不能为空" required >
+								<input type="text" id="i-nickname" name="nickname" value="{{{$user->nickname}}}" placeholder="给自己取个昵称吧" data-validate-message="请填写昵称" required >
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="i-project-name" class="am-u-sm-2 am-form-label">电子邮箱</label>
 							<div class="am-u-sm-10">
-								<input type="email" id="i-project-name" name="project_name" placeholder="输入项目名称" data-validate-message="项目名称不能为空" required >
+								<input type="email" id="i-email" name="email" value="{{{$user->email}}}" placeholder="请输入常用邮箱" data-validate-message="邮箱格式错误" required >
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="i-project-name" class="am-u-sm-2 am-form-label">性别</label>
 							<div class="am-u-sm-10">
 								      <label class="am-radio-inline">
-										<input type="radio"  value="" name="docInlineRadio"> 每一分
+										<input type="radio"  value="M" name="sex" @if ($user->sex === 'M') checked="checked" @endif> 男
 									  </label>
 									  <label class="am-radio-inline">
-										<input type="radio" name="docInlineRadio"> 每一秒
+										<input type="radio" value="F" name="sex" @if ($user->sex === 'F') checked="checked" @endif> 女
 									  </label>
 									  <label class="am-radio-inline">
-										<input type="radio" name="docInlineRadio"> 多好
+										<input type="radio" value="S" name="sex" @if ($user->sex === 'S') checked="checked" @endif> 保密
 									  </label>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="i-city-code" class="am-u-sm-2 am-form-label">所在城市</label>
 							<div class="am-u-sm-2">
-								<?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'required' => 'true')); ?>
+								<?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'required' => 'true', 'selected'=>$user->province_code)); ?>
 							</div>
 							<div class="am-u-sm-2 am-u-end">
-								<?php echo Form::amSelect(array('list'=>array(), 'value_field'=>'','text_field'=>'', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'required' => 'true')); ?>
+								<?php echo Form::amSelect(array('list'=>$city_select, 'value_field'=>'city_code','text_field'=>'city_name', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'required' => 'true', 'selected'=>$user->city_code)); ?>
 							</div>
 						</div>
 						<div class="am-form-group">
 							<label for="address" class="am-u-sm-2 am-form-label">联系地址</label>
 							<div class="am-u-sm-10">
-								<input type="text" id="address" name="address" placeholder="输入详细地址" data-validate-message="项目地址不能为空" required>
+								<input type="text" id="address" name="address" value="{{{$user->address}}}" placeholder="您的联系地址" data-validate-message="">
 							</div>
 						</div>
 						
-						<button type="submit" class="am-btn am-btn-primary am-center">保 存</button>
+						<button type="submit" class="am-btn am-btn-primary am-center">确 定</button>
 					</form>
 				</div>
 			</div>
         </div>
 		
-</div>
-
-
-<div id="loading-modal" class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
-  <div class="am-modal-dialog">
-    <div class="am-modal-hd">TITLE</div>
-    <div class="am-modal-bd">
-      <span class="am-icon-spinner am-icon-spin"></span>
-    </div>
-  </div>
-</div>
-
-<div id="alert-modal" class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-  <div class="am-modal-dialog">
-    <div class="am-modal-hd">TITLE</div>
-    <div class="am-modal-bd">
-    </div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn">确定</span>
-    </div>
-  </div>
 </div>
 
 @stop
@@ -128,35 +110,6 @@
 <script src="{{{asset('assets/vendor/jcrop/js/jquery.Jcrop.min.js')}}}"></script>
 <script>
     
-
-
-    var ModalManager = {
-        $loadingModal : $('#loading-modal'),
-        $alertModal : $('#alert-modal'),
-        showLoadingModal : function(title){
-            this.$loadingModal.modal('close');
-            this.$loadingModal.find('.am-modal-hd').html(title);
-            this.$loadingModal.modal({
-                closeViaDimmer : false
-            });
-        },
-        closeLoadingModal : function(){
-            this.$loadingModal.modal('close');
-        },
-        showAlertModal : function(title, content){
-            this.$alertModal.find('.am-modal-hd').html(title);
-            this.$alertModal.find('.am-modal-bd').html(content);
-            this.$alertModal.modal({
-                closeViaDimmer : false
-            });
-        },
-        closeAlertModal : function(){
-            this.$alertModal.modal('close');
-        }
-
-    };
-
-
     var CommonUploader = function(args){
 
         var defaults = {
@@ -266,6 +219,11 @@
 
         });
         
+		
+		
+			
+		
+		
 		$('#project-create-form').validator({
 			
 			markValid: function(validity) {

@@ -37,6 +37,9 @@ Form::macro('amSelect', function($option)
     $name = isset($option['name']) ? $option['name'] : null;
 	$required = (isset($option['required'])&&$option['required'] == 'true') ? 'required':'';
 
+	if(trim($value_field) == '' || trim($text_field) == '')
+		$list = array();
+		
     $html = '<select';
     if($id != null){
         $html .= ' id="'.$id.'"';

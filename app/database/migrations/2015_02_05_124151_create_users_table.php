@@ -29,10 +29,10 @@ class CreateUsersTable extends Migration {
             $table->string('address', 255)->nullable();     //联系地址
             $table->string('avatar', 255)->nullable();      //用户头像
             $table->char('is_verified',1)->default('N');   //是否通过验证
-            $table->string('id_card', 30)->nullable();      //身份证号码
-            $table->string('card_img_1', 255)->nullable();      //身份证正面
-            $table->string('card_img_2', 255)->nullable();      //身份证反面
             $table->string('real_name', 160)->nullable();       //真实姓名
+            $table->string('crdt_id', 30)->nullable();      //身份证号码
+            $table->string('crdt_photo_A', 255)->nullable();      //身份证正面
+            $table->string('crdt_photo_B', 255)->nullable();      //身份证反面
             $table->date('birthday')->nullable();       //生日
             $table->integer('user_level')->default(1);      //用户等级：普通用户，审核用户，管理员
             $table->char('active')->default('Y');       //是否激活

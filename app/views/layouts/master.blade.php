@@ -46,7 +46,7 @@
                         <?php echo Auth::user()->mobile; ?> <span class="am-icon-caret-down"></span>
                     </a>
                     <ul class="am-dropdown-content">
-                        <li><a href="{{{action('UserController@getProfile')}}}">个人中心</a></li>
+                        <li><a href="{{{action('IController@getInfo')}}}">个人中心</a></li>
                         <li><a href="/auth/logout">注销</a></li>
                     </ul>
                 </div>
@@ -63,28 +63,54 @@
         </div>
     </div>
 </header>
-
+@if(Session::get('message'))
+<div class="am-alert" data-am-alert>
+  <button type="button" class="am-close">&times;</button>
+  <span style="display:block; text-align:center" class="alert-message">{{{Session::get('message')}}}</span>
+</div>
+@endif
 @yield('content')
 
+<!--公共元素-->
+<!--加载框-->
+<div id="loading-modal" class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">TITLE</div>
+    <div class="am-modal-bd">
+      <span class="am-icon-spinner am-icon-spin"></span>
+    </div>
+  </div>
+</div>
+<!--提示框-->
+<div id="alert-modal" class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">TITLE</div>
+    <div class="am-modal-bd">
+    </div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn">确定</span>
+    </div>
+  </div>
+</div>
+<!--公共元素END-->
 
 <footer class="footer">
     <p>© 2014 <a href="http://www.yunshipei.com" target="_blank">AllMobilize, Inc.</a> Licensed under <a
             href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>. by the AmazeUI Team.</p>
 </footer>
-
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/polyfill/rem.min.js"></script>
-<script src="assets/js/polyfill/respond.min.js"></script>
-<script src="assets/js/amazeui.legacy.js"></script>
+<script src="{{{asset('assets/js/polyfill/rem.min.js')}}}"></script>
+<script src="{{{asset('assets/js/polyfill/respond.min.js')}}}"></script>
+<script src="{{{asset('assets/js/amazeui.legacy.js')}}}"></script>
 <![endif]-->
-
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="{{{asset('assets/js/jquery.min.js')}}}"></script>
 <script src="{{{asset('assets/js/amazeui.min.js')}}}"></script>
 <!--<![endif]-->
 <script src="{{{asset('assets/js/app.js')}}}"></script>
-@yield('scripts')
+@yield('vendor_scripts')
+@yield('page_scripts')
 </body>
 </html>

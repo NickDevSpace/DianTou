@@ -7,6 +7,10 @@
     background: #2d3e50;
 }
 
+.am-alert{
+	margin-top:-1px;
+	margin-bottom:0;
+}
 .webuploader-container {
     position: relative;
 }

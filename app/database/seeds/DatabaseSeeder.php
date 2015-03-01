@@ -29,15 +29,15 @@ class UserTableSeeder extends Seeder {
             'mobile' => '15168102723',
             'password' => Hash::make('123456'),
             'nickname' => 'Cc',
-            'province_code' => '10086',
-            'city_code' => '10000'
+            'province_code' => '330000',
+            'city_code' => 'cx'
         ));
         User::create(array(
             'mobile' => '13857455238',
             'password' => Hash::make('123456'),
             'nickname' => 'Admin',
-            'province_code' => '10086',
-            'city_code' => '10000',
+            'province_code' => '330000',
+            'city_code' => 'nb',
             'user_level' => 3
         ));
     }

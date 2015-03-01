@@ -23,8 +23,9 @@ Route::get('auth/logout',  array('as' => 'auth.logout',      'uses' => 'AuthCont
 
 Route::group(array('before' => 'auth'), function()
 {
-    Route::get('users/show-all', array('as' => 'user.all', 'uses' => 'UserController@showAll'));
+    
 	Route::controller('user', 'UserController');
+	Route::controller('i', 'IController');
     Route::controller('project', 'ProjectController');
     Route::resource('financings', 'FinancingController');
     Route::controller('x', 'XController');
