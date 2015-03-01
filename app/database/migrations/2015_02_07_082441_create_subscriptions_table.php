@@ -21,14 +21,14 @@ class CreateSubscriptionsTable extends Migration {
         {
             $table->increments('id');
             $table->integer('project_id');      //项目id
-            $table->decimal('app_amt', 17,2);       //预约金额
-            $table->decimal('app_share', 17,2);       //预约股份占比
-            $table->decimal('app_tm', 17,2);       //预约时间
-            $table->decimal('app_state', 17,2);       //预约状态
-            $table->decimal('ack_amt', 17,2);       //确认金额
-            $table->decimal('ack_share', 17,2);       //确认股份占比
-            $table->decimal('ack_tm', 17,2);       //确认时间
-            $table->decimal('ack_state', 17,2);       //确认状态
+            $table->decimal('app_amt', 17,2)->nullable();       //预约金额
+            $table->decimal('app_share', 17,2)->nullable();       //预约股份占比
+            $table->datetime('app_tm', 17,2)->nullable();       //预约时间
+            $table->char('app_state', 1)->default('0');       //预约状态 0-未预约 1-已预约 2-已撤销
+            $table->decimal('ack_amt', 17,2)->nullable();       //确认金额
+            $table->decimal('ack_share', 17,2)->nullable();       //确认股份占比
+            $table->datetime('ack_tm', 17,2)->nullable();       //确认时间
+            $table->char('ack_state', 1)->default('0');       //认购状态 0-未认购 1-已认购 2-已撤销
             $table->integer('user_id');     //用户id
             $table->timestamps();
 

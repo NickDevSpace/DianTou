@@ -4,15 +4,15 @@
 @stop
 @section('i-nav')
 	<ul class="am-nav am-nav-tabs">
-		<li><a href="{{{action('IController@getInfo')}}}">信息修改</a></li>
-		<li class="am-active"><a href="{{{action('IController@getAuth')}}}">实名认证</a></li>
-		<li><a href="{{{action('IController@getPasswd')}}}">密码修改</a></li>
-		<li style="float:right">个人信息</li>
+		<li><a href="{{{action('IController@getAccountInfo')}}}">基本信息</a></li>
+		<li class="am-active"><a href="{{{action('IController@getAccountAuth')}}}">实名认证</a></li>
+		<li><a href="{{{action('IController@getAccountPasswd')}}}">密码修改</a></li>
+		<li style="float:right">账号信息</li>
 	</ul>
 @stop
 @section('i-content')
 
-<form id="i-passwd-form" action="{{{action('IController@postAuth')}}}" method="post" class="am-form am-form-horizontal data-am-validator">
+<form id="i-passwd-form" action="{{{action('IController@postAccountAuth')}}}" method="post" class="am-form am-form-horizontal data-am-validator">
 	<div class="am-form-group">
 		<label for="i-real-name" class="am-u-sm-2 am-form-label">真实姓名</label>
 		<div class="am-u-sm-10">
@@ -52,7 +52,7 @@
 		</div>
 	</div>
 	
-	<button type="submit" class="am-btn am-btn-primary am-center">确 定</button>
+	<button type="submit" class="am-btn am-btn-primary am-center">提交审核</button>
 </form>
 
 @stop

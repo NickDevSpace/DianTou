@@ -4,15 +4,15 @@
 @stop
 @section('i-nav')
 	<ul class="am-nav am-nav-tabs">
-		<li><a href="{{{action('IController@getInfo')}}}">信息修改</a></li>
-		<li><a href="{{{action('IController@getAuth')}}}">实名认证</a></li>
-		<li class="am-active"><a href="{{{action('IController@getPasswd')}}}">密码修改</a></li>
-		<li style="float:right">个人信息</li>
+		<li><a href="{{{action('IController@getAccountInfo')}}}">基本信息</a></li>
+		<li><a href="{{{action('IController@getAccountAuth')}}}">实名认证</a></li>
+		<li class="am-active"><a href="{{{action('IController@getAccountPasswd')}}}">密码修改</a></li>
+		<li style="float:right">账号信息</li>
 	</ul>
 @stop
 @section('i-content')
 
-<form id="i-passwd-form" action="{{{action('IController@postPasswd')}}}" method="post" class="am-form am-form-horizontal data-am-validator">
+<form id="i-passwd-form" action="{{{action('IController@postAccountPasswd')}}}" method="post" class="am-form am-form-horizontal data-am-validator">
 	<div class="am-form-group">
 		<label for="i-passwd" class="am-u-sm-2 am-form-label">原密码</label>
 		<div class="am-u-sm-10">

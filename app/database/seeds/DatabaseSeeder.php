@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder {
         $this->call('CityTableSeeder');
         $this->call('DictTableSeeder');
         $this->call('IndustryTableSeeder');
+		$this->call('ProjectTableSeeder');
+		$this->call('FollowTableSeeder');
+		$this->call('SubscriptionTableSeeder');
         //$this->call('SentrySeeder');
 	}
 
@@ -39,6 +42,73 @@ class UserTableSeeder extends Seeder {
             'province_code' => '330000',
             'city_code' => 'nb',
             'user_level' => 3
+        ));
+    }
+}
+
+class ProjectTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('projects')->delete();
+        Project::create(array(
+            'project_no' => '201500000001',
+			'project_name' => '测试默认项目',
+            'project_cover' => 'upload/default.jpg',
+            'sub_title' => '测试默认项目子标题',
+			'industry_code' => 'I0101',
+            'province_code' => '330000',
+            'city_code' => 'cx',
+			'address' => '慈溪浒山街道',
+			'detail' => '<h3>项目展示</h3>',
+			'company_name' => '测试公司',
+			'legal_person' => '施老板',
+			'startup_date' => '2015-01-01',
+			'registered_address' => '慈溪市坎墩',
+			'registered_capital' => 1000000,
+			'organization_code' => '33002221154',
+			'legal_id_card' => 'upload/default.jpg',
+			'legal_cre_rpt' => 'upload/default.jpg',
+			'total_amt' => 3000000,
+			'retain_amt' => 1000000,
+			'fin_amt' => 2000000,
+			'share_count' => 200,
+			'amt_per_share' => 10000,
+			'fin_days' => 30,
+			'user_id' => 1
+        ));
+		
+    }
+}
+
+
+class FollowTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('follows')->delete();
+        Follow::create(array(
+            'project_id' => 1,
+            'user_id' => 1,
+        ));
+    }
+}
+
+class SubscriptionTableSeeder extends Seeder {
+    public function run()
+    {
+        Subscription::create(array(
+            'project_id' => 1,
+            'app_amt' => 1000,
+			'app_share' => 0.02,
+			'app_state' => '1',
+			'user_id' => 1,
+        ));
+		
+		Subscription::create(array(
+            'project_id' => 1,
+            'ack_amt' => 100000,
+			'ack_share' => 0.3,
+			'ack_state' => '1',
+			'user_id' => 1,
         ));
     }
 }

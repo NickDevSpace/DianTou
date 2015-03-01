@@ -26,9 +26,9 @@
 				</div>
 				<div>
 					<ul class="am-nav">
-					  <li class="am-active"><a href="#"><span class="am-icon-user"></span> &nbsp;个人信息</a></li>
-					  <li><a href="#"><span class="am-icon-star-o"></span> &nbsp;项目</a></li>
-					  <li><a href="#"><span class="am-icon-envelope-o"></span> &nbsp;消息</a></li>
+					  <li @if($menu == 'account') class="am-active" @endif><a href="{{{action('IController@getAccountInfo')}}}"><span class="am-icon-user"></span> &nbsp;账号信息</a></li>
+					  <li @if($menu == 'project') class="am-active" @endif><a href="{{{action('IController@getProjectMy')}}}"><span class="am-icon-star-o"></span> &nbsp;项目</a></li>
+					  <li @if($menu == 'message') class="am-active" @endif><a href="{{{action('IController@getProjectMy')}}}"><span class="am-icon-envelope-o"></span> &nbsp;消息</a></li>
 					</ul>
 
 				</div>
