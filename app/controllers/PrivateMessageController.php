@@ -2,84 +2,92 @@
 
 class PrivateMessageController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
+	
+	public function postSend(){
+		$inputs = array(
+			'to_user' => Input::get('to_user'),
+			'content' => Input::get('content')
+		);
+		
+		$validator = Validator::make(
+            $inputs,
+            array(
+				'to_user' => 'required|integer',
+				'content' => 'required'
+            )
+        );
+
+        if(!$validator->fails()){
+			$pm = new PrivateMessage();
+			$pm->from_user = Auth::id();
+			$pm->to_user = $inputs['to_user'];
+			$pm->content = $inputs['content'];
+			$pm->save();
+			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('id'=>$pm->id)));
+		}
+		
+		return Response::json(array('errno'=>'FAILED', 'message'=>'FAILED'));
 	}
-
-
+	
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+	*	标记为已读，参数为私信id的数组
+	*
+	**/
+	public function postMarkRead(){
+		$pm_ids = Input::get('pm_ids');
+		$uid = Auth::id();
+		
+		$affected = DB::table('private_messages')
+					->whereIn('id', $pm_ids)->where('to_user', $uid)
+					->update(array('is_read' => 'Y'));
+		
+		if($affected == count($pm_ids)){
+			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
+		}
+		
+		return Response::json(array('errno'=>'COMPLETE', 'message'=>array('effected'=>$affected)));
+		
 	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
+	
+	public function postDeleteRead(){
+		$pm_ids = Input::get('pm_ids');
+		$uid = Auth::id();
+		
+		$affected = DB::table('private_messages')
+					->whereIn('id', $pm_ids)->where('to_user', $uid)
+					->delete();
+					
+		if($affected == count($pm_ids)){
+			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
+		}
+		
+		return Response::json(array('errno'=>'COMPLETE', 'message'=>array('effected'=>$affected)));
 	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
+	
+	public function postDeleteSent(){
+		$pm_ids = Input::get('pm_ids');
+		$uid = Auth::id();
+		
+		$affected = DB::table('private_messages')
+					->whereIn('id', $pm_ids)->where('from_user', $uid)
+					->delete();
+					
+		if($affected == count($pm_ids)){
+			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
+		}
+		
+		return Response::json(array('errno'=>'COMPLETE', 'message'=>array('effected'=>$affected)));
 	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+	
+	public function getUnreadMessageCount(){
+		$mcnt = PrivateMessage::where('to_user', '=', Auth::id())->where('is_read','=','N')->count();
+		return Response::json(array('errno'=>'SUCCESS', 'data'=>array('message_count'=>$mcnt)));
 	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+	
+	public function getShowMessage(){
+		$pm_id = Input::get('pm_id');
+		$msg = PrivateMessage::where('id', '=', $pm_id)->get();
+		return Response::json(array('errno'=>'SUCCESS', 'data'=>array('message'=>$msg)));
 	}
 
 

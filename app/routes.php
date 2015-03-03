@@ -27,6 +27,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::controller('user', 'UserController');
 	Route::controller('i', 'IController');
     Route::controller('project', 'ProjectController');
+	Route::controller('pm', 'PrivateMessageController');
     Route::resource('financings', 'FinancingController');
     Route::controller('x', 'XController');
 });

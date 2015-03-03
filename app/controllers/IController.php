@@ -59,9 +59,9 @@ class IController extends \BaseController {
 			$user = Auth::user();
 			$user->password = Hash::make($inputs['newpasswd']);
             $user->save();
-			return Redirect::action('IController@getAccountPasswd')->with('message', '保存成功！');
+			return Redirect::action('IController@getAccountPasswd')->with('message', '修改成功！');
         }
-		return Redirect::action('IController@getAccountPasswd')->with('message', '保存失败！');
+		return Redirect::action('IController@getAccountPasswd')->with('message', '修改失败！');
 	}
 	
 	public function getProjectMy(){
@@ -109,87 +109,40 @@ class IController extends \BaseController {
 		return View::make('i.project-sub', array('menu'=>'project', 'results'=>$results));
 	}
 	
+	public function getMessagePrivate(){
+		$message_type = Input::get('message_type');
+		
+		$results = array();
+		
+		/* if($message_type == 'read'){
+			$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'Y')->simplePaginate(10);
+		}else if($message_type == 'unread'){
+			$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'N')->simplePaginate(10);
+		}else{
+			$results = PrivateMessage::where('to_user','=', Auth::id())->simplePaginate(10);
+		} */
+		
+		//获取未读私信
+		$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'N')->simplePaginate(10);
+		
+		return View::make('i.message-private', array('menu'=>'message', 'results'=>$results));
+	}
 	
+	public function getMessageSystem(){
+		$results = array();
+		return View::make('i.message-system', array('menu'=>'message', 'results'=>$results));
+	}
 	
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
+	public function getMessageRead(){
+	
+		$results = array();
+		
+		//获取已读私信
+		$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'Y')->simplePaginate(10);
+		
+		return View::make('i.message-read', array('menu'=>'message', 'results'=>$results));
 	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+	
 
 
 }
