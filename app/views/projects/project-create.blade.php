@@ -100,39 +100,52 @@
 
                 <legend>融资需求</legend>
                 <div class="am-form-group">
-                    <label for="i-total-amt" class="am-u-sm-2 am-form-label">融资总额</label>
+                    <label for="i-total-quota" class="am-u-sm-2 am-form-label">融资总额</label>
                     <div class="am-u-sm-10">
-                        <input type="number" id="i-total-amt" name="total_amt" placeholder="填写该项目所需的总资金（元）" data-validate-message="融资总额必须为大于等于1000" min="1000" required>
+                        <input type="number" id="i-total-quota" name="total_quota" placeholder="填写该项目所需的总资金（元）" data-validate-message="融资总额必须为大于等于1000" min="1000" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-retain-amt" class="am-u-sm-2 am-form-label">项目方出资</label>
+                    <label for="i-retain-quota" class="am-u-sm-2 am-form-label">项目方出资</label>
                     <div class="am-u-sm-10">
-                        <input type="number" id="i-retain-amt" name="retain_amt" placeholder="其中项目方出资金额（元）" data-validate-message="项目方出资金额不能大于融资总额" min="0" required>
+                        <input type="number" id="i-retain-quota" name="retain_quota" placeholder="其中项目方出资金额（元）" data-validate-message="项目方出资金额不能大于融资总额" min="0" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="has_company" class="am-u-sm-2 am-form-label">投资人出资</label>
+                    <label for="" class="am-u-sm-2 am-form-label">投资人出资</label>
                     <div class="am-u-sm-10">
-                        <input type="number" name="fin_amt"  readonly="true" placeholder="投资人出资（元）">
+                        <input type="number" name="raise_quota"  readonly="true" placeholder="投资人出资（元）">
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="has_company" class="am-u-sm-2 am-form-label">认购份数</label>
+                    <label for="i-part-count" class="am-u-sm-2 am-form-label">可认购份数</label>
                     <div class="am-u-sm-10">
-                        <input type="number" name="share_count" placeholder="认购份数" data-validate-message="认购份数必须为大于0小于200的整数" min="1" max="200" required>
+                        <input type="number" id="i-part-count" name="part_count" placeholder="认购份数" data-validate-message="认购份数必须为大于0小于200的整数" min="1" max="200" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="has_company" class="am-u-sm-2 am-form-label">每份金额</label>
+                    <label for="i-app-open-part-count" class="am-u-sm-2 am-form-label">其中可预约份数</label>
                     <div class="am-u-sm-10">
-                        <input type="number" name="amt_per_share" readonly="true" placeholder="每份金额" >
+                        <input type="number" id="i-app-open-part-count" name="app_open_part_count" data-validate-message="可预约分数为不大于可认购分数的整数值" min="0" placeholder="可预约份数建议控制在认购份数的60%以下" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="has_company" class="am-u-sm-2 am-form-label">融资期限</label>
+                    <label for="" class="am-u-sm-2 am-form-label">每份金额</label>
                     <div class="am-u-sm-10">
-                        <?php echo Form::amSelect(array('list'=>array(array('value'=>'30', 'text'=>'30天'), array('value'=>'60', 'text'=>'60天'), array('value'=>'120', 'text'=>'120天')), 'value_field'=>'value','text_field'=>'text', 'id' => 'fin_days', 'name' => 'fin_days', 'required' => 'true')); ?>
+                        <input type="number" name="quota_of_part" readonly="true" placeholder="每份金额" >
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-2 am-form-label">融资期限</label>
+                    <div class="am-u-sm-10">
+                        <?php echo Form::amSelect(array('list'=>array(array('value'=>'30', 'text'=>'30天'), array('value'=>'60', 'text'=>'60天'), array('value'=>'120', 'text'=>'120天')), 'value_field'=>'value','text_field'=>'text', 'id' => 'i-raise-days', 'name' => 'raise_days', 'required' => 'true')); ?>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-2 am-form-label">是否允许其他地区用户认购</label>
+                    <div class="am-u-sm-10">
+                        <?php echo Form::amSelect(array('list'=>array(array('value'=>'Y', 'text'=>'是'), array('value'=>'N', 'text'=>'否')), 'value_field'=>'value','text_field'=>'text', 'id' => 'i-allow-nolocal', 'name' => 'allow_nolocal', 'required' => 'true')); ?>
                     </div>
                 </div>
                 <legend>公司信息</legend>
@@ -312,494 +325,10 @@
 @stop
 @section('page_scripts')
 <script>
-    var editor;
-    KindEditor.ready(function(K) {
-        editor = K.create('textarea[name="detail"]', {
-            resizeType : 1,
-            allowPreviewEmoticons : false,
-            allowImageUpload : false,
-            items : [
-                'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
-                'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-                'insertunorderedlist', '|', 'emoticons', 'image', 'link']
-        });
-    });
-
-
-    var coverCroper = {
-            $container: $('#crop-container'),
-            jcrop_api : null,
-            image_path: '',
-            init : function(image_path){
-                var that = this;
-                that.image_path = image_path;
-                that.$container.html('<img width="500" src="' + BASE_URL + '/' + image_path + '">');
-                that.$container.find('img').Jcrop({
-                    boxWidth:500,
-                    bgColor:     'black',
-                    bgOpacity:   .4,
-                    setSelect:   [ 0, 0, 460, 350 ],
-                    aspectRatio: 460 / 350,
-                    maxSize: [460, 350]
-
-                }, function(){
-                    that.jcrop_api = this;
-                });
-
-            }
-    };
     
-//    var coverUploader = {
-//        init: function(){
-//            var cover_uploader = WebUploader.create({
-//
-//                // 选完文件后，是否自动上传。
-//                auto: true,
-//
-//                // swf文件路径
-//                swf: BASE_URL + '/assets/vendor/webuploader/Uploader.swf',
-//
-//                // 文件接收服务端。
-//                server: BASE_URL + '/x/project-cover-upload',
-//
-//                // 选择文件的按钮。可选。
-//                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-//                pick: '#cover-picker',
-//
-//                chunked: false,
-//
-//                // 只允许选择图片文件。
-//                accept: {
-//                    title: 'Images',
-//                    extensions: 'gif,jpg,jpeg,bmp,png',
-//                    mimeTypes: 'image/*'
-//                },
-//                fileVal: 'project_cover',
-//                formData: {time: 'xxx'},
-//                duplicate: true
-//            });
-//
-//            cover_uploader.on( 'uploadStart', function( file ) {
-//                ModalManager.showLoadingModal('正在上传，请稍后...');
-//            });
-//
-//            cover_uploader.on( 'uploadError', function( file, reason ) {
-//                ModalManager.showAlertModal('提示', '上传失败！请重试！');
-//            });
-//
-//            cover_uploader.on( 'uploadSuccess', function( file, response ) {
-//                if(response.errno == 0){
-//                    coverCroper.init(response.path);
-//                    $('#cover-editor').modal({
-//                        onConfirm: function(options) {
-//                            $.ajax({
-//                                url: BASE_URL + '/x/project-cover-crop',
-//                                type: 'POST',
-//                                data: {path: coverCroper.image_path, x:coverCroper.jcrop_api.tellSelect().x, y: coverCroper.jcrop_api.tellSelect().y, w: coverCroper.jcrop_api.tellSelect().w, h: coverCroper.jcrop_api.tellSelect().h },
-//                                async: false,
-//                                dataType: 'json',
-//                                success: function(data){
-//                                    if(data.errno == 0){
-//                                        var imgURL = BASE_URL + '/' + data.path;
-//                                        $('#project-cover-preview').html('');
-//                                        $('#project-cover-preview').append('<img width="230" height="175" src="' + imgURL + '" alt="封面预览图" class="am-img-thumbnail"/>');
-//                                        $('input[name="project_cover"]').val(data.path);
-//                                    }else{
-//                                        $('#project-cover-preview').html('图片保存失败，请重试');
-//                                    }
-//                                }
-//                            });
-//
-//                        },
-//                        onCancel: function() {
-//                           coverCroper.jcrop_api.destroy();
-//                        },
-//                        closeViaDimmer: false
-//                    });
-//
-//                }else{
-//                    ModalManager.showAlertModal('提示', '上传失败！请重试！');
-//                }
-//
-//            });
-//
-//            cover_uploader.on( 'uploadComplete', function( file ) {
-//                ModalManager.closeLoadingModal();
-//            });
-//
-//            cover_uploader.on( 'error', function(type ) {
-//                ModalManager.showAlertModal('提示', '操作失败！' + type);
-//            });
-//        }
-//    };
-
-
-
-//    var resUploader = {
-//        resUploader: null,
-//        curResName: '',
-//        init: function(){
-//            var me = this;
-//            var resUploader = WebUploader.create({
-//                                                    // 选完文件后，是否自动上传。
-//                                                    auto: true,
-//                                                    // swf文件路径
-//                                                    swf: BASE_URL + '/assets/vendor/webuploader/Uploader.swf',
-//                                                    // 文件接收服务端。
-//                                                    server: BASE_URL + '/x/project-resource-upload',
-//                                                    // 选择文件的按钮。可选。
-//                                                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-//                                                    pick: '.resource-picker',
-//                                                    chunked: false,
-//                                                    // 只允许选择图片文件。
-//                                                    accept: {
-//                                                        title: 'Images',
-//                                                        extensions: 'gif,jpg,jpeg,bmp,png',
-//                                                        mimeTypes: 'image/*'
-//                                                    },
-//                                                    fileVal: 'res_file',
-//                                                    formData: {},
-//                                                    duplicate: true
-//                                                });
-//
-//            resUploader.on( 'uploadStart', function( file ) {
-//                ModalManager.showLoadingModal('正在上传，请稍后...');
-//            });
-//
-//            resUploader.on( 'uploadError', function( file, reason ) {
-//                ModalManager.showAlertModal('提示', '上传失败！请重试！');
-//            });
-//
-//            resUploader.on( 'uploadSuccess', function( file, response ) {
-//                if(response.errno == 0){
-//                    $('input[name="' + me.curResName + '"]').val(response.path);
-//                    var imgURL = BASE_URL + '/' + response.path;
-//                    $('#rp_'+ me.curResName).html('<img width="230" height="175" src="' + imgURL + '" alt="预览图" class="am-img-thumbnail"/>');
-//                }else{
-//                    ModalManager.showAlertModal('提示', '上传失败！请重试！');
-//                }
-//
-//            });
-//
-//            resUploader.on( 'uploadComplete', function( file ) {
-//                ModalManager.closeLoadingModal();
-//            });
-//
-//            resUploader.on( 'error', function(type ) {
-//                ModalManager.showAlertModal(type);
-//            });
-//
-//            $('.resource-picker').on('click', function(){
-//                var curResName = $(this).attr('data-res-name');
-//                me.curResName = curResName;
-//                resUploader.option.formData = {res_name: curResName};
-//            });
-//
-//            me.resUploader = resUploader;
-//        }
-//    };
-
-
-    var CommonUploader = function(args){
-
-        var defaults = {
-                           // 选完文件后，是否自动上传。
-                           auto: true,
-                           // swf文件路径
-                           swf: BASE_URL + '/assets/vendor/webuploader/Uploader.swf',
-                           // 文件接收服务端。
-                           chunked: false,
-                           // 只允许选择图片文件。
-                           formData: {},
-                           duplicate: true
-                       };
-        var options = $.extend(defaults, args.options, true);
-
-        var uploader = WebUploader.create(options);
-
-        if(typeof (args.onUploadStart) == 'function'){
-            this.cbUploadStart = args.onUploadStart;
-        }
-
-        if(typeof (args.onUploadError) == 'function'){
-            this.cbUploadError = args.onUploadError;
-        }
-
-        if(typeof (args.onUploadSuccess) == 'function'){
-            this.cbUploadSuccess = args.onUploadSuccess;
-        }
-
-        if(typeof (args.onUploadComplete) == 'function'){
-            this.cbUploadComplete = args.onUploadComplete;
-        }
-
-        if(typeof (args.onError) == 'function'){
-            this.cbError = args.onError;
-        }
-
-        uploader.on( 'uploadStart', this.cbUploadStart);
-
-        uploader.on( 'uploadError', this.cbUploadError);
-
-        uploader.on( 'uploadSuccess', this.cbUploadSuccess);
-
-        uploader.on( 'uploadComplete', this.cbUploadComplete);
-
-        uploader.on( 'error', this.cbError);
-
-
-        this.uploader = uploader;
-
-        if(typeof (args.onCreate) == 'function'){
-            args.onCreate.call(uploader);
-        }
-
-
-    };
-
-    CommonUploader.prototype = {
-        ctx: {},
-        uploader: null,
-        cbUploadStart: function( file ) {
-           App.ModalManager.showLoadingModal('正在上传，请稍后...');
-        },
-        cbUploadError: function( file, reason ) {
-           App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
-        },
-        cbUploadSuccess: function( file, response ) {
-            if(response.errno == 0){
-                App.ModalManager.showAlertModal('提示', '上传成功！');
-            }else{
-                App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
-            }
-        },
-        cbUploadComplete: function(file){
-            App.ModalManager.closeLoadingModal();
-        },
-        cbError: function(error){
-            App.ModalManager.showAlertModal('错误', type);
-        }
-
-    }
-
-
-
-
-    $(function(){
-
-        //绑定行业选择器事件
-        $('#i-industry-1').on('change', function(){
-            var val = $(this).find("option:selected").val();
-            if(val == ''){
-				$("#i-industry-2").empty();
-				$("<option></option>").val('').text('请选择').appendTo($("#i-industry-2"));
-				return;
-			}
-
-            $.getJSON(BASE_URL + '/x/get-industry-list', {parent : val}, function(data){
-                $("#i-industry-2").empty();
-                data.unshift({industry_code : '', industry_name : '请选择'});
-                $.each(data, function(i, item) {
-                    $("<option></option>")
-                        .val(item["industry_code"])
-                        .text(item["industry_name"])
-                        .appendTo($("#i-industry-2"));
-                });
-            })
-
-        });
-
-        //绑定省份城市选择器事件
-        $('#i-province-code').on('change', function(){
-            var val = $(this).find("option:selected").val();
-            if(val == ''){
-				$("#i-city-code").empty();
-				$("<option></option>").val('').text('请选择').appendTo($("#i-city-code"));
-				return;
-			}
-
-            $.getJSON(BASE_URL + '/x/get-city-list', {province_code : val}, function(data){
-                $("#i-city-code").empty();
-                data.unshift({city_code : '', city_name : '请选择'});
-                $.each(data, function(i, item) {
-                    $("<option></option>")
-                        .val(item["city_code"])
-                        .text(item["city_name"])
-                        .appendTo($("#i-city-code"));
-                });
-            })
-
-        });
-
-        //自动计算融资需求
-        $('input[name="total_amt"], input[name="retain_amt"], input[name="share_count"]').on('keyup', function(){
-            var total_amt = $('input[name="total_amt"]').val();
-            var retain_amt = $('input[name="retain_amt"]').val();
-            var share_count = $('input[name="share_count"]').val();
-            var fin_amt = total_amt - retain_amt;
-            var amt_per_share = (fin_amt / share_count).toFixed(2);
-            $('input[name="fin_amt"]').val(fin_amt);
-            $('input[name="amt_per_share"]').val(amt_per_share);
-        });
-
-
-        //coverUploader.init();
-        //resUploader.init();
-
-        var cover_args = {
-            options: {
-                server: BASE_URL + '/x/project-cover-upload',
-                pick: '#cover-picker',
-                // 只允许选择图片文件。
-                accept: {
-                    title: 'Images',
-                    extensions: 'gif,jpg,jpeg,bmp,png',
-                    mimeTypes: 'image/*'
-                },
-                fileVal: 'project_cover',
-                formData: {time: 'xxx'}
-            },
-            onUploadSuccess: function(file, response){
-                if(response.errno == 0){
-                    coverCroper.init(response.path);
-                    $('#cover-editor').modal({
-                        onConfirm: function(options) {
-                            $.ajax({
-                                url: BASE_URL + '/x/project-cover-crop',
-                                type: 'POST',
-                                data: {path: coverCroper.image_path, x:coverCroper.jcrop_api.tellSelect().x, y: coverCroper.jcrop_api.tellSelect().y, w: coverCroper.jcrop_api.tellSelect().w, h: coverCroper.jcrop_api.tellSelect().h },
-                                async: false,
-                                dataType: 'json',
-                                success: function(data){
-                                    if(data.errno == 0){
-                                        var imgURL = BASE_URL + '/' + data.path;
-                                        $('#project-cover-preview').html('');
-                                        $('#project-cover-preview').append('<img width="230" height="175" src="' + imgURL + '" alt="封面预览图" class="am-img-thumbnail"/>');
-                                        $('input[name="project_cover"]').val(data.path);
-                                    }else{
-                                        $('#project-cover-preview').html('图片保存失败，请重试');
-                                    }
-                                }
-                            });
-
-                        },
-                        onCancel: function() {
-                           coverCroper.jcrop_api.destroy();
-                        },
-                        closeViaDimmer: false
-                    });
-
-                }else{
-                    App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
-                }
-            }
-        }
-
-        var coverUploader = new CommonUploader(cover_args);
-
-        var plan_args = {
-            options: {
-                server: BASE_URL + '/x/project-resource-upload',
-                pick: '#plan-picker',
-                accept: {
-                    title: '文档',
-                    extensions: 'doc,docx,ppt,pptx,pdf,txt',
-                    mimeTypes: 'application/msword, application/pdf, application/vnd.ms-powerpoint, plain/text'
-                },
-                fileVal: 'res_file',
-                formData:{res_type:'docs'}
-            },
-            onUploadSuccess: function( file, response ){
-                var me = this;
-                if(response.errno == 0){
-                    App.ModalManager.showAlertModal('提示', '上传成功！');
-                }else{
-                    App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
-                }
-            }
-        };
-
-        var planUploader = new CommonUploader(plan_args);
-
-
-
-        var res_args = {
-                    options: {
-                        server: BASE_URL + '/x/project-resource-upload',
-                        pick: '.resource-picker',
-                        accept: {
-                            title: 'Images',
-                            extensions: 'gif,jpg,jpeg,bmp,png',
-                            mimeTypes: 'image/*'
-                        },
-                        fileVal: 'res_file'
-                    },
-                    onCreate: function(){
-                        var me = this;
-                        $('.resource-picker').on('click', function(){
-                            var curResName = $(this).attr('data-res-name');
-                            me.curResName = curResName;
-                            me.options.formData = {res_name: curResName};
-                        });
-                    },
-                    onUploadSuccess: function( file, response ){
-                        var me = this;
-                        if(response.errno == 0){
-                            $('input[name="' + me.curResName + '"]').val(response.path);
-                            var imgURL = BASE_URL + '/' + response.path;
-                            $('#rp_'+ me.curResName).html('<img width="230" height="175" src="' + imgURL + '" alt="预览图" class="am-img-thumbnail"/>');
-                        }else{
-                            ModalManager.showAlertModal('提示', '上传失败！请重试！');
-                        }
-                    }
-                };
-
-        var resUploader = new CommonUploader(res_args);
-		
-		$('#project-create-form').validator({
-			
-			markValid: function(validity) {
-			// this is Validator instance
-				var options = this.options;
-				var $field = $(validity.field);
-
-				$field.addClass(options.validClass).removeClass(options.inValidClass);
-				
-				var fieldWrapper = $(validity.field).closest('div');
-				fieldWrapper.find('.am-text-danger').remove();
-				options.onValid.call(this, validity);
-			},
-
-			markInValid: function(validity) {
-				var options = this.options;
-				var $field = $(validity.field);
-
-				$field.addClass(options.inValidClass + ' ' + options.activeClass).removeClass(options.validClass);
-				
-				var fieldWrapper = $(validity.field).closest('div');
-				var validateMessage = $(validity.field).attr('data-validate-message') || '';
-				fieldWrapper.find('.am-text-danger').remove();
-				$('<span class="am-text-danger">'+validateMessage+'</span>').appendTo(fieldWrapper);
-				
-				options.onInValid.call(this, validity);
-			},
-			validate: function(validity) {
-				var $e = $(validity.field);
-				var v = $e.val();
-				
-				if($e.is('#i-retain-amt')){
-					v = Number(v);
-					var t = Number($('#i-total-amt').val());
-					if(v > t){
-						validity.valid = false;
-					}
-				}
-				
-				
-			},
-		});
-
-    });
+	$(function(){
+		App.init(['project.create']);
+	});
 
 
 

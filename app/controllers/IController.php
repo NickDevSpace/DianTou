@@ -83,17 +83,17 @@ class IController extends \BaseController {
 		return View::make('i.project-follow', array('menu'=>'project', 'projects'=>$projects));
 	}
 	
-	public function getProjectPresub(){
+	public function getProjectApp(){
 		$uid = Auth::id();
 		$results = DB::table('projects')
-					->join('subscriptions', function($join) use($uid)
+					->join('appointments', function($join) use($uid)
 					{
-						$join->on('projects.id', '=', 'subscriptions.project_id')
-							 ->where('subscriptions.user_id', '=', $uid)->where('subscriptions.app_state', '<>' ,'0');
+						$join->on('projects.id', '=', 'appointments.project_id')
+							 ->where('appointments.user_id', '=', $uid)->where('appointments.state', '=' ,'1');
 					})
-					->select('projects.*', 'subscriptions.app_amt', 'subscriptions.app_share', 'subscriptions.app_tm', 'subscriptions.app_state')
+					->select('projects.*', 'appointments.app_amt', 'appointments.app_share', 'appointments.app_time', 'appointments.state')
 					->simplePaginate(10);
-		return View::make('i.project-presub', array('menu'=>'project', 'results'=>$results));
+		return View::make('i.project-app', array('menu'=>'project', 'results'=>$results));
 	}
 	
 	public function getProjectSub(){
@@ -102,9 +102,9 @@ class IController extends \BaseController {
 					->join('subscriptions', function($join) use($uid)
 					{
 						$join->on('projects.id', '=', 'subscriptions.project_id')
-							 ->where('subscriptions.user_id', '=', $uid)->where('subscriptions.ack_state', '<>' ,'0');
+							 ->where('subscriptions.user_id', '=', $uid)->where('subscriptions.state', '=' ,'1');
 					})
-					->select('projects.*', 'subscriptions.ack_amt', 'subscriptions.ack_share', 'subscriptions.ack_tm', 'subscriptions.ack_state')
+					->select('projects.*', 'subscriptions.sub_amt', 'subscriptions.sub_share', 'subscriptions.sub_time', 'subscriptions.state')
 					->simplePaginate(10);
 		return View::make('i.project-sub', array('menu'=>'project', 'results'=>$results));
 	}
@@ -123,7 +123,7 @@ class IController extends \BaseController {
 		} */
 		
 		//获取未读私信
-		$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'N')->simplePaginate(10);
+		$results = PrivateMessage::where('receiver','=', Auth::id())->where('read_by_receiver', '=', 'N')->simplePaginate(10);
 		
 		return View::make('i.message-private', array('menu'=>'message', 'results'=>$results));
 	}
@@ -138,7 +138,7 @@ class IController extends \BaseController {
 		$results = array();
 		
 		//获取已读私信
-		$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'Y')->simplePaginate(10);
+		$results = PrivateMessage::where('receiver','=', Auth::id())->where('read_by_receiver', '=', 'Y')->simplePaginate(10);
 		
 		return View::make('i.message-read', array('menu'=>'message', 'results'=>$results));
 	}

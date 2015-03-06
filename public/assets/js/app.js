@@ -108,14 +108,14 @@
 				});
 
 				//自动计算融资需求
-				$('input[name="total_amt"], input[name="retain_amt"], input[name="share_count"]').on('keyup', function(){
-					var total_amt = $('input[name="total_amt"]').val();
-					var retain_amt = $('input[name="retain_amt"]').val();
-					var share_count = $('input[name="share_count"]').val();
-					var fin_amt = total_amt - retain_amt;
-					var amt_per_share = (fin_amt / share_count).toFixed(2);
-					$('input[name="fin_amt"]').val(fin_amt);
-					$('input[name="amt_per_share"]').val(amt_per_share);
+				$('input[name="total_quota"], input[name="retain_quota"], input[name="part_count"]').on('keyup', function(){
+					var total_quota = $('input[name="total_quota"]').val();
+					var retain_quota = $('input[name="retain_quota"]').val();
+					var part_count = $('input[name="part_count"]').val();
+					var raise_quota = total_quota - retain_quota;
+					var quota_of_part = (raise_quota / part_count).toFixed(2);
+					$('input[name="raise_quota"]').val(raise_quota);
+					$('input[name="quota_of_part"]').val(quota_of_part);
 				});
 
 
@@ -377,13 +377,13 @@
 				$('.pm-reply-btn').on('click', function(){
 					$e = $(this);
 					$tr = $e.parent().parent();
-					
+					$('#reply-modal am-modal-hd span').html('私信给：' + $e.attr('data-pm-receiver-name'));
 					$('.am-modal-prompt-input').val('');
 					
 					$('#reply-modal').modal({
 					  relatedTarget: this,
 					  onConfirm: function(e) {
-						_App.PM.send($e.attr('data-pm-to-user'), e.data, function(data){
+						_App.PM.send($e.attr('data-pm-receiver'), e.data, function(data){
 							if(data.errno == 'SUCCESS'){
 								_App.Common.ModalManager.showAlertModal('发送成功！');
 							}else{
@@ -414,12 +414,12 @@
 	
 	//App的各种模块
 	App.PM = {
-		send: function(to, content, cb){
+		send: function(receiver, content, cb){
 			
 			$.ajax({
 				url: BASE_URL + '/pm/send' ,
 				method: 'post',
-				data: {to_user: to, content: content},
+				data: {receiver: receiver, content: content},
 				dataType: 'json',
 				success: cb
 			});

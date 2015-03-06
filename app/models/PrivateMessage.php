@@ -3,14 +3,14 @@
 class PrivateMessage extends \Eloquent {
 	protected $fillable = [];
 	
-	public function fromUser()
+	public function Sender()
     {
-        return $this->hasOne('User', 'id', 'from_user');
+        return $this->hasOne('User', 'id', 'sender');
     }
 	
-	public function toUser()
+	public function Receiver()
 	{
-        return $this->hasOne('User', 'id', 'to_user' );
+        return $this->hasOne('User', 'id', 'receiver' );
     }
 
 }

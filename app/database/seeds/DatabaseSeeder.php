@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('IndustryTableSeeder');
 		$this->call('ProjectTableSeeder');
 		$this->call('FollowTableSeeder');
+		$this->call('AppointmentTableSeeder');
 		$this->call('SubscriptionTableSeeder');
         //$this->call('SentrySeeder');
 	}
@@ -68,12 +69,16 @@ class ProjectTableSeeder extends Seeder {
 			'organization_code' => '33002221154',
 			'legal_id_card' => 'upload/default.jpg',
 			'legal_cre_rpt' => 'upload/default.jpg',
-			'total_amt' => 3000000,
-			'retain_amt' => 1000000,
-			'fin_amt' => 2000000,
-			'share_count' => 200,
-			'amt_per_share' => 10000,
-			'fin_days' => 30,
+			'total_quota' => 3000000,
+			'retain_quota' => 1000000,
+			'raise_quota' => 2000000,
+			'part_count' => 200,
+			'quota_of_part' => 10000,
+			'raise_days' => 30,
+			'app_flag' => 'Y',
+			'app_open_part_count' => 150,
+			'app_margin_flag' => 'Y',
+			'app_margin_ratio' => 0.1,
 			'user_id' => 1
         ));
 		
@@ -92,22 +97,33 @@ class FollowTableSeeder extends Seeder {
     }
 }
 
+class AppointmentTableSeeder extends Seeder {
+    public function run()
+    {
+		Appointment::create(array(
+            'project_id' => 1,
+			'app_part_count' => 5,
+            'app_amt' => 50000,
+			'app_share' => 0.03,
+			'app_margin_amt' => 5000,
+			'app_time' => date('Y-m-d H:i:s', time()),
+			'state' => '1',
+			'user_id' => 1,
+        ));
+        
+    }
+}
+
 class SubscriptionTableSeeder extends Seeder {
     public function run()
     {
         Subscription::create(array(
             'project_id' => 1,
-            'app_amt' => 1000,
-			'app_share' => 0.02,
-			'app_state' => '1',
-			'user_id' => 1,
-        ));
-		
-		Subscription::create(array(
-            'project_id' => 1,
-            'ack_amt' => 100000,
-			'ack_share' => 0.3,
-			'ack_state' => '1',
+			'sub_part_count' => 5,
+            'sub_amt' => 50000,
+			'sub_share' => 0.03,
+			'sub_time' => date('Y-m-d H:i:s', time()),
+			'state' => '1',
 			'user_id' => 1,
         ));
     }
@@ -133,17 +149,26 @@ class CityTableSeeder extends Seeder {
     public function run()
     {
         DB::table('cities')->delete();
+		City::create(array(
+            'city_code' => 'nb',
+            'city_name' => '宁波市',
+            'province_code' => '330000'
+        ));
+		
         City::create(array(
             'city_code' => 'cx',
             'city_name' => '慈溪市',
             'province_code' => '330000'
 
         ));
-        City::create(array(
-            'city_code' => 'nb',
-            'city_name' => '宁波市',
+		
+		City::create(array(
+            'city_code' => 'yy',
+            'city_name' => '余姚市',
             'province_code' => '330000'
+
         ));
+        
 
         City::create(array(
             'city_code' => 'bj',

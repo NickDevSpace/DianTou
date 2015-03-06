@@ -3,7 +3,7 @@
 个人中心 | 点投
 @stop
 @section('i-nav')
-	<ul class="am-nav am-nav-tabs">
+	<ul class="am-nav am-nav-pills">
 		<li class="am-active"><a href="{{{action('IController@getMessagePrivate')}}}">私信消息(<span style="color:red">{{{count($results)}}}</span>)</a></li>
 		<li><a href="{{{action('IController@getMessageSystem')}}}">系统消息(1)</a></li>
 		<li><a href="{{{action('IController@getMessageRead')}}}">已读消息</a></li>
@@ -31,12 +31,12 @@
 		<tbody>
 				@foreach($results as $r)
 					<tr>
-						<td>{{{$r->toUser->nickname}}}</td>
+						<td>{{{$r->receiver->nickname}}}</td>
 						<td>{{{$r->content}}}</td>
 						<td>{{{$r->created_at}}}</td>
 						<td>
 							<a class="pm-mark-read-btn" data-pm-id="{{{$r->id}}}" href="javascript:;">标记为已读</a>&nbsp;
-							<a class="pm-reply-btn" data-pm-to-user="{{{$r->fromUser->id}}}" href="javascript:;">回复</a>
+							<a class="pm-reply-btn" data-pm-receiver="{{{$r->sender->id}}}" data-pm-receiver-name="{{{$r->receiver->nickname}}}" href="javascript:;">回复</a>
 						</td>
 					</tr>
 				@endforeach
@@ -50,7 +50,7 @@
 
 <div class="am-modal am-modal-prompt" tabindex="-1" id="reply-modal">
   <div class="am-modal-dialog">
-    <div class="am-modal-hd">私信给:{{{$r->toUser->nickname}}}<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a></div>
+    <div class="am-modal-hd"><span></span><a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a></div>
     <div class="am-modal-bd">
 	  <textarea class="am-modal-prompt-input" row="3"></textarea>
     </div>

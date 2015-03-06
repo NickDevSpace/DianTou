@@ -3,12 +3,11 @@
 个人中心 | 点投
 @stop
 @section('i-nav')
-	<ul class="am-nav am-nav-tabs">
-		<li class="am-active"><a href="{{{action('IController@getAccountInfo')}}}">基本信息</a></li>
-		<li><a href="{{{action('IController@getAccountAuth')}}}">实名认证</a></li>
-		<li><a href="{{{action('IController@getAccountPasswd')}}}">密码修改</a></li>
-		<li style="float:right">账号信息</li>
-	</ul>
+    <ul class="am-nav am-nav-pills">
+        <li class="am-active"><a href="{{{action('IController@getAccountInfo')}}}">基本信息</a></li>
+        <li><a href="{{{action('IController@getAccountAuth')}}}">实名认证</a></li>
+        <li><a href="{{{action('IController@getAccountPasswd')}}}">密码修改</a></li>
+    </ul>
 @stop
 @section('i-content')
 
@@ -64,76 +63,8 @@
 <script>
     $(function(){
 		
-		//绑定省份城市选择器事件
-        $('#i-province-code').on('change', function(){
-            var val = $(this).find("option:selected").val();
-            if(val == ''){
-				$("#i-city-code").empty();
-				$("<option></option>").val('').text('请选择').appendTo($("#i-city-code"));
-				return;
-			}
-
-            $.getJSON(BASE_URL + '/x/get-city-list', {province_code : val}, function(data){
-                $("#i-city-code").empty();
-                data.unshift({city_code : '', city_name : '请选择'});
-                $.each(data, function(i, item) {
-                    $("<option></option>")
-                        .val(item["city_code"])
-                        .text(item["city_name"])
-                        .appendTo($("#i-city-code"));
-                });
-            })
-
-        });
+		App.init(['i.acct.info']);
         
-		
-		
-			
-		
-		
-		$('#project-create-form').validator({
-			
-			markValid: function(validity) {
-			// this is Validator instance
-				var options = this.options;
-				var $field = $(validity.field);
-
-				$field.addClass(options.validClass).removeClass(options.inValidClass);
-				
-				var fieldWrapper = $(validity.field).closest('div');
-				fieldWrapper.find('.am-text-danger').remove();
-				options.onValid.call(this, validity);
-			},
-
-			markInValid: function(validity) {
-				var options = this.options;
-				var $field = $(validity.field);
-
-				$field.addClass(options.inValidClass + ' ' + options.activeClass).removeClass(options.validClass);
-				
-				var fieldWrapper = $(validity.field).closest('div');
-				var validateMessage = $(validity.field).attr('data-validate-message') || '';
-				fieldWrapper.find('.am-text-danger').remove();
-				$('<span class="am-text-danger">'+validateMessage+'</span>').appendTo(fieldWrapper);
-				
-				options.onInValid.call(this, validity);
-			},
-			validate: function(validity) {
-				var $e = $(validity.field);
-				var v = $e.val();
-				
-				if($e.is('#i-retain-amt')){
-					v = Number(v);
-					var t = Number($('#i-total-amt').val());
-					if(v > t){
-						validity.valid = false;
-					}
-				}
-				
-				
-			},
-		});
-
     });
 
 

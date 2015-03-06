@@ -53,17 +53,7 @@ class CreateProjectsTable extends Migration {
             $table->string('hyg_lic')->nullable();      //卫生许可证
             $table->string('company_photo')->nullable();      //公司图片
 
-            //融资需求
-            $table->decimal('total_amt',17,2);     //总金额
-            $table->decimal('retain_amt',17,2);      //项目方保留金额
-            $table->decimal('fin_amt',17,2);       //融资金额
-            $table->integer('share_count');           //认购份数
-            $table->decimal('amt_per_share',17,2);     //最小认购金额
-            $table->integer('fin_days');        //融资天数
-            $table->date('fin_start_date')->nullable();      //融资开始时间
-            $table->date('fin_end_date')->nullable();        //融资结束时间
-
-            //商业分析
+			//商业分析
             //$table->string('business_plan_uri')->nullable();       //商业计划书
             //$table->text('user_demand')->nullable();        //用户需求
             //$table->text('solution')->nullable();       //解决方案
@@ -79,7 +69,36 @@ class CreateProjectsTable extends Migration {
             //$table->text('team_members')->nullable();       //团队信息，直接存JSON，在前台拆开展示
 
             //$table->char('visibility',1)->default('1');     //项目页显示权限：1.所有人可见 2.注册用户可见  3.认证用户可见
-            $table->char('state', 1)->default('1');   //草稿暂存 审核中  审核失败  审核通过  预热中  融资中  融资失败  融资成功 项目分红
+			
+            //融资需求
+            $table->decimal('total_quota',17,2);     //总金额
+            $table->decimal('retain_quota',17,2);      //项目方保留金额
+            $table->decimal('raise_quota',17,2);       //融资金额
+			$table->integer('part_count');		//分割份数
+            $table->decimal('quota_of_part',17,2);     //每份金额
+            $table->integer('raise_days');        //融资天数
+            $table->date('raise_start_date')->nullable();      //融资开始时间
+            $table->date('raise_end_date')->nullable();        //融资结束时间
+			$table->char('app_flag', 1)->default('Y');		//是否支持预约，如果选择否，那么项目审批后直接进入融资阶段；
+															//如果选择是，那么项目通过审批后进入预约状态，预约状态会持续一段时间，用户可以进行预约（按预约比率缴纳保证金），我们为预约的用户在项目融资阶段保留他们预约的金额，并在一段时间内供他们认购，如果超出时间限制则吞没保证金
+			$table->decimal('app_open_part_count', 17,2)->nullable();;		//raise_quota中的开放预约份额数
+			$table->char('app_margin_flag', 1)->nullable()->default('N');		//预约是否需要保证金 Y N
+			$table->decimal('app_margin_ratio', 17,2)->nullable();;		//预约的保证金比率
+			$table->date('app_start_date')->nullable();		//预约开始时间
+			$table->date('app_end_date')->nullable();		//预约结束时间，到期后可进入融资阶段，如果预约情况不佳，可直接废弃该项目
+			$table->char('allow_nolocal', 1)->nullable()->default('Y');   //是否允许非本地区的用户认购 Y N
+			
+            
+            //当前预约/认购情况，客户每做一笔预约或认购交易都需要更新这两个字段
+			$table->decimal('apped_bal', 17,2)->default(0.00);		//项目当前被预约金额
+			$table->integer('apped_part_cnt')->default(0);		//被预约的分数
+			$table->decimal('raised_bal', 17,2)->default(0.00);		//项目当前被认购金额
+			$table->integer('raised_part_cnt')->default(0);		//被预约的分数
+			
+			//其他
+			$table->char('hot_level', 1)->default('1');  // 项目热销情况 1普通 2热销 3火爆
+			$table->char('risk_level', 1)->default('1');  // 风险等级 1 低 2 中 3 高
+			$table->char('state', 2)->default('01');   //01草稿暂存 02审核中  03审核失败  04审核通过  05预约中 06预约结束 07募集中 08募集失败 09募集成功 10项目分红 11项目结束
 
             $table->integer('user_id');     //发起人
 

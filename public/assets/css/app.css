@@ -1,4 +1,8 @@
 /* Write your styles */
+body{
+	font-size:1.4em;
+}
+
 .footer p {
     color: #7f8c8d;
     margin: 0;

@@ -3,7 +3,7 @@
 个人中心 | 点投
 @stop
 @section('i-nav')
-	<ul class="am-nav am-nav-tabs">
+	<ul class="am-nav am-nav-pills">
 		<li><a href="{{{action('IController@getAccountInfo')}}}">基本信息</a></li>
 		<li class="am-active"><a href="{{{action('IController@getAccountAuth')}}}">实名认证</a></li>
 		<li><a href="{{{action('IController@getAccountPasswd')}}}">密码修改</a></li>
@@ -60,82 +60,7 @@
 @section('page_scripts')
 <script>
     $(function(){
-		var res_args = {
-                    options: {
-                        server: BASE_URL + '/x/project-resource-upload',
-                        pick: '.resource-picker',
-                        accept: {
-                            title: 'Images',
-                            extensions: 'gif,jpg,jpeg,bmp,png',
-                            mimeTypes: 'image/*'
-                        },
-                        fileVal: 'res_file'
-                    },
-                    onCreate: function(){
-                        var me = this;
-                        $('.resource-picker').on('click', function(){
-                            var curResName = $(this).attr('data-res-name');
-                            me.curResName = curResName;
-                            me.options.formData = {res_name: curResName};
-                        });
-                    },
-                    onUploadSuccess: function( file, response ){
-                        var me = this;
-                        if(response.errno == 0){
-                            $('input[name="' + me.curResName + '"]').val(response.path);
-                            var imgURL = BASE_URL + '/' + response.path;
-                            $('#rp_'+ me.curResName).html('<img width="230" height="175" src="' + imgURL + '" alt="预览图" class="am-img-thumbnail"/>');
-                        }else{
-                            App.ModalManager.showAlertModal('提示', '上传失败！请重试！');
-                        }
-                    }
-                };
-
-        var resUploader = new CommonUploader(res_args);
 		
-		$('#project-create-form').validator({
-			
-			markValid: function(validity) {
-			// this is Validator instance
-				var options = this.options;
-				var $field = $(validity.field);
-
-				$field.addClass(options.validClass).removeClass(options.inValidClass);
-				
-				var fieldWrapper = $(validity.field).closest('div');
-				fieldWrapper.find('.am-text-danger').remove();
-				options.onValid.call(this, validity);
-			},
-
-			markInValid: function(validity) {
-				var options = this.options;
-				var $field = $(validity.field);
-
-				$field.addClass(options.inValidClass + ' ' + options.activeClass).removeClass(options.validClass);
-				
-				var fieldWrapper = $(validity.field).closest('div');
-				var validateMessage = $(validity.field).attr('data-validate-message') || '';
-				fieldWrapper.find('.am-text-danger').remove();
-				$('<span class="am-text-danger">'+validateMessage+'</span>').appendTo(fieldWrapper);
-				
-				options.onInValid.call(this, validity);
-			},
-			validate: function(validity) {
-				var $e = $(validity.field);
-				var v = $e.val();
-				
-				if($e.is('#i-retain-amt')){
-					v = Number(v);
-					var t = Number($('#i-total-amt').val());
-					if(v > t){
-						validity.valid = false;
-					}
-				}
-				
-				
-			},
-		});
-
     });
 
 

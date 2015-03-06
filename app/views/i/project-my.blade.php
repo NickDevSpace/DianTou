@@ -3,10 +3,10 @@
 个人中心 | 点投
 @stop
 @section('i-nav')
-	<ul class="am-nav am-nav-tabs">
+	<ul class="am-nav am-nav-pills">
 		<li class="am-active"><a href="{{{action('IController@getProjectMy')}}}">我的项目</a></li>
 		<li><a href="{{{action('IController@getProjectFollow')}}}">关注的项目</a></li>
-		<li><a href="{{{action('IController@getProjectPresub')}}}">预约的项目</a></li>
+		<li><a href="{{{action('IController@getProjectApp')}}}">预约的项目</a></li>
 		<li><a href="{{{action('IController@getProjectSub')}}}">投资的项目</a></li>
 		<li style="float:right">项目</li>
 	</ul>
@@ -36,7 +36,7 @@
 					<tr>
 						<td>{{{$p->project_name}}}</td>
 						<td>{{{$p->created_at}}}</td>
-						<td>{{{$p->total_amt}}}</td>
+						<td>{{{$p->total_quota}}}</td>
 						<td>{{{$p->state}}}</td>
 						<td><a href="#">修改</a> <a href="#">删除</a></td>
 					</tr>

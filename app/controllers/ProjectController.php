@@ -42,14 +42,20 @@ class ProjectController extends \BaseController {
         $project->business_plan = Input::get('business_plan');
 		
 		//融资信息
-		$project->total_amt = Input::get('total_amt');
-		$project->retain_amt = Input::get('retain_amt');
-		$project->fin_amt = Input::get('fin_amt');
-		$project->share_count = Input::get('share_count');
-		$project->amt_per_share = Input::get('amt_per_share');
-		$project->fin_days = Input::get('fin_days');
-		$project->fin_start_date = Input::get('fin_start_date');
-		$project->fin_end_date = Input::get('fin_end_date');
+		$project->total_quota = Input::get('total_quota');
+		$project->retain_quota = Input::get('retain_quota');
+		$project->raise_quota = Input::get('raise_quota');
+		$project->part_count = Input::get('part_count');
+		$project->quota_of_part = Input::get('quota_of_part');
+		$project->raise_days = Input::get('raise_days');
+		$project->raise_start_date = Input::get('raise_start_date');
+		$project->raise_end_date = Input::get('raise_end_date');
+        $project->app_flag = 'Y';       //必须允许预约
+        $project->app_margin_flag = 'Y';        //预约必须要交保证金
+        $project->app_margin_ratio = 0.1;       //保证金比例10%
+        $project->allow_nolocal = Input::get('allow_nolocal', 'Y');
+        $project->app_open_part_count = Input::get('app_open_part_count');
+		
 		
 		//公司信息
         $project->has_company = Input::get('has_company', 'N');
@@ -68,6 +74,7 @@ class ProjectController extends \BaseController {
 		$project->finance_rpt = Input::get('finance_rpt');
 		$project->hyg_lic = Input::get('hyg_lic');
 		$project->company_photo = Input::get('company_photo');
+		
 		
 		$project->state = 1;
 		

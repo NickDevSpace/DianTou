@@ -5,22 +5,22 @@ class PrivateMessageController extends \BaseController {
 	
 	public function postSend(){
 		$inputs = array(
-			'to_user' => Input::get('to_user'),
+			'receiver' => Input::get('receiver'),
 			'content' => Input::get('content')
 		);
 		
 		$validator = Validator::make(
             $inputs,
             array(
-				'to_user' => 'required|integer',
+				'receiver' => 'required|integer',
 				'content' => 'required'
             )
         );
 
         if(!$validator->fails()){
 			$pm = new PrivateMessage();
-			$pm->from_user = Auth::id();
-			$pm->to_user = $inputs['to_user'];
+			$pm->sender = Auth::id();
+			$pm->receiver = $inputs['receiver'];
 			$pm->content = $inputs['content'];
 			$pm->save();
 			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('id'=>$pm->id)));
@@ -38,8 +38,8 @@ class PrivateMessageController extends \BaseController {
 		$uid = Auth::id();
 		
 		$affected = DB::table('private_messages')
-					->whereIn('id', $pm_ids)->where('to_user', $uid)
-					->update(array('is_read' => 'Y'));
+					->whereIn('id', $pm_ids)->where('receiver', $uid)
+					->update(array('read_by_receiver' => 'Y'));
 		
 		if($affected == count($pm_ids)){
 			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
@@ -54,8 +54,8 @@ class PrivateMessageController extends \BaseController {
 		$uid = Auth::id();
 		
 		$affected = DB::table('private_messages')
-					->whereIn('id', $pm_ids)->where('to_user', $uid)
-					->delete();
+					->whereIn('id', $pm_ids)->where('receiver', $uid)
+					->update('del_by_reveiver', 'Y');
 					
 		if($affected == count($pm_ids)){
 			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
@@ -69,8 +69,8 @@ class PrivateMessageController extends \BaseController {
 		$uid = Auth::id();
 		
 		$affected = DB::table('private_messages')
-					->whereIn('id', $pm_ids)->where('from_user', $uid)
-					->delete();
+					->whereIn('id', $pm_ids)->where('sender', $uid)
+					->update('del_by_sender', 'Y');
 					
 		if($affected == count($pm_ids)){
 			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
@@ -80,7 +80,7 @@ class PrivateMessageController extends \BaseController {
 	}
 	
 	public function getUnreadMessageCount(){
-		$mcnt = PrivateMessage::where('to_user', '=', Auth::id())->where('is_read','=','N')->count();
+		$mcnt = PrivateMessage::where('receiver', '=', Auth::id())->where('read_by_receiver','=','N')->count();
 		return Response::json(array('errno'=>'SUCCESS', 'data'=>array('message_count'=>$mcnt)));
 	}
 	

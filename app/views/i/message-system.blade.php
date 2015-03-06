@@ -3,10 +3,10 @@
 个人中心 | 点投
 @stop
 @section('i-nav')
-	<ul class="am-nav am-nav-tabs">
-		<li><a href="{{{action('IController@getMessagePrivate')}}}">私信消息(1)</a></li>
-		<li class="am-active"><a href="{{{action('IController@getMessageSystem')}}}">系统消息(1)</a></li>
-		<li class="am-active"><a href="{{{action('IController@getMessageSystem')}}}">已读消息</a></li>
+	<ul class="am-nav am-nav-pills">
+		<li><a href="{{{action('IController@getMessagePrivate')}}}">私信消息</a></li>
+		<li class="am-active"><a href="{{{action('IController@getMessageSystem')}}}">系统消息</a></li>
+		<li><a href="{{{action('IController@getMessageRead')}}}">已读消息</a></li>
 		<li style="float:right">消息</li>
 	</ul>
 @stop

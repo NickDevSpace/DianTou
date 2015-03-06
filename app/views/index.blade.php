@@ -56,6 +56,15 @@
 		.am-thumbnail .am-progress{
 			margin-bottom:1rem;
 		}
+
+		#wx-gz {
+            background-color: #ffffff;
+            //display: none;
+            position: fixed;
+            right: 1%;
+            text-align: center;
+            top: 25%;
+        }
 		
     </style>
 @stop
@@ -72,151 +81,154 @@
 </div>
 <div class="am-container">
 
-<h1>热门项目</h1>
-<hr/>
-<div class="detail">
+    <h1>热门项目</h1>
+    <hr/>
+    <div class="detail">
 
-<div class="am-g">
+    <div class="am-g">
 	
 	
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
-  <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
-    <div class="am-thumbnail">
-      <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
-      <div class="am-thumbnail-caption">
-        <h3>北京烤鸭店</h3>
-        <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
-        <div class="am-progress am-progress-sm">
-			<div class="am-progress-bar" style="width: 30%"></div>
-		</div>
-		<div style="font-size:12px; overflow:hidden;">
-		<div style="clear:both"></div>
-		<span class="am-fl">30%</span>
-		<span class="am-fr">剩余20天</span>
-		</div>
-      </div>
-    </div>
-  </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="am-u-sm-6 am-u-md-4 am-u-lg-3">
+            <div class="am-thumbnail">
+              <img src="http://zcr2.ncfstatic.com/attachment/201502/03/16/54d080d51d8d3_230x175.jpg" alt=""/>
+              <div class="am-thumbnail-caption">
+                <h3>北京烤鸭店</h3>
+                <p>买你妈了隔壁买你妈了隔壁买你妈了隔壁</p>
+                <div class="am-progress am-progress-sm">
+                    <div class="am-progress-bar" style="width: 30%"></div>
+                </div>
+                <div style="font-size:12px; overflow:hidden;">
+                <div style="clear:both"></div>
+                <span class="am-fl">30%</span>
+                <span class="am-fr">剩余20天</span>
+                </div>
+              </div>
+            </div>
+          </div>
   
+    </div>
+
+    </div>
 </div>
 
 <div class="hope">
@@ -234,4 +246,21 @@
         </div>
     </div>
 </div>
+
+<div class="am-g am-container">
+    <div id="wx-gz" class="am-u-sm-1 am-u-sm-offset-11 ">
+        <img src="http://syl-static.qiniudn.com/img/qrcode.jpg">
+        <p>
+        <strong>扫描关注微信,点击隐藏</strong>
+        </p>
+    </div>
+</div>
+
+@stop
+@section('page_scripts')
+<script>
+$(function(){
+	App.init(['index']);
+});
+</script>
 @stop

@@ -12,6 +12,33 @@
 		margin-top:35px;
 	}
 
+    .i-nav .am-nav-pills > li > a {
+         border-radius: 0;
+         color: #585858;
+         font-size: 16px;
+         margin: 0 20px 0 0;
+         padding: 0 15px 5px;
+     }
+
+     .i-nav .am-nav-pills > li > a:hover {
+          background-color: #fff;
+          border-bottom: 4px solid #1abc9c;
+          color: #1abc9c;
+      }
+
+    .i-nav .am-nav-pills > li.am-active > a, .i-nav .am-nav-pills > li.am-active > a:hover {
+         background-color: #fff;
+         border-bottom: 4px solid #1abc9c;
+         color: #1abc9c;
+     }
+
+     .i-nav .am-nav-pills{
+         border-bottom: 1px solid #e7e9ec;
+     }
+
+
+
+
 </style>
 
 @stop
@@ -34,12 +61,12 @@
 				</div>
 			</div>
 			<div class="am-u-sm-9">
-				
+
 				<div class="i-nav">
 					@yield('i-nav')
-					
+
 				</div>
-				
+
 				<div class="i-content">
 					@yield('i-content')
 				</div>
