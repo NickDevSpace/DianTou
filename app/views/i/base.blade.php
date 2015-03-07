@@ -22,14 +22,14 @@
 
      .i-nav .am-nav-pills > li > a:hover {
           background-color: #fff;
-          border-bottom: 4px solid #1abc9c;
-          color: #1abc9c;
+          border-bottom: 4px solid #008e59;
+          color: #008e59;
       }
 
     .i-nav .am-nav-pills > li.am-active > a, .i-nav .am-nav-pills > li.am-active > a:hover {
          background-color: #fff;
-         border-bottom: 4px solid #1abc9c;
-         color: #1abc9c;
+         border-bottom: 4px solid #008e59;
+         color: #008e59;
      }
 
      .i-nav .am-nav-pills{

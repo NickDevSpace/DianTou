@@ -250,9 +250,7 @@
 <div class="am-g am-container">
     <div id="wx-gz" class="am-u-sm-1 am-u-sm-offset-11 ">
         <img src="http://syl-static.qiniudn.com/img/qrcode.jpg">
-        <p>
-        <strong>扫描关注微信,点击隐藏</strong>
-        </p>
+        <span>扫描关注微信,点击隐藏</span>
     </div>
 </div>
 

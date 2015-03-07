@@ -24,6 +24,10 @@
 			$('#register-btn').click(function(){
 			  window.location.href = BASE_URL + "/auth/register";
 			});
+
+            $('#wx-gz').on('click', function(){
+                $(this).hide();
+            });
 		},
 		project: {
 			create: function(){
@@ -272,7 +276,7 @@
 						}
 						
 						
-					},
+					}
 				});
 			}
 		},

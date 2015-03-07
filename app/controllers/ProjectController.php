@@ -3,9 +3,9 @@
 class ProjectController extends \BaseController {
 
 	
-	public function index()
+	public function getIndex()
 	{
-		//
+        return View::make('projects.project-index');
 	}
 
 

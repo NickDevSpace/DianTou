@@ -11,6 +11,14 @@ body{
     background: #2d3e50;
 }
 
+a{
+    color: #008e59;
+    text-decoration: none;
+}
+a:hover, a:focus{
+    color:#004229;
+    text-decoration: underline;
+}
 .am-alert{
 	margin-top:-1px;
 	margin-bottom:0;
