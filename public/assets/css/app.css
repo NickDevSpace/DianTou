@@ -148,3 +148,8 @@ fieldset[disabled] .am-btn-diantou.am-btn-active {
 .dt-profile-dropdown:hover{
 	background-color:#3f4f49;
 }
+
+.side-panel{
+    padding:5px 10px;
+}
+

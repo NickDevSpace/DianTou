@@ -80,11 +80,11 @@
             <div style="text-align:center">
                 <h1 style="font-weight:bold; font-size:35px; color:#008e59">点投</h1>
             </div>
-            
+
         </div>
         <div class="am-u-sm-6">
             <div class="am-input-group">
-              <input type="text" class="am-form-field" placeholder="搜索你感兴趣的项目">
+              <input type="text" name="w" class="am-form-field" placeholder="搜索你感兴趣的项目">
               <span class="am-input-group-btn">
                 <button class="am-btn am-btn-success" type="button">点投一下</button>
               </span>
@@ -94,8 +94,8 @@
                     <li><a href="#">北京烤鸭店</a></li>
                     <li><a href="#">牛排</a></li>
                     <li><a href="#">烧烤</a></li>
-                    <li><a href="#">教育</a>
-                    </li><li><a href="#">蛋糕</a></li>
+                    <li><a href="#">教育</a></li>
+                    <li><a href="#">蛋糕</a></li>
 
                 </ul>
             </div>
@@ -191,6 +191,13 @@
             <div class="am-g">
                 <div id="wx-gz" class="side-item am-panel am-panel-default">
                     <img src="http://syl-static.qiniudn.com/img/qrcode.jpg">
+                    <p>“扫一扫”关注微信，有惊喜！</p>
+                </div>
+            </div>
+            <div class="am-g">
+                <div id="wx-gz" class="side-item am-panel am-panel-default">
+                    <span>热门项目推荐</span>
+                    <hr/>
                     <p>“扫一扫”关注微信，有惊喜！</p>
                 </div>
             </div>
