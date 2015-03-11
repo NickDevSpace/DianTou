@@ -110,6 +110,8 @@
 <script src="{{{asset('assets/js/amazeui.min.js')}}}"></script>
 <!--<![endif]-->
 <script src="{{{asset('assets/js/app.js')}}}"></script>
+<script src="{{{asset('assets/js/echarts-all.js')}}}"></script>
+<script src="{{{asset('assets/js/gray.js')}}}"></script>
 @yield('vendor_scripts')
 @yield('page_scripts')
 </body>
