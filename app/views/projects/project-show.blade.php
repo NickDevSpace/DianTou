@@ -43,7 +43,7 @@
     		border:1px solid;
     		border-radius: 18px;
 			box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
-			background-image:url(/upload/tmp/1425653754.jpg);
+			background-image:url(/upload/tmp/pro-bg.jpg);
 			background-repeat:no-repeat;
 			background-color:white;
     	}
