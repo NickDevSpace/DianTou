@@ -39,6 +39,7 @@
 
 
 
+
 </style>
 
 @stop
@@ -47,18 +48,26 @@
 <div class="content-wrapper">
         <div class="am-container">
             <div class="am-u-sm-3">
-				<div style="margin-top:40px;">
-					<img src="https://avatars2.githubusercontent.com/u/6135346?v=3&s=460" width="230" height="230" class="am-img-thumbnail"/>
-					<p class="am-center">Steve Nash</p>
-				</div>
-				<div>
-					<ul class="am-nav">
-					  <li @if($menu == 'account') class="am-active" @endif><a href="{{{action('IController@getAccountInfo')}}}"><span class="am-icon-user"></span> &nbsp;账号信息</a></li>
-					  <li @if($menu == 'project') class="am-active" @endif><a href="{{{action('IController@getProjectMy')}}}"><span class="am-icon-star-o"></span> &nbsp;项目</a></li>
-					  <li @if($menu == 'message') class="am-active" @endif><a href="{{{action('IController@getMessagePrivate')}}}"><span class="am-icon-envelope-o"></span> &nbsp;消息</a></li>
-					</ul>
 
-				</div>
+				    <div style="text-align:center; margin-top:15px">
+				        <a>
+                        <img src="https://avatars2.githubusercontent.com/u/6135346" width="200"  class="am-img-thumbnail"/>
+                        </a>
+
+					</div>
+					<div style="text-align:center;">
+					    <span>昵称：</span>Steve Nash
+
+					</div>
+					<div style="padding:0px 25px; margin-top:25px;">
+                        <ul class="am-nav">
+                          <li @if($menu == 'account') class="am-active" @endif><a href="{{{action('IController@getAccountInfo')}}}"><span class="am-icon-user"></span> &nbsp;账号信息</a></li>
+                          <li @if($menu == 'project') class="am-active" @endif><a href="{{{action('IController@getProjectMy')}}}"><span class="am-icon-star-o"></span> &nbsp;项目</a></li>
+                          <li @if($menu == 'message') class="am-active" @endif><a href="{{{action('IController@getMessagePrivate')}}}"><span class="am-icon-envelope-o"></span> &nbsp;消息</a></li>
+                          <li @if($menu == 'tx') class="am-active" @endif><a href="{{{action('IController@getMessagePrivate')}}}"><span class="am-icon-envelope-o"></span> &nbsp;交易记录</a></li>
+
+                        </ul>
+                    </div>
 			</div>
 			<div class="am-u-sm-9">
 

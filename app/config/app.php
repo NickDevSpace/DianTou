@@ -192,6 +192,7 @@ return array(
 	),
 
     'tmpUploadDir' => 'upload/tmp',
-    'projectUploadDir' => 'upload/project',
+    'project_resource_dir' => 'upload/project/resource',
+    'project_show_dir' => 'upload/project/show'
 
 );

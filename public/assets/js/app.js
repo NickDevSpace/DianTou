@@ -35,12 +35,13 @@
 				KindEditor.ready(function(K) {
 					editor = K.create('textarea[name="detail"]', {
 						resizeType : 1,
-						allowPreviewEmoticons : false,
-						allowImageUpload : false,
+						allowPreviewEmoticons : true,
+						allowImageUpload : true,
+                        uploadJson: BASE_URL + '/x/project-show-upload',
 						items : [
-							'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                            'undo', 'redo','|','fontname', 'fontsize',  'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
 							'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
-							'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+							'insertunorderedlist', '|', 'emoticons', 'image','multiimage','table', 'hr', 'link']
 					});
 				});
 				

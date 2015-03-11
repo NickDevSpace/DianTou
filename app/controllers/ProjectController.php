@@ -2,10 +2,57 @@
 
 class ProjectController extends \BaseController {
 
-	
-	public function getIndex()
+    /**
+     * 搜索逻辑参考的美团，存在bug：直接访问project/index，不填搜索框，直接点某行业报错
+     * @param null $p_w
+     * @param null $p_industry
+     * @param null $p_state
+     * @return mixed
+     *
+     */
+	public function getIndex($p_w = null, $p_industry = null, $p_state = null)
 	{
-        return View::make('projects.project-index');
+        //$cate_ind = Input::get('cate_ind', '');
+        //$cate_state = Input::get('cate_state', '');
+        if(Input::get('w') != null){
+            $p_w = Input::get('w');
+            $p_industry = null;
+            $cate_state = null;
+        }
+
+        //$w = Input::get('w', $w);
+
+
+        $where = "state in ('05','07','09') ";
+        $params = array();
+        if($p_state != null && $p_state != 'all'){
+            $where .= "and state = ? ";
+            array_push($params, $p_state);
+        }
+        if($p_industry != null && $p_industry != 'all'){
+            $where .= "and industry_code like ? ";
+            array_push($params, $p_industry.'%');
+        }
+        if($p_w != null){
+            $where .= "and concat(project_name,sub_title) like ? ";
+            array_push($params, '%'.$p_w.'%');
+        }
+        //else{
+        //    $p_w = '_';  //加上这一步，然后将页面搜索框的value改成value="{{{$params['p_w'] == '_' ? '':$params['p_w']}}}可以解决bug。。妈的这一步太丑了！！！！但是勉强可以解决。
+        //}
+
+
+        $plist = Project::whereRaw($where, $params)->get();
+        //dd(Project::find(1)->toArray());
+        //dd($list->toArray());
+
+        $industry_list = Industry::where('parent', '=', 'I')->where('enabled', '=', 'Y')->get();
+        //dd($all_industries->toArray());
+        $state_list = array(array('state_code'=>'05','state_name'=>'预约中'), array('state_code'=>'07', 'state_name'=>'融资中'), array('state_code'=>'09', 'state_name'=>'融资成功'));
+
+        $cates = array('industry_list'=>$industry_list->toArray(), 'state_list'=>$state_list);
+
+        return View::make('projects.project-index', array('cates'=>$cates, 'params'=>array('p_w'=>$p_w, 'p_industry' => $p_industry, 'p_state'=>$p_state), 'plist'=>$plist));
 	}
 
 
@@ -76,8 +123,9 @@ class ProjectController extends \BaseController {
 		$project->company_photo = Input::get('company_photo');
 		
 		
-		$project->state = 1;
-		
+		$project->state = '07';
+		$project->user_id = Auth::id();
+
         $project->save();
 
         return Redirect::route('projects.show', $project->id);

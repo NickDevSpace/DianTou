@@ -21,7 +21,7 @@
 		  </div>
 		</div>
 	@else
-	<table class="am-table am-table-striped am-table-hover">
+	<table class="am-table">
 		<thead>
 			<tr>
 				<th>项目名称</th>

@@ -110,22 +110,26 @@ class IController extends \BaseController {
 	}
 	
 	public function getMessagePrivate(){
-		$message_type = Input::get('message_type');
-		
-		$results = array();
-		
-		/* if($message_type == 'read'){
-			$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'Y')->simplePaginate(10);
-		}else if($message_type == 'unread'){
-			$results = PrivateMessage::where('to_user','=', Auth::id())->where('is_read', '=', 'N')->simplePaginate(10);
-		}else{
-			$results = PrivateMessage::where('to_user','=', Auth::id())->simplePaginate(10);
-		} */
+
 		
 		//获取未读私信
-		$results = PrivateMessage::where('receiver','=', Auth::id())->where('read_by_receiver', '=', 'N')->simplePaginate(10);
-		
-		return View::make('i.message-private', array('menu'=>'message', 'results'=>$results));
+        $sql = 'select b.id as sender_id, b.nickname as sender_name, sum(case when a.read_by_receiver = \'N\' then 1 else 0 end) as unread_cnt, max(a.created_at) last_time from '.
+            'private_messages a '.
+            'inner join '.
+            'users b on a.sender = b.id '.
+            'where a.receiver = '. Auth::id().' '.
+            'group by b.id, b.nickname '.
+            'order by max(a.created_at) desc';
+
+
+        $msg_list = DB::select(DB::raw($sql));
+
+        //return Response::json(array('errno'=>'0', 'msg_list'=>$msg_list));
+
+		//$results = PrivateMessage::where('receiver','=', Auth::id())->where('read_by_receiver', '=', 'N')->simplePaginate(10);
+
+        //dd(count($results));
+		return View::make('i.message-private', array('menu'=>'message', 'msg_list'=>$msg_list));
 	}
 	
 	public function getMessageSystem(){

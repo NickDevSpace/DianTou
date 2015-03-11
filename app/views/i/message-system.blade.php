@@ -6,8 +6,6 @@
 	<ul class="am-nav am-nav-pills">
 		<li><a href="{{{action('IController@getMessagePrivate')}}}">私信消息</a></li>
 		<li class="am-active"><a href="{{{action('IController@getMessageSystem')}}}">系统消息</a></li>
-		<li><a href="{{{action('IController@getMessageRead')}}}">已读消息</a></li>
-		<li style="float:right">消息</li>
 	</ul>
 @stop
 @section('i-content')

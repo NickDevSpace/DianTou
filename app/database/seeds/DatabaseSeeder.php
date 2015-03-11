@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		$this->call('UserTableSeeder');
+        $this->call('PrivateMessageTableSeeder');
         $this->call('ProvinceTableSeeder');
         $this->call('CityTableSeeder');
         $this->call('DictTableSeeder');
@@ -32,18 +33,70 @@ class UserTableSeeder extends Seeder {
         User::create(array(
             'mobile' => '15168102723',
             'password' => Hash::make('123456'),
-            'nickname' => 'Cc',
+            'nickname' => '冲比冲',
             'province_code' => '330000',
             'city_code' => 'cx'
         ));
         User::create(array(
             'mobile' => '13857455238',
             'password' => Hash::make('123456'),
-            'nickname' => 'Admin',
+            'nickname' => '系统超级管理员',
             'province_code' => '330000',
             'city_code' => 'nb',
             'user_level' => 3
         ));
+        User::create(array(
+            'mobile' => '123456',
+            'password' => Hash::make('123456'),
+            'nickname' => '小白',
+            'province_code' => '330000',
+            'city_code' => 'nb',
+            'user_level' => 1
+        ));
+    }
+}
+
+class PrivateMessageTableSeeder extends Seeder{
+    public function run()
+    {
+        DB::table('private_messages')->delete();
+        PrivateMessage::create(array(
+            'sender' => '2',
+            'receiver' => 1,
+            'content' => 'Hello world1'
+        ));
+        PrivateMessage::create(array(
+            'sender' => '1',
+            'receiver' => 2,
+            'content' => '你在说撒'
+        ));
+
+        PrivateMessage::create(array(
+            'sender' => '2',
+            'receiver' => 1,
+            'content' => '2B'
+        ));
+        PrivateMessage::create(array(
+            'sender' => '1',
+            'receiver' => 2,
+            'content' => '。。。。。。'
+        ));
+        PrivateMessage::create(array(
+            'sender' => '1',
+            'receiver' => 2,
+            'content' => '算求'
+        ));
+        PrivateMessage::create(array(
+            'sender' => '3',
+            'receiver' => 1,
+            'content' => '我是小白'
+        ));
+        PrivateMessage::create(array(
+            'sender' => '3',
+            'receiver' => 2,
+            'content' => '我是小白'
+        ));
+
     }
 }
 
