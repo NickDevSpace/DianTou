@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration {
             $table->string('city_code',10);     //城市
             $table->string('address', 255)->nullable();     //联系地址
             $table->string('avatar', 255)->nullable();      //用户头像
-            $table->char('is_verified',1)->default('N');   //是否通过验证
+            $table->char('verification_state',1)->default('1');   //实名认证状态 1-未认证 2-等待审核 3-认证通过   流程是这样的：用户申请认证，状态变2，审核人员审核，若审核未通过，则变1，并发送系统消息或短信给用户，若审核通过则变3
             $table->string('real_name', 160)->nullable();       //真实姓名
             $table->string('crdt_id', 30)->nullable();      //身份证号码
             $table->string('crdt_photo_A', 255)->nullable();      //身份证正面

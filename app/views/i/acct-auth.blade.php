@@ -16,19 +16,13 @@
 	<div class="am-form-group">
 		<label for="i-real-name" class="am-u-sm-2 am-form-label">真实姓名</label>
 		<div class="am-u-sm-10">
-			<input type="text" id="i-real-name" name="real_name" value="{{{$user->real_name}}}" placeholder="请输入您的真实姓名" data-validate-message="请填写原密码" required >
-		</div>
-	</div>
-	<div class="am-form-group">
-		<label for="i-mobile" class="am-u-sm-2 am-form-label">手机号码</label>
-		<div class="am-u-sm-10">
-			<input type="text" id="i-mobile"  value="{{{$user->mobile}}}" data-validate-message="请填写原密码" readonly="true" required >
+			<input type="text" id="i-real-name" name="real_name" value="{{{$user->real_name}}}" placeholder="请输入您的真实姓名" data-validate-message="姓名格式不正确" required >
 		</div>
 	</div>
 	<div class="am-form-group">
 		<label for="i-crdt-id" class="am-u-sm-2 am-form-label">身份证号</label>
 		<div class="am-u-sm-10">
-			<input type="password" id="i-crdt-id" name="crdt_id" value="{{{$user->crdt_id}}}" placeholder="请输入您的身份证号码" data-validate-message="身份证号码格式不正确" required >
+			<input type="text" id="i-crdt-id" name="crdt_id" value="{{{$user->crdt_id}}}" placeholder="请输入您的身份证号码" data-validate-message="身份证号码格式不正确" required >
 		</div>
 	</div>
 	<div class="am-form-group resource-upload-wrapper">
@@ -51,7 +45,25 @@
 			 <div id="rp_crdt_photo_b" class="resource-preview"></div>
 		</div>
 	</div>
-	
+	<div class="am-form-group">
+		<label for="i-mobile" class="am-u-sm-2 am-form-label">手机号码</label>
+		<div class="am-u-sm-10">
+			<input type="text" id="i-mobile"  name="mobile" value="{{{$user->mobile}}}" data-validate-message="输入真实的手机号码" required >
+		</div>
+	</div>
+	<div class="am-form-group">
+        <label for="i-v-code" class="am-u-sm-2 am-form-label">验证码</label>
+        <div class="am-u-sm-2">
+            <input type="text" id="i-v-code"  name="v_code" value="" data-validate-message="输入短信中的验证码" required >
+        </div>
+        <div class="am-u-sm-8 am-u-end"><button type="button" class="v-code-btn am-btn am-btn-primary">获取验证码</button></div>
+    </div>
+    <div class="am-form-group">
+        <label for="i-v-code" class="am-u-sm-2 am-form-label">验证码</label>
+        <div class="am-u-sm-10 " style="padding-top:0.6em">
+            哈哈哈我额发了就可我见附件为Elf
+        </div>
+    </div>
 	<button type="submit" class="am-btn am-btn-primary am-center">提交审核</button>
 </form>
 
@@ -60,7 +72,7 @@
 @section('page_scripts')
 <script>
     $(function(){
-		
+		App.init(['i.acct.auth']);
     });
 
 

@@ -33,7 +33,31 @@ class IController extends \BaseController {
 	}
 	
 	public function postAccountAuth(){
-		
+        $inputs  = array('real_name' => Input::get('real_name'),
+                        'crdt_id' => Input::get('crdt_id'),
+                        'crdt_photo_a' => Input::get('crdt_photo_a'),
+                        'crdt_photo_b' => Input::get('crdt_photo_b'),
+                        'mobile' => Input::get('mobile'),
+                        'v_code' => Input::get('v_code'));
+
+        $user = Auth::user();
+        if($user->is_verified == 'N'){
+            $s = new SmsVerificationService();
+
+            if($s->verifyCode($inputs['v_code']) == true){
+                $user->real_name = $inputs['real_name'];
+                $user->crdt_id = $inputs['crdt_id'];
+                $user->crdt_photo_a = $inputs['crdt_photo_a'];
+                $user->crdt_photo_b = $inputs['crdt_photo_b'];
+                $user->mobile = $inputs['mobile'];
+                $user->save();
+                return Redirect::action('IController@getAccountAuth')->with('message', '认证成功！');
+            }
+        }else{
+            return Redirect::action('IController@getAccountAuth')->with('message', '操作失败！您已认证过！');
+        }
+
+
 	}
 	
 	public function getAccountPasswd(){

@@ -113,6 +113,10 @@
         <hr/>
         <div id="filter" class="am-g">
             <div class="am-u-sm-12">
+                <?php
+                    $params['p_industry'] = $params['p_industry'] == null ? 'all' : $params['p_industry'];
+                    $params['p_state'] = $params['p_state'] == null ? 'all' : $params['p_state'];
+                ?>
                 <div>
                     <div class="cate-tag-name">行业分类：</div>
                     <ul>
@@ -127,10 +131,7 @@
                 <div>
                     <div class="cate-tag-name">融资状态：</div>
                     <ul>
-                        <?php
-                            $params['p_industry'] = $params['p_industry'] == null ? 'all' : $params['p_industry'];
-                            $p = $params;
-                        ?>
+                        <?php $p = $params; ?>
                         <li @if(!in_array($params['p_state'], array_pluck($cates['state_list'], 'state_code'))) class="active" @endif><a href="{{{action('ProjectController@getIndex', array_set($p, 'p_state', 'all'))}}}">全部</a></li>
                         @foreach($cates['state_list'] as $i)
                             <li @if($params['p_state'] == $i['state_code']) class="active" @endif><a href="{{{action('ProjectController@getIndex', array_set($p, 'p_state', $i['state_code']))}}}">{{{$i['state_name']}}}</a></li>
@@ -159,7 +160,9 @@
                       </div>
                     </div>
                 </div>
+
                 @endforeach
+
                 <!--
                 <div class="am-u-sm-4">
                                 <div class="am-thumbnail">

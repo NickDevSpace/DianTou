@@ -10,17 +10,16 @@ class ProjectController extends \BaseController {
      * @return mixed
      *
      */
-	public function getIndex($p_w = null, $p_industry = null, $p_state = null)
+	public function getIndex($p_industry = null, $p_state = null,$p_w = null)
 	{
+
         //$cate_ind = Input::get('cate_ind', '');
         //$cate_state = Input::get('cate_state', '');
         if(Input::get('w') != null){
             $p_w = Input::get('w');
             $p_industry = null;
-            $cate_state = null;
+            $p_state = null;
         }
-
-        //$w = Input::get('w', $w);
 
 
         $where = "state in ('05','07','09') ";
@@ -37,12 +36,10 @@ class ProjectController extends \BaseController {
             $where .= "and concat(project_name,sub_title) like ? ";
             array_push($params, '%'.$p_w.'%');
         }
-        //else{
-        //    $p_w = '_';  //加上这一步，然后将页面搜索框的value改成value="{{{$params['p_w'] == '_' ? '':$params['p_w']}}}可以解决bug。。妈的这一步太丑了！！！！但是勉强可以解决。
-        //}
 
 
-        $plist = Project::whereRaw($where, $params)->get();
+
+        $plist = Project::whereRaw($where, $params)->simplePaginate(12);;
         //dd(Project::find(1)->toArray());
         //dd($list->toArray());
 
@@ -52,7 +49,7 @@ class ProjectController extends \BaseController {
 
         $cates = array('industry_list'=>$industry_list->toArray(), 'state_list'=>$state_list);
 
-        return View::make('projects.project-index', array('cates'=>$cates, 'params'=>array('p_w'=>$p_w, 'p_industry' => $p_industry, 'p_state'=>$p_state), 'plist'=>$plist));
+        return View::make('projects.project-index', array('cates'=>$cates, 'params'=>array('p_industry' => $p_industry, 'p_state'=>$p_state, 'p_w'=>$p_w), 'plist'=>$plist));
 	}
 
 

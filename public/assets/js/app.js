@@ -7,6 +7,35 @@
 		setTimeout(function(){
 			$('.am-alert').alert('close');
 		}, 3000);
+
+      //点击发送短信验证码模块
+      $('.v-code-btn').click(function () {
+          var $btn = $(this);
+          $.ajax({
+              url: BASE_URL + '/x/sms-verification-code' ,
+              method: 'get',
+              data: {},
+              dataType: 'json',
+              success: function(data){
+                  if(data.errno == '0'){
+                      var left_time = data.valid_time;
+                      alert('Duang! 就当我是短信：' + data.v_code);
+                      $btn.addClass('am-disabled');
+                      var int = setInterval(function(){
+                          left_time --;
+                          $btn.html("获取验证码(" + left_time +")");
+                          if(left_time == 0){
+                              clearInterval(int);
+                              $btn.html("获取验证码");
+                              $btn.removeClass('am-disabled');
+                          }
+                      },1000);
+                  }
+              }
+          });
+      });
+
+
   });
 })(jQuery);
 

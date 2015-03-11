@@ -7,6 +7,11 @@
 class XController extends \BaseController {
 
 
+    public function getSmsVerificationCode(){
+        $s = new SmsVerificationService();
+        $v_code = $s->genVCode();
+        return Response::json(array('errno'=>'0', 'v_code'=>$v_code, 'valid_time'=>60));
+    }
     /**
      * @return mixed
      * 根据省份code获取其下城市
