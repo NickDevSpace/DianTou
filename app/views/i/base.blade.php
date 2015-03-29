@@ -5,7 +5,8 @@
 @section('head')
 <style>
 	.content-wrapper {
-		padding: 35px 0;
+		padding: 55px 0 35px;
+		min-height:750px;
 	}
 	
 	.i-content{
@@ -36,6 +37,9 @@
          border-bottom: 1px solid #e7e9ec;
      }
 
+    .am-table > tbody > tr > td{
+        line-height:32px;
+    }
 
 
 
@@ -51,7 +55,7 @@
 
 				    <div style="text-align:center; margin-top:15px">
 				        <a>
-                        <img src="https://avatars2.githubusercontent.com/u/6135346" width="200"  class="am-img-thumbnail"/>
+                        <img src="http://s0.meituan.net/www/img/user-avatar.v9bfc4a71.png" width="200"  class="am-img-thumbnail"/>
                         </a>
 
 					</div>
@@ -84,7 +88,7 @@
 		
 </div>
 @stop
-@section('vendor_scripts')
+@section('vendor_js')
     <link rel="stylesheet" href="{{{asset('assets/vendor/jcrop/css/jquery.Jcrop.css')}}}"/>
 	<script src="{{{asset('assets/vendor/webuploader/webuploader.min.js')}}}"></script>
 	<script src="{{{asset('assets/vendor/jcrop/js/jquery.Jcrop.min.js')}}}"></script>

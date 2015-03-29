@@ -12,12 +12,25 @@
 @section('i-content')
 
 <form id="i-info-form" action="{{{action('IController@postAccountInfo')}}}" method="post" class="am-form am-form-horizontal">
+    <div class="am-form-group">
+        <label for="i-account" class="am-u-sm-2 am-form-label">账号：</label>
+        <div class="am-u-sm-6 am-u-end">
+            <div class="dt-form-desc">{{{Auth::user()->account}}}</div>
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="i-account" class="am-u-sm-2 am-form-label">账号类型：</label>
+        <div class="am-u-sm-6 am-u-end">
+            <div class="dt-form-desc">@if(Auth::user()->user_type == '1')个人@else企业@endif</div>
+        </div>
+    </div>
 	<div class="am-form-group">
-		<label for="i-project-name" class="am-u-sm-2 am-form-label">昵称</label>
-		<div class="am-u-sm-10">
+		<label for="i-project-name" class="am-u-sm-2 am-form-label">昵称：</label>
+		<div class="am-u-sm-6 am-u-end">
 			<input type="text" id="i-nickname" name="nickname" value="{{{$user->nickname}}}" placeholder="给自己取个昵称吧" data-validate-message="请填写昵称" required >
 		</div>
 	</div>
+	<!--
 	<div class="am-form-group">
 		<label for="i-project-name" class="am-u-sm-2 am-form-label">电子邮箱</label>
 		<div class="am-u-sm-10">
@@ -38,8 +51,9 @@
 				  </label>
 		</div>
 	</div>
+	-->
 	<div class="am-form-group">
-		<label for="i-city-code" class="am-u-sm-2 am-form-label">所在城市</label>
+		<label for="i-city-code" class="am-u-sm-2 am-form-label">所在城市：</label>
 		<div class="am-u-sm-2">
 			<?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'required' => 'true', 'selected'=>$user->province_code)); ?>
 		</div>
@@ -47,19 +61,20 @@
 			<?php echo Form::amSelect(array('list'=>$city_select, 'value_field'=>'city_code','text_field'=>'city_name', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'required' => 'true', 'selected'=>$user->city_code)); ?>
 		</div>
 	</div>
+	<!--
 	<div class="am-form-group">
 		<label for="address" class="am-u-sm-2 am-form-label">联系地址</label>
 		<div class="am-u-sm-10">
 			<input type="text" id="address" name="address" value="{{{$user->address}}}" placeholder="您的联系地址" data-validate-message="">
 		</div>
 	</div>
-	
+	-->
 	<button type="submit" class="am-btn am-btn-primary am-center">确 定</button>
 </form>
 
 @stop
 
-@section('page_scripts')
+@section('page_js')
 <script>
     $(function(){
 		

@@ -255,7 +255,7 @@
 </div>
 
 @stop
-@section('page_scripts')
+@section('page_js')
 <script>
 $(function(){
 	App.init(['index']);

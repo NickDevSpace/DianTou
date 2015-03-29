@@ -2,37 +2,40 @@
   'use strict';
 
   $(function() {
-	  
+      $('#login-btn').click(function(){
+          window.location.href = BASE_URL + "/auth/login";
+      });
+      $('#register-btn').click(function(){
+          window.location.href = BASE_URL + "/auth/reg";
+      });
+
 	  //把session flash自动隐藏掉
 		setTimeout(function(){
 			$('.am-alert').alert('close');
 		}, 3000);
 
-      //点击发送短信验证码模块
-      $('.v-code-btn').click(function () {
-          var $btn = $(this);
-          $.ajax({
-              url: BASE_URL + '/x/sms-verification-code' ,
-              method: 'get',
-              data: {},
-              dataType: 'json',
-              success: function(data){
-                  if(data.errno == '0'){
-                      var left_time = data.valid_time;
-                      alert('Duang! 就当我是短信：' + data.v_code);
-                      $btn.addClass('am-disabled');
-                      var int = setInterval(function(){
-                          left_time --;
-                          $btn.html("获取验证码(" + left_time +")");
-                          if(left_time == 0){
-                              clearInterval(int);
-                              $btn.html("获取验证码");
-                              $btn.removeClass('am-disabled');
-                          }
-                      },1000);
-                  }
-              }
-          });
+
+
+      //绑定省份城市选择器事件
+      $('#i-province-code').on('change', function(){
+          var val = $(this).find("option:selected").val();
+          if(val == ''){
+              $("#i-city-code").empty();
+              $("<option></option>").val('').text('请选择').appendTo($("#i-city-code"));
+              return;
+          }
+
+          $.getJSON(BASE_URL + '/x/get-city-list', {province_code : val}, function(data){
+              $("#i-city-code").empty();
+              data.unshift({city_code : '', city_name : '请选择'});
+              $.each(data, function(i, item) {
+                  $("<option></option>")
+                      .val(item["city_code"])
+                      .text(item["city_name"])
+                      .appendTo($("#i-city-code"));
+              });
+          })
+
       });
 
 
@@ -47,12 +50,7 @@
 	//所有页面模块的初始化脚本都统一放这儿
 	App.inits = {
 		index: function(){
-			$('#login-btn').click(function(){
-			  window.location.href = BASE_URL + "/auth/login";
-			});
-			$('#register-btn').click(function(){
-			  window.location.href = BASE_URL + "/auth/register";
-			});
+
 
             $('#wx-gz').on('click', function(){
                 $(this).hide();
@@ -142,14 +140,14 @@
 				});
 
 				//自动计算融资需求
-				$('input[name="total_quota"], input[name="retain_quota"], input[name="part_count"]').on('keyup', function(){
-					var total_quota = $('input[name="total_quota"]').val();
-					var retain_quota = $('input[name="retain_quota"]').val();
-					var part_count = $('input[name="part_count"]').val();
-					var raise_quota = total_quota - retain_quota;
-					var quota_of_part = (raise_quota / part_count).toFixed(2);
-					$('input[name="raise_quota"]').val(raise_quota);
-					$('input[name="quota_of_part"]').val(quota_of_part);
+				$('input[name="raise_quota"], input[name="assign_copies"]').on('keyup', function(){
+				
+					var raise_quota = $('input[name="raise_quota"]').val();
+					var assign_copies = $('input[name="assign_copies"]').val();
+					
+					var quota_of_copy = (raise_quota / assign_copies).toFixed(2);
+					
+					$('input[name="quota_of_copy"]').val(quota_of_copy);
 				});
 
 
@@ -338,6 +336,13 @@
 					//...
 				},
 				auth: function(){
+                    //验证码
+                    $('.v-code-btn').click(function () {
+                        var $btn = $(this);
+                        var mobile = $("input[name='account']").val();
+                        App.Common.SMSVerification.sendVCode(mobile, $btn);
+                    });
+
 					//增加上传按钮的绑定
 					var res_args = {
 						options: {
@@ -515,7 +520,35 @@
 			closeAlertModal : function(){
 				this.$alertModal.modal('close');
 			}
-		}
+		},
+        SMSVerification : {
+            sendVCode : function(mobile, $btn){
+                $.ajax({
+                    url: BASE_URL + '/x/sms-verification-code' ,
+                    method: 'get',
+                    data: {mobile: mobile},
+                    dataType: 'json',
+                    success: function(data){
+                        if(data.errno == '0'){
+                            var left_time = data.exp_time;
+                            alert('Duang! 就当我是短信：' + data.v_code);
+                            $btn.addClass('am-disabled');
+                            var int = setInterval(function(){
+                                left_time --;
+                                $btn.html("获取验证码(" + left_time +")");
+                                if(left_time == 0){
+                                    clearInterval(int);
+                                    $btn.html("获取验证码");
+                                    $btn.removeClass('am-disabled');
+                                }
+                            },1000);
+                        }else{
+                            alert('请求失败，短信验证码发送技能正在冷却中：' + data.message);
+                        }
+                    }
+                });
+            }
+        }
 	};
 	
 	App.Util = {

@@ -20,13 +20,14 @@ class CreateSubscriptionsTable extends Migration {
         Schema::create('subscriptions', function(Blueprint $table)
         {
             $table->increments('id');
+            $table->string('sub_order');
             $table->integer('project_id');      //项目id
-            $table->decimal('sub_part_count', 17,2);       //预约股份占比
-            $table->decimal('sub_amt', 17,2);       //认购金额
-            $table->decimal('sub_share', 17,2);       //认购股份占比
-            $table->datetime('sub_time', 17,2);       //认购时间
-            $table->char('state', 1)->default('1');       //认购状态 1-正常 2-请求撤销 3-已撤销
             $table->integer('user_id');     //用户id
+            $table->integer('sub_copies');      //认购的份数
+            $table->decimal('quota_of_copy', 17,2);       //每份金额
+            $table->decimal('sub_amt', 17,2);       //总认购金额
+            $table->decimal('sub_share', 17,2);       //认购股份占比
+            $table->char('state', 1)->default('1');       //认购状态 1-未付款 2-已确认（已交易成功） 3-作废（应长时间未付款或其他原因而作废）
             $table->timestamps();
 
         });

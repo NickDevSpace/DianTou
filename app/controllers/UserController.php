@@ -11,7 +11,7 @@ class UserController extends \BaseController {
 	public function getProfile(){
 		$user = Auth::user();
 		$province_select = Province::all();
-		return View::make('users.profile', array('user'=>$user, 'province_select'=>$province_select));
+		return View::make('users.profile', array('user-mgr'=>$user, 'province_select'=>$province_select));
 	}
 	
 	public function postSaveUserInfo(){

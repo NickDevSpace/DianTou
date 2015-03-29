@@ -38,8 +38,8 @@
         <hr>
 
         <form "/auth/login" method="post" class="am-form">
-            <label for="mobile">手机:</label>
-            <input type="text" name="mobile" id="mobile" value="">
+            <label for="account">手机:</label>
+            <input type="text" name="account" id="account" value="">
             <br>
             <label for="password">密码:</label>
             <input type="password" name="password" id="password" value="">

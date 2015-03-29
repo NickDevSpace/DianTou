@@ -10,48 +10,37 @@
 @stop
 @section('i-content')
 <div class="am-g">
-    <!-- 仿qq版
-    <div class="am-u-sm-3">
-
-        <div id="pm-chat-panel" class="am-panel am-panel-default">
-          <div class="am-panel-hd">消息</div>
-          <div class="am-panel-bd">
-            <div class="pm-chat-view-wrapper" style="height:300px; overflow-y: auto">
-                <div style="text-align: center">
-                    <a class="pm-chat-more" href="javascript:;" style="display:none">更多</a>
-                    <span class="pm-chat-end" style="display:none">到顶儿了~</span>
-                </div>
-                <ul class="am-comments-list am-comments-list-flip">
-                    <li class="am-comment" style="display:none">
-                        <a href="#link-to-user-home">
-                        <img class="am-comment-avatar" width="48" height="48" alt="" src="https://avatars2.githubusercontent.com/u/6135346">
-                        </a>
-                        <div class="am-comment-main">
-                        <div class="am-comment-bd">
-                        <p>
-                        <a href="#lin-to-user">@某人</a>
-                        撸主保重，我就阿了快速的将发了记录卡了看见了卡斯的ljlkknow， 我就了考试的了开发萨拉克的菲利克斯就 ！
-                        </p>
-                        </div>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-            <hr/>
-            <div class="pm-chat-input-wrapper">
-                <textarea class="pm-chat-input" style="width:100%; height:100px;"></textarea>
-                <div class="pm-chat-btn-wrapper am-g">
-                    <button type="button" class="pm-chat-btn-send am-btn am-btn-success am-btn-sm am-fr am-disabled" style="margin-top:5px; margin-right:15px;">发送(ctrl+enter)</button>
-                </div>
-            </div>
+    <table class="am-table am-table-striped am-table-hover">
+        <thead>
+            <tr>
+                <th style="width:5%"><input class="megall" type="checkbox" name="megall" value=""></th>
+                <th style="width:7%"><span>全选</span></th>
+                <th style="width:70%"><span>删除</span><span style="margin-left:20px;">标记为已读</span></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($messages as $msg)
+            <tr>
+                <td><input class="megall" type="checkbox" name="megall" value=""></td>
+                <td><img src="http://s0.meituan.net/www/img/user-avatar.v9bfc4a71.png" width="30" class="am-img-thumbnail am-circle"/></td>
+                <td>我给你发了{{{$msg->unread_cnt}}}条新消息，点击<a data-sender-id="{{{$msg->sender_id}}}" data-sender-name="{{{$msg->sender_name}}}" class="show-chat-window-btn" href="#">查看</a></td>
+                <td>{{{$msg->last_time}}}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    @if(count($messages) == 0)
+        <div class="am-vertical-align" style="height: 200px; text-align:center">
+          <div class="am-vertical-align-middle am-center">
+            <h3><span class="am-icon-smile-o am-icon-md" style="margin:auto 5px;"></span>还没有用户给您发送私信哦</h3>
           </div>
         </div>
-
-    </div>-->
-
+    @endif
+    <?php //echo $messages->links(); ?>
+    <!--
     <div class="am-u-sm-12">
-    @if(count($msg_list) == 0)
+    @if(count($messages) == 0)
         <div class="am-vertical-align" style="height: 200px; text-align:center">
           <div class="am-vertical-align-middle am-center">
             还没有用户给您发送私信哦
@@ -59,7 +48,7 @@
         </div>
     @else
     <ul class="am-list">
-        @foreach($msg_list as $msg)
+        @foreach($messages as $msg)
             <li>
                 <div class="am-cf" style="line-height:54px;">
                     <div class="am-fl">
@@ -78,47 +67,11 @@
         @endforeach
     </ul>
     @endif
-        <!-- 表格版
-        <div class="am-panel am-panel-default">
-          <div class="am-panel-hd">用户消息</div>
-          <div class="am-panel-bd">
-                <input type="text" class="am-form-field am-round" placeholder="搜索用户消息"/>
-          </div>
-          <div id="pm-chat-no-user-list" style="display: none; text-align:center">还没有用户给您发送私信哦</div>
 
-
-
-          <table class="am-table">
-            <tr>
-                <td><img src="https://avatars2.githubusercontent.com/u/6135346" width="32" class="am-img-thumbnail am-circle"/> 用户名<span class="am-badge am-badge-success">17</span></td>
-                <td>消息内容消息内容消息内容。。。。。。</td>
-
-                <td><a href="#">查看</a></td>
-            </tr>
-            <tr>
-                <td><img src="https://avatars2.githubusercontent.com/u/6135346" width="32" class="am-img-thumbnail am-circle"/> 用户名<span class="am-badge am-badge-success">17</span></td>
-                <td>消息内容消息内容消息内容。。。。。。</td>
-
-                <td><a href="#">查看</a></td>
-            </tr>
-            <tr>
-                <td><img src="https://avatars2.githubusercontent.com/u/6135346" width="32" class="am-img-thumbnail am-circle"/> 用户名<span class="am-badge am-badge-success">17</span></td>
-                <td>消息内容消息内容消息内容。。。。。。</td>
-
-                <td><a href="#">查看</a></td>
-            </tr>
-          </table>
-
-          <ul id="pm-chat-user-list" class="am-list am-list-static">
-            <li style="display:none"><img src="https://avatars2.githubusercontent.com/u/6135346" width="32" class="am-img-thumbnail am-circle"/><span class="am-badge am-badge-success">17</span>Tomcat</li>
-          </ul>
-
-        </div>
-        -->
     </div>
+    -->
 </div>
 
-</div>
 
 <div class="pm-chat-window am-modal am-modal-no-btn" tabindex="-1" >
   <div class="am-modal-dialog">
@@ -160,7 +113,7 @@
 </div>
 @stop
 
-@section('page_scripts')
+@section('page_js')
 <script>
     $(function(){
 
@@ -209,7 +162,7 @@
                                 }else{
                                     lis += '<li class="am-comment am-comment-flip">';
                                 }
-                                lis += '<a href="#link-to-user-home">';
+                                lis += '<a href="#link-to-user-mgr-home">';
                                 lis += '<img class="am-comment-avatar" width="48" height="48" alt="" src="https://avatars2.githubusercontent.com/u/6135346">';
                                 lis += '</a>';
                                 lis += '<div class="am-comment-main">';

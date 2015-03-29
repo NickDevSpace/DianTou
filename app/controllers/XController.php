@@ -8,10 +8,22 @@ class XController extends \BaseController {
 
 
     public function getSmsVerificationCode(){
-        $s = new SmsVerificationService();
-        $v_code = $s->genVCode();
-        return Response::json(array('errno'=>'0', 'v_code'=>$v_code, 'valid_time'=>60));
+        $mobile = Input::get('mobile');
+
+        if($mobile == null){
+            return Response::json(array('errno' => '1', 'message' => 'ERROR_MOBILE_NOT_SET'));
+        }
+
+        $v_code = SmsVerificationService::genVCode($mobile);
+
+        if($v_code == false) {
+            return Response::json(array('errno' => '2', 'message' => 'ERROR_MULTI_REQUEST'));
+
+        }
+
+        return Response::json(array('errno' => '0', 'mobile' => $mobile, 'v_code' => $v_code, 'exp_time' => 60));
     }
+
     /**
      * @return mixed
      * 根据省份code获取其下城市

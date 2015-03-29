@@ -37,7 +37,7 @@
 
 @stop
 
-@section('scripts')
+@section('page_js')
 <script>
     $(function(){
 		

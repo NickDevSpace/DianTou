@@ -12,64 +12,28 @@
 @stop
 @section('i-content')
 
-<form id="i-passwd-form" action="{{{action('IController@postAccountAuth')}}}" method="post" class="am-form am-form-horizontal data-am-validator">
-	<div class="am-form-group">
-		<label for="i-real-name" class="am-u-sm-2 am-form-label">真实姓名</label>
-		<div class="am-u-sm-10">
-			<input type="text" id="i-real-name" name="real_name" value="{{{$user->real_name}}}" placeholder="请输入您的真实姓名" data-validate-message="姓名格式不正确" required >
-		</div>
-	</div>
-	<div class="am-form-group">
-		<label for="i-crdt-id" class="am-u-sm-2 am-form-label">身份证号</label>
-		<div class="am-u-sm-10">
-			<input type="text" id="i-crdt-id" name="crdt_id" value="{{{$user->crdt_id}}}" placeholder="请输入您的身份证号码" data-validate-message="身份证号码格式不正确" required >
-		</div>
-	</div>
-	<div class="am-form-group resource-upload-wrapper">
-		<label for="i-crdt-photo-a" class="am-u-sm-2 am-form-label">身份证正面</label>
-		<div class="am-u-sm-2">
-			<div class="resource-picker" data-res-name="crdt_photo_a">选择文件</div>
-			<input type="hidden" name="crdt_photo_a" value="{{{$user->crdt_photo_a}}}"/>
-		</div>
-		<div class="am-u-sm-3">
-			 <div id="rp_crdt_photo_a" class="resource-preview"></div>
-		</div>
-	</div>
-	<div class="am-form-group resource-upload-wrapper">
-		<label for="i-crdt-photo-b" class="am-u-sm-2 am-form-label">身份证反面</label>
-		<div class="am-u-sm-2">
-			<div class="resource-picker" data-res-name="crdt_photo_b">选择文件</div>
-			<input type="hidden" name="crdt_photo_b" value="{{{$user->crdt_photo_b}}}"/>
-		</div>
-		<div class="am-u-sm-3">
-			 <div id="rp_crdt_photo_b" class="resource-preview"></div>
-		</div>
-	</div>
-	<div class="am-form-group">
-		<label for="i-mobile" class="am-u-sm-2 am-form-label">手机号码</label>
-		<div class="am-u-sm-10">
-			<input type="text" id="i-mobile"  name="mobile" value="{{{$user->mobile}}}" data-validate-message="输入真实的手机号码" required >
-		</div>
-	</div>
-	<div class="am-form-group">
-        <label for="i-v-code" class="am-u-sm-2 am-form-label">验证码</label>
-        <div class="am-u-sm-2">
-            <input type="text" id="i-v-code"  name="v_code" value="" data-validate-message="输入短信中的验证码" required >
-        </div>
-        <div class="am-u-sm-8 am-u-end"><button type="button" class="v-code-btn am-btn am-btn-primary">获取验证码</button></div>
-    </div>
-    <div class="am-form-group">
-        <label for="i-v-code" class="am-u-sm-2 am-form-label">验证码</label>
-        <div class="am-u-sm-10 " style="padding-top:0.6em">
-            哈哈哈我额发了就可我见附件为Elf
+<form id="i-passwd-form"  class="am-form am-form-horizontal data-am-validator">
+    <div class="am-u-sm-12">
+        <div style="height: 200px; text-align:center">
+	@if(Auth::user()->verification_state == '1')
+	    您尚未进行实名认证，通过实名认证，就可以发起众筹项目或投资您喜欢的项目了哦！<br/><br/>
+	    <a class="am-btn am-btn-success am-vertical-align-middle" href="@if(Auth::user()->user_type == '1'){{{action('AuthController@getPrivAuth')}}}@else{{{action('AuthController@getEntAuth')}}}@endif">申请实名认证</a>
+    @elseif(Auth::user()->verification_state == '2')
+        您的实名认证正在审核中，请耐心等待！<br/><br/>
+    @elseif(Auth::user()->verification_state == '3')
+        很遗憾！您的实名认证未通过审核，您可以重新填写并申请，通过实名认证，就可以发起众筹项目或投资您喜欢的项目了哦！<br/><br/>
+        <a class="am-btn am-btn-success" href="@if(Auth::user()->user_type == '1'){{{action('AuthController@getPrivAuth')}}}@else{{{action('AuthController@getEntAuth')}}}@endif">重新申请实名认证</a>
+    @else
+        身份信息：<br/>
+        blablabla
+    @endif
         </div>
     </div>
-	<button type="submit" class="am-btn am-btn-primary am-center">提交审核</button>
 </form>
 
 @stop
 
-@section('page_scripts')
+@section('page_js')
 <script>
     $(function(){
 		App.init(['i.acct.auth']);

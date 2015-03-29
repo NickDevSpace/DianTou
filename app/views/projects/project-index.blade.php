@@ -89,16 +89,16 @@
                   <!--<input type="text" name="w" value="{{{$params['p_w'] == '_' ? '':$params['p_w']}}}" class="am-form-field" placeholder="搜索你感兴趣的项目">-->
 
                   <span class="am-input-group-btn">
-                    <button class="am-btn am-btn-success" type="button">点投一下</button>
+                    <button class="am-btn am-btn-success" type="submit">点投一下</button>
                   </span>
                 </div>
                 <div class="search-hot-words">
                     <ul>
-                        <li><a href="{{{ action('ProjectController@getIndex', '北京烤鸭店') }}}">北京烤鸭店</a></li>
-                        <li><a href="{{{ action('ProjectController@getIndex', '牛排') }}}">牛排</a></li>
-                        <li><a href="{{{ action('ProjectController@getIndex', '烧烤') }}}">烧烤</a></li>
-                        <li><a href="{{{ action('ProjectController@getIndex', '教育') }}}">教育</a></li>
-                        <li><a href="{{{ action('ProjectController@getIndex', '蛋糕') }}}">蛋糕</a></li>
+                        <li><a href="{{{ action('ProjectController@getIndex') }}}?w=北京烤鸭店">北京烤鸭店</a></li>
+                        <li><a href="{{{ action('ProjectController@getIndex') }}}?w=牛排">牛排</a></li>
+                        <li><a href="{{{ action('ProjectController@getIndex') }}}?w=烧烤">烧烤</a></li>
+                        <li><a href="{{{ action('ProjectController@getIndex') }}}?w=教育">教育</a></li>
+                        <li><a href="{{{ action('ProjectController@getIndex') }}}?w=蛋糕">蛋糕</a></li>
 
                     </ul>
                 </div>
@@ -145,16 +145,16 @@
                 @foreach($plist as $p)
                 <div class="am-u-sm-4 am-u-end">
                     <div class="am-thumbnail">
-                      <a href="#"><img src="/{{{$p->project_cover}}}" alt=""/></a>
+                      <a href="{{{action('ProjectController@getShow', array('id'=>$p->id))}}}"><img src="/{{{$p->project_cover}}}" alt=""/></a>
                       <div class="am-thumbnail-caption">
                         <h3>{{{$p->project_name}}}</h3>
                         <p>{{{$p->sub_title}}}</p>
                         <div class="am-progress am-progress-sm">
-                            <div class="am-progress-bar" style="width:{{{($p->raised_bal * 100 / $p->total_quota)}}}%"></div>
+                            <div class="am-progress-bar" style="width:{{{($p->raised_bal * 100 / $p->raise_quota)}}}%"></div>
                         </div>
                         <div style="font-size:12px; overflow:hidden;">
                         <div style="clear:both"></div>
-                        <span class="am-fl">{{{($p->raised_bal * 100 / $p->total_quota)}}}%</span>
+                        <span class="am-fl">{{{($p->raised_bal * 100 / $p->raise_quota)}}}%</span>
                         <span class="am-fr">剩余20天</span>
                         </div>
                       </div>
@@ -231,7 +231,7 @@
 
 
 @stop
-@section('page_scripts')
+@section('page_js')
 <script>
 $(function(){
 	App.init(['project.index']);

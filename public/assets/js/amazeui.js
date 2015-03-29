@@ -2001,7 +2001,7 @@
           startDelay: 1, // display the message after that many seconds from page load
           lifespan: 15, // life of the message in seconds
           displayPace: 1440, // minutes before the message is shown again (0: display every time, default 24 hours)
-          maxDisplayCount: 0, // absolute maximum number of times the message will be shown to the user (0: no limit)
+          maxDisplayCount: 0, // absolute maximum number of times the message will be shown to the user-mgr (0: no limit)
           icon: true, // add touch icon to the message
           message: '', // the message can be customized
           validLocation: [], // list of pages where the message will be shown (array of regexes)
@@ -2009,7 +2009,7 @@
           onShow: null, // executed when the message is shown
           onRemove: null, // executed when the message is removed
           onAdd: null, // when the application is launched the first time from the homescreen (guesstimate)
-          onPrivate: null, // executed if user is in private mode
+          onPrivate: null, // executed if user-mgr is in private mode
           detectHomescreen: false // try to detect if the site has been added to the homescreen (false | true | 'hash' | 'queryString' | 'smartURL')
         };
 
@@ -2056,7 +2056,7 @@
           lastDisplayTime: 0, // last time we displayed the message
           returningVisitor: false, // is this the first time you visit
           displayCount: 0, // number of times the message has been shown
-          optedout: false, // has the user opted out
+          optedout: false, // has the user-mgr opted out
           added: false // has been actually added to the homescreen
         };
 
@@ -2069,7 +2069,7 @@
         };
 
         ath.Class = function(options) {
-          // merge default options with user config
+          // merge default options with user-mgr config
           this.options = _extend({}, ath.defaults);
           _extend(this.options, options);
 
@@ -2099,7 +2099,7 @@
           this.session = this.session ? JSON.parse(this.session) :
             undefined;
 
-          // user most likely came from a direct link containing our token, we don't need it and we remove it
+          // user-mgr most likely came from a direct link containing our token, we don't need it and we remove it
           if (ath.hasToken && (!ath.isCompatible || !this.session)) {
             ath.hasToken = false;
             _removeToken();
@@ -2140,7 +2140,7 @@
           }
 
           // critical errors:
-          // user opted out, already added to the homescreen, not a valid location
+          // user-mgr opted out, already added to the homescreen, not a valid location
           if (this.session.optedout || this.session.added || !
             isValidLocation) {
             return;
@@ -2167,7 +2167,7 @@
             if (ath.hasToken) {
               _removeToken(); // we don't actually need the token anymore, we remove it to prevent redistribution
 
-              // this is called the first time the user opens the app from the homescreen
+              // this is called the first time the user-mgr opens the app from the homescreen
               if (!this.session.added) {
                 this.session.added = true;
                 this.updateSession();
@@ -11414,7 +11414,7 @@
           }
 
           // If a handler is already declared in the element's onclick attribute, it will be fired before
-          // FastClick's onClick handler. Fix this by pulling out the user-defined handler function and
+          // FastClick's onClick handler. Fix this by pulling out the user-mgr-defined handler function and
           // adding it as listener.
           if (typeof layer.onclick === 'function') {
 
@@ -11666,7 +11666,7 @@
             if (!deviceIsIOS4) {
 
               // Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):
-              // when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched
+              // when the user-mgr next taps anywhere else on the page, new touchstart and touchend events are dispatched
               // with the same identifier as the touch event that previously triggered the click that triggered the alert.
               // Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an
               // immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.
@@ -11681,9 +11681,9 @@
               this.lastTouchIdentifier = touch.identifier;
 
               // If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:
-              // 1) the user does a fling scroll on the scrollable layer
-              // 2) the user stops the fling scroll with another tap
-              // then the event.target of the last 'touchend' event will be the element that was under the user's finger
+              // 1) the user-mgr does a fling scroll on the scrollable layer
+              // 2) the user-mgr stops the fling scroll with another tap
+              // then the event.target of the last 'touchend' event will be the element that was under the user-mgr's finger
               // when the fling scroll was started, causing FastClick to send a click event to that layer - unless a check
               // is made to ensure that a parent layer was not scrolled before sending a synthetic click (issue #42).
               this.updateScrollParent(targetElement);
@@ -11829,7 +11829,7 @@
           } else if (this.needsFocus(targetElement)) {
 
             // Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.
-            // Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).
+            // Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user-mgr types (issue #37).
             if ((event.timeStamp - trackingClickStart) > 100 || (
               deviceIsIOS && window.top !== window && targetTagName ===
               'input')) {
@@ -11910,7 +11910,7 @@
           // to prevent ghost/doubleclicks.
           if (!this.needsClick(this.targetElement) || this.cancelNextClick) {
 
-            // Prevent any user-added listeners declared on FastClick element from being fired.
+            // Prevent any user-mgr-added listeners declared on FastClick element from being fired.
             if (event.stopImmediatePropagation) {
               event.stopImmediatePropagation();
             } else {
@@ -11949,7 +11949,7 @@
             return true;
           }
 
-          // Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
+          // Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user-mgr hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.
           if (event.target.type === 'submit' && event.detail === 0) {
             return true;
           }
@@ -12015,8 +12015,8 @@
               metaViewport = document.querySelector('meta[name=viewport]');
 
               if (metaViewport) {
-                // Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)
-                if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+                // Chrome on Android with user-mgr-scalable="no" doesn't need FastClick (issue #89)
+                if (metaViewport.content.indexOf('user-mgr-scalable=no') !== -1) {
                   return true;
                 }
                 // Chrome 32 and above with width=device-width or less don't need FastClick
@@ -12042,8 +12042,8 @@
               metaViewport = document.querySelector('meta[name=viewport]');
 
               if (metaViewport) {
-                // user-scalable=no eliminates click delay.
-                if (metaViewport.content.indexOf('user-scalable=no') !== -1) {
+                // user-mgr-scalable=no eliminates click delay.
+                if (metaViewport.content.indexOf('user-mgr-scalable=no') !== -1) {
                   return true;
                 }
                 // width=device-width (or less than device-width) eliminates click delay.
@@ -13296,7 +13296,7 @@
           'touchstart touchmove touchend touchcancel';
 
         /**
-         * Multi-user touch events input
+         * Multi-user-mgr touch events input
          * @constructor
          * @extends Input
          */
@@ -14505,7 +14505,7 @@
             userDrag: 'none',
 
             /**
-             * Overrides the highlight color shown when the user taps a link or a JavaScript
+             * Overrides the highlight color shown when the user-mgr taps a link or a JavaScript
              * clickable element in iOS. This property obeys the alpha value, if specified.
              * @type {String}
              * @default 'rgba(0,0,0,0)'
@@ -14762,7 +14762,7 @@
 
           /**
            * destroy the manager and unbinds all events
-           * it doesn't unbind dom events, that is the user own responsibility
+           * it doesn't unbind dom events, that is the user-mgr own responsibility
            */
           destroy: function() {
             this.element && toggleCssProps(this, false);

@@ -27,7 +27,7 @@ App::after(function($request, $response)
 | Authentication Filters
 |--------------------------------------------------------------------------
 |
-| The following filters are used to verify that the user of the current
+| The following filters are used to verify that the user-mgr of the current
 | session is logged into this application. The "basic" filter easily
 | integrates HTTP Basic authentication for quick, simple checking.
 |
@@ -45,6 +45,22 @@ Route::filter('auth', function()
 	}
 });
 
+Route::filter('auth.admin', function()
+{
+    if (Auth::guest())
+    {
+        if (Request::ajax())
+        {
+            return Response::make('Unauthorized', 401);
+        }
+        return Redirect::guest('auth/login');
+    }else{
+        if(Auth::user()->user_level < 2){
+            return Response::make('Unauthorized', 401);
+        }
+    }
+});
+
 
 Route::filter('auth.basic', function()
 {
@@ -57,7 +73,7 @@ Route::filter('auth.basic', function()
 |--------------------------------------------------------------------------
 |
 | The "guest" filter is the counterpart of the authentication filters as
-| it simply checks that the current user is not logged in. A redirect
+| it simply checks that the current user-mgr is not logged in. A redirect
 | response will be issued if they are, which you may freely change.
 |
 */
@@ -73,7 +89,7 @@ Route::filter('guest', function()
 |--------------------------------------------------------------------------
 |
 | The CSRF filter is responsible for protecting your application against
-| cross-site request forgery attacks. If this special token in a user
+| cross-site request forgery attacks. If this special token in a user-mgr
 | session does not match the one given in this request, we'll bail.
 |
 */

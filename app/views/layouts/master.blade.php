@@ -35,6 +35,7 @@
                 <li class="am-active"><a href="/">首页</a></li>
                 <li><a href="{{{action('ProjectController@getIndex')}}}">浏览项目</a></li>
                 <li><a href="{{{action('ProjectController@getCreate')}}}">发起项目</a></li>
+				<li><a href="{{{action('HelpController@getIndex')}}}">帮助中心</a></li>
 				
             </ul>
 			
@@ -43,21 +44,25 @@
 				
                 <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
                     <a class="am-dropdown-toggle dt-profile-dropdown" data-am-dropdown-toggle href="javascript:;">
-                        <?php echo Auth::user()->mobile; ?> <span class="am-icon-caret-down"></span>
+                        <?php echo Auth::user()->account; ?> <span class="am-icon-caret-down"></span>
                     </a>
                     <ul class="am-dropdown-content">
                         <li><a href="{{{action('IController@getAccountInfo')}}}">个人中心</a></li>
+						<li><a href="{{{action('HelpController@getIndex')}}}">帮助中心</a></li>
+                        @if(Auth::user()->user_level >= 1)
+                        <li><a href="{{{action('AdminIndexController@getIndex')}}}">管理中心</a></li>
+                        @endif
                         <li><a href="/auth/logout">注销</a></li>
                     </ul>
                 </div>
             </div>
             <?php else: ?>
             <div class="am-topbar-right">
-                <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm" id="register-btn"><span class="am-icon-pencil"></span> 注册</button>
+                <button class="am-btn am-btn-success am-topbar-btn am-btn-sm" id="register-btn"><span class="am-icon-pencil"></span> 注册</button>
             </div>
 
             <div class="am-topbar-right">
-                <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm" id="login-btn"><span class="am-icon-user"></span> 登录</button>
+                <button class="am-btn am-btn-success am-topbar-btn am-btn-sm" id="login-btn"><span class="am-icon-user"></span> 登录</button>
             </div>
             <?php endif;?>
         </div>
@@ -95,7 +100,7 @@
 <!--公共元素END-->
 
 <footer class="footer">
-    <p>© 2014 <a href="http://www.yunshipei.com" target="_blank">AllMobilize, Inc.</a> Licensed under <a
+    <p>© 2014 <a href="http://www.yunshipei.com" target="_blank">浙江点投科技投资有限公司</a> 版权所有 <a
             href="http://opensource.org/licenses/MIT" target="_blank">MIT license</a>. by the AmazeUI Team.</p>
 </footer>
 <!--[if lt IE 9]>
@@ -112,7 +117,7 @@
 <script src="{{{asset('assets/js/app.js')}}}"></script>
 <script src="{{{asset('assets/js/echarts-all.js')}}}"></script>
 <script src="{{{asset('assets/js/gray.js')}}}"></script>
-@yield('vendor_scripts')
-@yield('page_scripts')
+@yield('vendor_js')
+@yield('page_js')
 </body>
 </html>

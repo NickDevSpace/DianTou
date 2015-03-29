@@ -27,47 +27,38 @@
 <body>
 <div class="header">
     <div class="am-g">
-        <h1>点 TOU</h1>
+        <h1>点投</h1>
         <p>汇聚点滴力量，投入你我热情</p>
     </div>
     <hr />
 </div>
 <div class="am-g">
     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
-        <h3>注册个账号</h3>
-        <hr>
+        <ul class="am-nav am-nav-tabs am-nav-justify">
+            <li class="am-active"><a href="#">个人账户</a></li>
+            <li><a href="#">企业账户</a></li>
+        </ul>
 
-        <form action="/auth/register" method="post" class="am-form">
-            <label for="mobile">手机:</label>
-            <input type="text" name="mobile" id="mobile" value="">
-            <br>
-            <label for="password">密码:</label>
-            <input type="password" name="password" id="password" value="">
-            <br>
-            <label for="password_confirm">重复密码:</label>
-            <input type="password" name="password_confirm" id="password_confirm" value="">
-            <br>
-            <div>
-                <label>省份</label>
-                <?php echo Form::select('province_code', $province_select);?>
+        <form action="/auth/register" method="post" class="am-form am-form-horizontal" style="margin-top:50px;">
+            <div class="am-form-group">
+                <label for="i-account" class="am-u-sm-2 am-form-label">手机号：</label>
+                <div class="am-u-sm-8 am-u-end">
+                    <input type="text" id="i-account" name="account" placeholder="" data-validate-message="" required >
+                </div>
             </div>
-            <br>
-            <div>
-                <label>城市</label>
-                <?php echo Form::select('city_code', $city_select);?>
+            <div class="am-form-group">
+                <label for="i-v-code" class="am-u-sm-2 am-form-label">验证码：</label>
+                <div class="am-u-sm-2">
+                    <input type="text" id="i-v-code"  name="v_code" value="" data-validate-message="输入短信中的验证码" required >
+                </div>
+                <div class="am-u-sm-8 am-u-end"><button type="button" class="v-code-btn am-btn am-btn-default">获取验证码</button></div>
             </div>
-            <br>
-            <br />
-            <div class="am-cf">
-                <input type="submit" name="" value="注 册" class="am-btn am-btn-primary am-btn-sm am-fl">
+            <div class="am-form-group">
+                <div class="am-u-sm-5 am-u-sm-offset-3">
+                    <button type="submit" class="am-btn am-btn-success am-btn-block">下一步</button>
+                </div>
             </div>
         </form>
-        <?php echo $errors->first('mobile'); ?>
-        <?php echo $errors->first('password'); ?>
-        <?php echo $errors->first('password-confirm'); ?>
-        <?php echo $errors->first('province_code'); ?>
-        <?php echo $errors->first('city_code'); ?>
-
 
         <hr>
         <p>© 2015 AllMobilize, Inc. Licensed under MIT license.</p>

@@ -8,10 +8,10 @@
 
 class SmsVerificationService {
 
-    public function genVCode($length = 6, $valid_time = 60){
+    public static function genVCode($mobile, $length = 6, $valid_time = 60){
         //如果session中60秒内已经有验证码，说明前台用户是故意短时间内请求发送多个验证码，则予以拒绝
-        if(Session::get('v_code') && Session::get('v_code_exp_time')){
-            if(time() <= Session::get('v_code_exp_time'))
+        if(Session::get('v_code') && Session::get('SMS_VERIFICATION.exp_time')){
+            if(time() <= Session::get('SMS_VERIFICATION.exp_time'))
                 return false;
         }
 
@@ -19,18 +19,23 @@ class SmsVerificationService {
 
         //然后这里调用短信接口发送短信
         //...
-
-        Session::put('v_code', $v_code);
-        Session::put('v_code_exp_time', time() + $valid_time);
+        Session::put('SMS_VERIFICATION.mobile', $mobile);
+        Session::put('SMS_VERIFICATION.v_code', $v_code);
+        Session::put('SMS_VERIFICATION.exp_time', time() + $valid_time);
 
         return $v_code;
 
     }
 
-    public function verifyCode($v_code){
-        if(Session::get('v_code') && Session::get('v_code_exp_time')){
-            if(Session::get('v_code') == $v_code)
+    public static function verifyCode($mobile, $v_code){
+        if(Session::get('SMS_VERIFICATION.mobile') && Session::get('SMS_VERIFICATION.v_code') && Session::get('SMS_VERIFICATION.exp_time')){
+            if(Session::get('SMS_VERIFICATION.mobile') == $mobile && Session::get('SMS_VERIFICATION.v_code') == $v_code){
+                Session::forget('SMS_VERIFICATION.mobile');
+                Session::forget('SMS_VERIFICATION.v_code');
+                Session::forget('SMS_VERIFICATION.exp_time');
                 return true;
+            }
+
         }
 
         return false;

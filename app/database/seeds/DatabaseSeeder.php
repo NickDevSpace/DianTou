@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder {
         $this->call('IndustryTableSeeder');
 		$this->call('ProjectTableSeeder');
 		$this->call('FollowTableSeeder');
-		$this->call('AppointmentTableSeeder');
-		$this->call('SubscriptionTableSeeder');
+		//$this->call('AppointmentTableSeeder');
+		//$this->call('SubscriptionTableSeeder');
         //$this->call('SentrySeeder');
 	}
 
@@ -31,28 +31,36 @@ class UserTableSeeder extends Seeder {
     {
         DB::table('users')->delete();
         User::create(array(
-            'mobile' => '15168102723',
+            'account' => '15168102723',
             'password' => Hash::make('123456'),
             'nickname' => '冲比冲',
             'province_code' => '330000',
-            'city_code' => 'cx'
+            'city_code' => 'cx',
+            'user_type' => '1',
+            'user_level' => '3'
         ));
+
+        UserinfoPrivate::create(array(
+            'user_id' => 1,
+            'mobile' => '15168102723'
+        ));
+
         User::create(array(
-            'mobile' => '13857455238',
+            'account' => '443895389@qq.com',
             'password' => Hash::make('123456'),
-            'nickname' => '系统超级管理员',
+            'nickname' => '点投科技',
             'province_code' => '330000',
-            'city_code' => 'nb',
-            'user_level' => 3
+            'city_code' => 'yy',
+            'user_type' => '2',
+            'user_level' => '1'
         ));
-        User::create(array(
-            'mobile' => '123456',
-            'password' => Hash::make('123456'),
-            'nickname' => '小白',
-            'province_code' => '330000',
-            'city_code' => 'nb',
-            'user_level' => 1
+
+        UserinfoEnterprise::create(array(
+            'user_id' => 2,
+            'email' => '443895389@qq.com'
         ));
+
+
     }
 }
 
@@ -114,24 +122,16 @@ class ProjectTableSeeder extends Seeder {
             'city_code' => 'cx',
 			'address' => '慈溪浒山街道',
 			'detail' => '<h3>项目展示</h3>',
-			'company_name' => '测试公司',
-			'legal_person' => '施老板',
-			'startup_date' => '2015-01-01',
-			'registered_address' => '慈溪市坎墩',
-			'registered_capital' => 1000000,
-			'organization_code' => '33002221154',
-			'legal_id_card' => 'upload/default.jpg',
-			'legal_cre_rpt' => 'upload/default.jpg',
-			'total_quota' => 3000000,
-			'retain_quota' => 1000000,
-			'raise_quota' => 2000000,
-			'part_count' => 200,
-			'quota_of_part' => 10000,
+			'raise_quota' => 3000000,
+            'retain_stockholder' => 3,
+			'assign_copies' => 150,
+            'quota_of_copy' => 20000,
+            'assign_share' => 0.6,
 			'raise_days' => 30,
+            'raise_start_date' => '2015-01-01',
+            'raise_end_date' => '2015-05-01',
 			'app_flag' => 'Y',
-			'app_open_part_count' => 150,
-			'app_margin_flag' => 'Y',
-			'app_margin_ratio' => 0.1,
+			'allow_nolocal' => 'Y',
 			'user_id' => 1
         ));
 		
@@ -431,7 +431,7 @@ class SentrySeeder extends Seeder {
 
 
 
-        // Assign user permissions
+        // Assign user-mgr permissions
         $adminUser  = Sentry::getUserProvider()->findByLogin('13857455238');
         $adminGroup = Sentry::getGroupProvider()->findByName('Admin');
         $adminUser->addGroup($adminGroup);

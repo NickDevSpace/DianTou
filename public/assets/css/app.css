@@ -2,13 +2,23 @@
 body{
 	font-size:1.4em;
 }
-
+.footer{
+	background: none repeat scroll 0 0 #555;
+    color: #999;
+	font-size: 1.4rem;
+    padding: 30px 0 15px
+}
+.footer a{
+	color:#fff;
+}
+.footer a:hover{
+	color:#fff;
+	text-decoration:underline;
+}
 .footer p {
-    color: #7f8c8d;
     margin: 0;
     padding: 15px 0;
     text-align: center;
-    background: #2d3e50;
 }
 
 a{
@@ -153,3 +163,32 @@ fieldset[disabled] .am-btn-diantou.am-btn-active {
     padding:5px 10px;
 }
 
+
+/**  步骤css  **/
+
+.dt-step li{
+    display:block;
+    float:left;
+}
+
+.dt-step-4 li{
+    width:33.3%
+}
+
+.dt-step-3 li{
+    width:33.3%
+}
+
+.dt-step li.active{
+    color:#f16f20;
+}
+
+
+.dt-form-desc{
+    padding-top:0.5em;
+}
+
+.am-form-group label .required{
+    color:#f00;
+    margin-right:5px;
+}

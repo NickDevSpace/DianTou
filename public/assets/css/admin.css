@@ -229,7 +229,7 @@ ul {
 }
 
 /*
-* user.html css
+* user-mgr.html css
 */
 .user-info {
   margin-bottom: 15px;
@@ -318,4 +318,17 @@ gallery.html css
   border: none;
   width: 200px;
   margin: 0 auto;
+}
+
+
+.admin-empty-content-note{
+    vertical-align: middle;
+    min-height:400px;
+    text-align: center;
+    font-weight: bold;
+
+}
+
+.admin-list-form{
+    min-height:420px;
 }

@@ -63,7 +63,7 @@ class ProjectController extends \BaseController {
 
         $industry_select = Industry::where('parent', '=', 'I')->where('enabled', '=', 'Y')->get();
 
-        return View::make('projects.project-create', array('user'=>$user,
+        return View::make('projects.project-create', array('user-mgr'=>$user,
                                                             'province_select' => $province_select,
                                                             'industry_select' => $industry_select));
 
@@ -86,11 +86,11 @@ class ProjectController extends \BaseController {
         $project->business_plan = Input::get('business_plan');
 		
 		//融资信息
-		$project->total_quota = Input::get('total_quota');
-		$project->retain_quota = Input::get('retain_quota');
 		$project->raise_quota = Input::get('raise_quota');
-		$project->part_count = Input::get('part_count');
-		$project->quota_of_part = Input::get('quota_of_part');
+        $project->retain_stockholder = Input::get('retain_stockholder');
+        $project->assign_share = Input::get('assign_share');
+		$project->assign_copies = Input::get('assign_copies');
+		$project->quota_of_copy = Input::get('quota_of_copy');
 		$project->raise_days = Input::get('raise_days');
 		$project->raise_start_date = Input::get('raise_start_date');
 		$project->raise_end_date = Input::get('raise_end_date');
@@ -98,26 +98,26 @@ class ProjectController extends \BaseController {
         $project->app_margin_flag = 'Y';        //预约必须要交保证金
         $project->app_margin_ratio = 0.1;       //保证金比例10%
         $project->allow_nolocal = Input::get('allow_nolocal', 'Y');
-        $project->app_open_part_count = Input::get('app_open_part_count');
+        $project->app_open_assign_copies = Input::get('app_open_assign_copies');
 		
 		
 		//公司信息
-        $project->has_company = Input::get('has_company', 'N');
-		$project->company_name = Input::get('company_name');
-		$project->legal_person = Input::get('legal_person');
-		$project->startup_date = Input::get('startup_date');
-		$project->registered_address = Input::get('registered_address');
-		$project->legal_id_card = Input::get('legal_id_card');
-		$project->legal_cre_rpt = Input::get('legal_cre_rpt');
-		$project->biz_lic = Input::get('biz_lic');
-		$project->biz_lic_copy = Input::get('biz_lic_copy');
-		$project->tax_reg_card = Input::get('tax_reg_card');
-		$project->tax_reg_card_copy = Input::get('tax_reg_card_copy');
-		$project->org_code_cert = Input::get('org_code_cert');
-		$project->org_code_cert_copy = Input::Get('org_code_cert_copy');
-		$project->finance_rpt = Input::get('finance_rpt');
-		$project->hyg_lic = Input::get('hyg_lic');
-		$project->company_photo = Input::get('company_photo');
+//        $project->has_company = Input::get('has_company', 'N');
+//		$project->company_name = Input::get('company_name');
+//		$project->legal_person = Input::get('legal_person');
+//		$project->startup_date = Input::get('startup_date');
+//		$project->registered_address = Input::get('registered_address');
+//		$project->legal_id_card = Input::get('legal_id_card');
+//		$project->legal_cre_rpt = Input::get('legal_cre_rpt');
+//		$project->biz_lic = Input::get('biz_lic');
+//		$project->biz_lic_copy = Input::get('biz_lic_copy');
+//		$project->tax_reg_card = Input::get('tax_reg_card');
+//		$project->tax_reg_card_copy = Input::get('tax_reg_card_copy');
+//		$project->org_code_cert = Input::get('org_code_cert');
+//		$project->org_code_cert_copy = Input::Get('org_code_cert_copy');
+//		$project->finance_rpt = Input::get('finance_rpt');
+//		$project->hyg_lic = Input::get('hyg_lic');
+//		$project->company_photo = Input::get('company_photo');
 		
 		
 		$project->state = '07';

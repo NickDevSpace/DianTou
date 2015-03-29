@@ -14,11 +14,8 @@ class IController extends \BaseController {
 	public function postAccountInfo(){
 		$user = Auth::user();
 		$user->nickname = Input::get('nickname');
-		$user->email = Input::get('email');
-		$user->sex = Input::get('sex');
 		$user->province_code = Input::get('province_code');
 		$user->city_code = Input::get('city_code');
-		$user->address = Input::get('address');
 		
 		//return bool
 		$ret = $user->save();
@@ -33,29 +30,28 @@ class IController extends \BaseController {
 	}
 	
 	public function postAccountAuth(){
-        $inputs  = array('real_name' => Input::get('real_name'),
-                        'crdt_id' => Input::get('crdt_id'),
-                        'crdt_photo_a' => Input::get('crdt_photo_a'),
-                        'crdt_photo_b' => Input::get('crdt_photo_b'),
-                        'mobile' => Input::get('mobile'),
-                        'v_code' => Input::get('v_code'));
-
-        $user = Auth::user();
-        if($user->is_verified == 'N'){
-            $s = new SmsVerificationService();
-
-            if($s->verifyCode($inputs['v_code']) == true){
-                $user->real_name = $inputs['real_name'];
-                $user->crdt_id = $inputs['crdt_id'];
-                $user->crdt_photo_a = $inputs['crdt_photo_a'];
-                $user->crdt_photo_b = $inputs['crdt_photo_b'];
-                $user->mobile = $inputs['mobile'];
-                $user->save();
-                return Redirect::action('IController@getAccountAuth')->with('message', '认证成功！');
-            }
-        }else{
-            return Redirect::action('IController@getAccountAuth')->with('message', '操作失败！您已认证过！');
-        }
+//        $inputs  = array('real_name' => Input::get('real_name'),
+//                        'crdt_id' => Input::get('crdt_id'),
+//                        'crdt_photo_a' => Input::get('crdt_photo_a'),
+//                        'crdt_photo_b' => Input::get('crdt_photo_b'),
+//                        'mobile' => Input::get('mobile'),
+//                        'v_code' => Input::get('v_code'));
+//
+//        $user = Auth::user();
+//        if($user->is_verified == 'N'){
+//
+//            if(SmsVerificationService::verifyCode($inputs['v_code']) == true){
+//                $user->real_name = $inputs['real_name'];
+//                $user->crdt_id = $inputs['crdt_id'];
+//                $user->crdt_photo_a = $inputs['crdt_photo_a'];
+//                $user->crdt_photo_b = $inputs['crdt_photo_b'];
+//                $user->mobile = $inputs['mobile'];
+//                $user->save();
+//                return Redirect::action('IController@getAccountAuth')->with('message', '认证成功！');
+//            }
+//        }else{
+//            return Redirect::action('IController@getAccountAuth')->with('message', '操作失败！您已认证过！');
+//        }
 
 
 	}
@@ -153,23 +149,38 @@ class IController extends \BaseController {
 		//$results = PrivateMessage::where('receiver','=', Auth::id())->where('read_by_receiver', '=', 'N')->simplePaginate(10);
 
         //dd(count($results));
-		return View::make('i.message-private', array('menu'=>'message', 'msg_list'=>$msg_list));
+		return View::make('i.mp-list', array('menu'=>'message', 'messages'=>$msg_list));
 	}
 	
 	public function getMessageSystem(){
 		$results = array();
-		return View::make('i.message-system', array('menu'=>'message', 'results'=>$results));
+        /*DB::table('system_message_deliveries')
+            ->join('system_messages', 'system_messages.id', '=', 'system_message_deliveries.message_id')
+            ->where('system_message_deliveries.receiver', '=', Auth::id())
+            ->orderBy('system_message_deliveries.send_time', 'desc')
+            ->select('users.id', 'contacts.phone', 'orders.price')
+            ->simplePaginate(10);*/
+
+        $messages = Auth::user()->systemMessages()->orderBy('send_time','desc')->simplePaginate(5);
+		return View::make('i.ms-list', array('menu'=>'message', 'messages'=>$messages));
 	}
 	
-	public function getMessageRead(){
-	
-		$results = array();
-		
-		//获取已读私信
-		$results = PrivateMessage::where('receiver','=', Auth::id())->where('read_by_receiver', '=', 'Y')->simplePaginate(10);
-		
-		return View::make('i.message-read', array('menu'=>'message', 'results'=>$results));
-	}
+	public function getMessageSystemDetail($id){
+        if($id == null)
+            dd('ERROR_ID_INVALID');
+
+        $md = SystemMessageDelivery::where('id','=',$id)->first();
+
+
+        if($md->is_read == 'N'){
+            $md->is_read = 'Y';
+            $md->save();
+        }
+
+        $msg = SystemMessage::where('id','=',$md->message_id)->first();
+
+        return View::make('i.ms-detail', array('menu'=>'message', 'msg'=>$msg));
+    }
 	
 
 

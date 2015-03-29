@@ -193,6 +193,17 @@ return array(
 
     'tmpUploadDir' => 'upload/tmp',
     'project_resource_dir' => 'upload/project/resource',
-    'project_show_dir' => 'upload/project/show'
+    'project_show_dir' => 'upload/project/show',
+    'alipay_config'=> array('partner'=>'',
+                            'key' => '',
+                            'sign_type' => strtoupper('MD5'),
+                            'input_charset' => strtolower('utf-8'),
+                            'cacert' => getcwd().'/cacert.pem',
+                            'transport' => 'http',
+                            ''
+                        ),
+    'alipay_account' => 'diantou2015@163.com'
+
+
 
 );

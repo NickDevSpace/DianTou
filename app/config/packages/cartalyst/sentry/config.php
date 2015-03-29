@@ -104,7 +104,7 @@ return array(
 	| Users
 	|--------------------------------------------------------------------------
 	|
-	| Configuration specific to the user management component of Sentry.
+	| Configuration specific to the user-mgr management component of Sentry.
 	|
 	*/
 
@@ -143,7 +143,7 @@ return array(
 	|--------------------------------------------------------------------------
 	|
 	| When using the "eloquent" driver, you can specify the table name
-	| for the user groups pivot table.
+	| for the user-mgr groups pivot table.
 	|
 	| Default: users_groups
 	|

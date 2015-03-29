@@ -17,7 +17,7 @@
 	@if(count($results) == 0)
 		<div class="am-vertical-align" style="height: 200px; text-align:center">
 		  <div class="am-vertical-align-middle am-center">
-			您尚未预约任何项目，马上<a href="#">浏览项目</a>
+			<h3><span class="am-icon-smile-o am-icon-md" style="margin:auto 5px;"></span>您尚未预约任何项目，马上<a href="#">浏览项目</a></h3>
 		  </div>
 		</div>
 	@else
@@ -55,7 +55,7 @@
 
 @stop
 
-@section('page_scripts')
+@section('page_js')
 <script>
     $(function(){
 		

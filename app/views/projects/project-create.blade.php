@@ -30,54 +30,54 @@
             <form id="project-create-form" action="/project/save" method="post" class="am-form am-form-horizontal">
                 <legend>基本信息</legend>
                 <div class="am-form-group">
-                    <label for="i-project-name" class="am-u-sm-2 am-form-label">项目名称</label>
-                    <div class="am-u-sm-10">
+                    <label for="i-project-name" class="am-u-sm-3 am-form-label">项目名称</label>
+                    <div class="am-u-sm-6 am-u-end">
                         <input type="text" id="i-project-name" name="project_name" placeholder="输入项目名称" data-validate-message="项目名称不能为空" required >
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-project-cover" class="am-u-sm-2 am-form-label">项目封面</label>
-                    <div class="am-u-sm-2">
+                    <label for="i-project-cover" class="am-u-sm-3 am-form-label">项目封面</label>
+                    <div class="am-u-sm-3">
                          <div id="cover-picker">选择图片</div>
                          <input type="hidden" id="i-project-cover" name="project_cover"/>
                     </div>
-                    <div class="am-u-sm-3">
+                    <div class="am-u-sm-3 am-u-end">
                          <div id="project-cover-preview"></div>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-sub-title" class="am-u-sm-2 am-form-label">项目标语</label>
-                    <div class="am-u-sm-10">
+                    <label for="i-sub-title" class="am-u-sm-3 am-form-label">项目标语</label>
+                    <div class="am-u-sm-6 am-u-end">
                         <input type="text" name="sub_title" placeholder="输入项目标语" data-validate-message="项目标语不能为空" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-industry-2" class="am-u-sm-2 am-form-label">所属行业</label>
-                    <div class="am-u-sm-2">
+                    <label for="i-industry-2" class="am-u-sm-3 am-form-label">所属行业</label>
+                    <div class="am-u-sm-3">
                         <?php echo Form::amSelect(array('list'=>$industry_select, 'value_field'=>'industry_code','text_field'=>'industry_name', 'header_text' => '请选择', 'id' => 'i-industry-1', 'required' => 'true')); ?>
                     </div>
-                    <div class="am-u-sm-2 am-u-end">
+                    <div class="am-u-sm-3 am-u-end">
                         <?php echo Form::amSelect(array('list'=>array(), 'value_field'=>'','text_field'=>'', 'header_text' => '请选择', 'id' => 'i-industry-2', 'name'=>'industry_code', 'required' => 'true')); ?>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-city-code" class="am-u-sm-2 am-form-label">所在城市</label>
-                    <div class="am-u-sm-2">
+                    <label for="i-city-code" class="am-u-sm-3 am-form-label">所在城市</label>
+                    <div class="am-u-sm-3">
                         <?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'required' => 'true')); ?>
                     </div>
-                    <div class="am-u-sm-2 am-u-end">
+                    <div class="am-u-sm-3 am-u-end">
                         <?php echo Form::amSelect(array('list'=>array(), 'value_field'=>'','text_field'=>'', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'required' => 'true')); ?>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="address" class="am-u-sm-2 am-form-label">详细地址</label>
-                    <div class="am-u-sm-10">
+                    <label for="address" class="am-u-sm-3 am-form-label">详细地址</label>
+                    <div class="am-u-sm-6 am-u-end">
                         <input type="text" id="address" name="address" placeholder="输入详细地址" data-validate-message="项目地址不能为空" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-detail" class="am-u-sm-2 am-form-label">项目介绍</label>
-                    <div class="am-u-sm-10">
+                    <label for="i-detail" class="am-u-sm-3 am-form-label">项目介绍</label>
+                    <div class="am-u-sm-6 am-u-end">
                         <textarea id="i-detail" name="detail" style="width:100%;height:400px;visibility:hidden;">
                         <h2>关于我（也可使用个性化小标题）</h2>
                         向支持者介绍你自己或你的团队，并详细说明你与所发起的项目之间的背景，让支持者能够在最短时间内了解你，以拉近彼此之间的距离。
@@ -91,8 +91,8 @@
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="business_plan" class="am-u-sm-2 am-form-label">项目计划书</label>
-                    <div class="am-u-sm-10">
+                    <label for="business_plan" class="am-u-sm-3 am-form-label">项目计划书</label>
+                    <div class="am-u-sm-6 am-u-end">
                         <div id="plan-picker" >选择文件</div>
                         <input type="hidden" name="business_plan"/>
                     </div>
@@ -100,190 +100,60 @@
 
                 <legend>融资需求</legend>
                 <div class="am-form-group">
-                    <label for="i-total-quota" class="am-u-sm-2 am-form-label">融资总额</label>
-                    <div class="am-u-sm-10">
-                        <input type="number" id="i-total-quota" name="total_quota" placeholder="填写该项目所需的总资金（元）" data-validate-message="融资总额必须为大于等于1000" min="1000" required>
+                    <label for="i-total-quota" class="am-u-sm-3 am-form-label">融资需求金额</label>
+                    <div class="am-u-sm-6 am-u-end">
+                        <input type="number" id="i-total-quota" name="raise_quota" placeholder="填写该项目融资所需的总金额（元）" data-validate-message="融资总额必须为大于等于10000" min="10000" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-retain-quota" class="am-u-sm-2 am-form-label">项目方出资</label>
-                    <div class="am-u-sm-10">
-                        <input type="number" id="i-retain-quota" name="retain_quota" placeholder="其中项目方出资金额（元）" data-validate-message="项目方出资金额不能大于融资总额" min="0" required>
+                    <label for="i-retain-stockholder" class="am-u-sm-3 am-form-label">当前股东人数</label>
+                    <div class="am-u-sm-6 am-u-end">
+                        <input type="number" id="i-retain-stockholder" name="retain_stockholder" placeholder="填写该项目目前的股东人数" data-validate-message="请填写介于1-199的整数" min="1" max="199"required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="" class="am-u-sm-2 am-form-label">投资人出资</label>
-                    <div class="am-u-sm-10">
-                        <input type="number" name="raise_quota"  readonly="true" placeholder="投资人出资（元）">
+                    <label for="i-assign-share" class="am-u-sm-3 am-form-label">出让股份占比</label>
+                    <div class="am-u-sm-6 am-u-end">
+                        <input type="number" id="i-assign-share" name="assign_share" placeholder="出让股份占比" data-validate-message="项目方出资金额不能大于融资总额" min="0" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-part-count" class="am-u-sm-2 am-form-label">可认购份数</label>
-                    <div class="am-u-sm-10">
-                        <input type="number" id="i-part-count" name="part_count" placeholder="认购份数" data-validate-message="认购份数必须为大于0小于200的整数" min="1" max="200" required>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-app-open-part-count" class="am-u-sm-2 am-form-label">其中可预约份数</label>
-                    <div class="am-u-sm-10">
-                        <input type="number" id="i-app-open-part-count" name="app_open_part_count" data-validate-message="可预约分数为不大于可认购分数的整数值" min="0" placeholder="可预约份数建议控制在认购份数的60%以下" required>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="" class="am-u-sm-2 am-form-label">每份金额</label>
-                    <div class="am-u-sm-10">
-                        <input type="number" name="quota_of_part" readonly="true" placeholder="每份金额" >
+                    <label for="i-assign-copies" class="am-u-sm-3 am-form-label">可认购份数</label>
+                    <div class="am-u-sm-6 am-u-end">
+                        <input type="number" id="i-assign-copies" name="assign_copies" placeholder="认购份数" data-validate-message="认购份数必须为大于0小于200的整数" min="1" max="200" required>
                     </div>
                 </div>
 
                 <div class="am-form-group">
-                    <label for="" class="am-u-sm-2 am-form-label">融资期限</label>
-                    <div class="am-u-sm-10">
+                    <label for="i-app-open-part-count" class="am-u-sm-3 am-form-label">其中可预约份数</label>
+                    <div class="am-u-sm-6 am-u-end">
+                        <input type="number" id="i-app-open-part-count" name="app_open_part_count" data-validate-message="可预约分数为不大于可认购分数的整数值" min="0" placeholder="可预约份数建议控制在认购份数的60%以下" required>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-3 am-form-label">每份金额</label>
+                    <div class="am-u-sm-6 am-u-end">
+                        <input type="number" name="quota_of_copy" readonly="true" placeholder="每份金额" >
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-3 am-form-label">融资期限</label>
+                    <div class="am-u-sm-6 am-u-end">
                         <?php echo Form::amSelect(array('list'=>array(array('value'=>'30', 'text'=>'30天'), array('value'=>'60', 'text'=>'60天'), array('value'=>'120', 'text'=>'120天')), 'value_field'=>'value','text_field'=>'text', 'id' => 'i-raise-days', 'name' => 'raise_days', 'required' => 'true')); ?>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="" class="am-u-sm-2 am-form-label">是否允许其他地区用户认购</label>
-                    <div class="am-u-sm-10">
+                    <label for="" class="am-u-sm-3 am-form-label">是否允许其他地区用户认购</label>
+                    <div class="am-u-sm-6 am-u-end">
                         <?php echo Form::amSelect(array('list'=>array(array('value'=>'Y', 'text'=>'是'), array('value'=>'N', 'text'=>'否')), 'value_field'=>'value','text_field'=>'text', 'id' => 'i-allow-nolocal', 'name' => 'allow_nolocal', 'required' => 'true')); ?>
                     </div>
                 </div>
-                <legend>公司信息</legend>
                 <div class="am-form-group">
-                    <label for="i-has-company" class="am-u-sm-2 am-form-label">是否已成立公司</label>
-                    <div class="am-u-sm-10">
-                        <?php echo Form::select('has_company', array('Y'=>'是', 'N'=>'否'));?>
-                        <input type="hidden" id="i-has-company" name="has_company">
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-company-name" class="am-u-sm-2 am-form-label">公司名称</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="i-company-name" name="company_name" placeholder="公司名称">
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-legal-person" class="am-u-sm-2 am-form-label">法人代表</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="i-legal-person" name="legal_person" placeholder="法人代表">
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-startup-date" class="am-u-sm-2 am-form-label">成立日期</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="i-startup-date" name="startup_date" class="am-form-field" placeholder="成立日期" data-am-datepicker="{theme: 'success'}" readonly/>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-registered-address" class="am-u-sm-2 am-form-label">注册地址</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="i-registered-address" name="registered_address" placeholder="注册地址">
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-registered-capital" class="am-u-sm-2 am-form-label">注册资金</label>
-                    <div class="am-u-sm-10">
-                        <input type="text" id="i-registered-capital" name="registered_capital" placeholder="注册资金">
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper" >
-                    <label for="legal_id_card_path" class="am-u-sm-2 am-form-label">法人身份证</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="legal_id_card">选择文件</div>
-                        <input type="hidden" name="legal_id_card"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_legal_id_card" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper" >
-                    <label for="legal_cre_rpt_path" class="am-u-sm-2 am-form-label ">法人信用报告</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="legal_cre_rpt">选择文件</div>
-                        <input type="hidden" name="legal_cre_rpt"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_legal_cre_rpt" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper" >
-                    <label for="biz_lic_path" class="am-u-sm-2 am-form-label">营业执照</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="biz_lic">选择文件</div>
-                        <input type="hidden" name="biz_lic"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_biz_lic" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper" >
-                    <label for="biz_lic_copy_path" class="am-u-sm-2 am-form-label">营业执照副本</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="biz_lic_copy">选择文件</div>
-                        <input type="hidden" name="biz_lic_copy"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_biz_lic_copy" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper" >
-                    <label for="tax_reg_card_path" class="am-u-sm-2 am-form-label">税务登记证</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="tax_reg_card">选择文件</div>
-                        <input type="hidden" name="tax_reg_card"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_tax_reg_card" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper">
-                    <label for="tax_reg_card_copy_path" class="am-u-sm-2 am-form-label">税务登记证副本</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="tax_reg_card_copy">选择文件</div>
-                        <input type="hidden" name="tax_reg_card_copy"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_tax_reg_card_copy" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper">
-                    <label for="org_code_cert_path" class="am-u-sm-2 am-form-label">组织机构代码证</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="org_code_cert">选择文件</div>
-                        <input type="hidden" name="org_code_cert"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_org_code_cert" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper">
-                    <label for="org_code_cert_copy_path" class="am-u-sm-2 am-form-label">组织机构代码证副本</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="org_code_cert_copy">选择文件</div>
-                        <input type="hidden" name="org_code_cert_copy"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_org_code_cert_copy" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper">
-                    <label for="hyg_lic_path" class="am-u-sm-2 am-form-label">卫生许可证</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="hyg_lic">选择文件</div>
-                        <input type="hidden" name="hyg_lic"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_hyg_lic" class="resource-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group resource-upload-wrapper">
-                    <label for="company_photo_path" class="am-u-sm-2 am-form-label">公司照片</label>
-                    <div class="am-u-sm-2">
-                        <div class="resource-picker" data-res-name="company_photo">选择文件</div>
-                        <input type="hidden" name="company_photo"/>
-                    </div>
-                    <div class="am-u-sm-3">
-                         <div id="rp_company_photo" class="resource-preview"></div>
+                    <div class="am-u-sm-offset-3 am-u-sm-6">
+                      <div class="checkbox">
+                          <input type="checkbox" checked="checked"> 我同意<a href="#">点投网服务协议</a>
+                      </div>
                     </div>
                 </div>
                 <div class="am-form-group">
@@ -316,14 +186,14 @@
 
 @stop
 
-@section('vendor_scripts')
+@section('vendor_js')
 <script src="{{{asset('assets/js/json2.js')}}}"></script>
 <script src="{{{asset('assets/vendor/kindeditor/kindeditor-min.js')}}}"></script>
 <script src="{{{asset('assets/vendor/kindeditor/lang/zh_CN.js')}}}"></script>
 <script src="{{{asset('assets/vendor/webuploader/webuploader.min.js')}}}"></script>
 <script src="{{{asset('assets/vendor/jcrop/js/jquery.Jcrop.min.js')}}}"></script>
 @stop
-@section('page_scripts')
+@section('page_js')
 <script>
     
 	$(function(){

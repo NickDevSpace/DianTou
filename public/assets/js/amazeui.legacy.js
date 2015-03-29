@@ -5697,7 +5697,7 @@
           'touchstart touchmove touchend touchcancel';
 
         /**
-         * Multi-user touch events input
+         * Multi-user-mgr touch events input
          * @constructor
          * @extends Input
          */
@@ -6906,7 +6906,7 @@
             userDrag: 'none',
 
             /**
-             * Overrides the highlight color shown when the user taps a link or a JavaScript
+             * Overrides the highlight color shown when the user-mgr taps a link or a JavaScript
              * clickable element in iOS. This property obeys the alpha value, if specified.
              * @type {String}
              * @default 'rgba(0,0,0,0)'
@@ -7163,7 +7163,7 @@
 
           /**
            * destroy the manager and unbinds all events
-           * it doesn't unbind dom events, that is the user own responsibility
+           * it doesn't unbind dom events, that is the user-mgr own responsibility
            */
           destroy: function() {
             this.element && toggleCssProps(this, false);
