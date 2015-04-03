@@ -81,56 +81,32 @@ class PrivateMessageController extends \BaseController {
 		
 		return Response::json(array('errno'=>'1', 'message'=>'FAILED'));
 	}
-	
-	/**
-	*	标记为已读，参数为私信id的数组
-	*
-	**/
-	public function postMarkRead(){
-		$pm_ids = Input::get('pm_ids');
-		$uid = Auth::id();
-		
-		$affected = DB::table('private_messages')
-					->whereIn('id', $pm_ids)->where('receiver', $uid)
-					->update(array('read_by_receiver' => 'Y'));
-		
-		if($affected == count($pm_ids)){
-			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
-		}
-		
-		return Response::json(array('errno'=>'COMPLETE', 'message'=>array('effected'=>$affected)));
-		
-	}
-	
-	public function postDeleteRead(){
-		$pm_ids = Input::get('pm_ids');
-		$uid = Auth::id();
-		
-		$affected = DB::table('private_messages')
-					->whereIn('id', $pm_ids)->where('receiver', $uid)
-					->update('del_by_reveiver', 'Y');
-					
-		if($affected == count($pm_ids)){
-			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
-		}
-		
-		return Response::json(array('errno'=>'COMPLETE', 'message'=>array('effected'=>$affected)));
-	}
-	
-	public function postDeleteSent(){
-		$pm_ids = Input::get('pm_ids');
-		$uid = Auth::id();
-		
-		$affected = DB::table('private_messages')
-					->whereIn('id', $pm_ids)->where('sender', $uid)
-					->update('del_by_sender', 'Y');
-					
-		if($affected == count($pm_ids)){
-			return Response::json(array('errno'=>'SUCCESS', 'data'=>array('effected'=>$affected)));
-		}
-		
-		return Response::json(array('errno'=>'COMPLETE', 'message'=>array('effected'=>$affected)));
-	}
+
+
+    public function postDeleteSessions(){
+        $sender_ids = Input::get('sender_id');
+
+        if($sender_ids == null || count($sender_ids) == 0){
+            return Response::json(array('errno'=>'ERROR_SESSION_IDS_INVALID'));
+        }
+
+        PrivateMessage::where('receiver','=',Auth::id())->whereIn('sender',$sender_ids)->delete();
+        return Response::json(array('errno'=>'SUCCESS'));
+
+    }
+
+    public function postMarkReadSessions(){
+        $sender_ids = Input::get('sender_id');
+
+        if($sender_ids == null || count($sender_ids) == 0){
+            return Response::json(array('errno'=>'ERROR_SESSION_IDS_INVALID'));
+        }
+
+        PrivateMessage::where('receiver','=',Auth::id())->whereIn('sender',$sender_ids)->where('read_by_receiver','=','N')->update(array('read_by_receiver'=>'Y'));
+
+        return Response::json(array('errno'=>'SUCCESS'));
+
+    }
 	
 	public function getUnreadMessageCount(){
 		$mcnt = PrivateMessage::where('receiver', '=', Auth::id())->where('read_by_receiver','=','N')->count();

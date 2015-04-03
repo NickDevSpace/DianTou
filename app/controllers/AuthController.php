@@ -353,12 +353,9 @@ class AuthController extends \BaseController {
                 $user->last_login_ip = Request::ip();
                 $user->save();
                 return Redirect::route('home');
-            }else{
-                return Redirect::route('auth.login');
             }
-        }else{
-            return Redirect::route('auth.login')->withErrors($validator);
         }
+        return Redirect::action('AuthController@getLogin')->with(array('message'=>'用户名或密码不正确','account'=>$inputs['account']));
 
 
     }

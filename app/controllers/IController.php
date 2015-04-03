@@ -131,25 +131,61 @@ class IController extends \BaseController {
 	
 	public function getMessagePrivate(){
 
-		
 		//获取未读私信
-        $sql = 'select b.id as sender_id, b.nickname as sender_name, sum(case when a.read_by_receiver = \'N\' then 1 else 0 end) as unread_cnt, max(a.created_at) last_time from '.
-            'private_messages a '.
-            'inner join '.
-            'users b on a.sender = b.id '.
-            'where a.receiver = '. Auth::id().' '.
-            'group by b.id, b.nickname '.
-            'order by max(a.created_at) desc';
+//        $sql = 'select b.id as sender_id, b.nickname as sender_name, sum(case when a.read_by_receiver = \'N\' then 1 else 0 end) as unread_cnt, max(a.created_at) last_time from '.
+//            'private_messages a '.
+//            'inner join '.
+//            'users b on a.sender = b.id '.
+//            'where a.receiver = '. Auth::id().' '.
+//            'group by b.id, b.nickname '.
+//            'order by max(a.created_at) desc';
+//
+//        $msg_list = DB::select(DB::raw($sql));
 
 
-        $msg_list = DB::select(DB::raw($sql));
+//        $msg_list = DB::table('private_messages as a')
+//            ->join('users as b', 'b.id','=','a.sender')
+//            ->select(DB::raw('b.id as sender_id, b.nickname as sender_name, sum(case when a.read_by_receiver = \'N\' then 1 else 0 end) as unread_cnt, max(a.created_at) as last_time'))
+//            ->where('a.receiver', '=', Auth::id())
+//            ->groupBy('b.id','b.nickname')
+//            ->orderBy(DB::raw('max(a.created_at)'), 'desc')
+//            ->simplePaginate(10);
 
-        //return Response::json(array('errno'=>'0', 'msg_list'=>$msg_list));
+//        $first = DB::table('private_messages')
+//                    ->select(DB::raw('sender opp, max(created_at) max_time'))
+//                    ->whereRaw('receiver = ' .Auth::id())
+//                    ->groupBy('sender');
+//
+//        $second = DB::table('private_messages')
+//                    ->select(DB::raw('receiver opp, max(created_at) max_time'))
+//                    ->whereRaw('sender = '.Auth::id())
+//                    ->groupBy('receiver')->union($first);
+//
+//        $query = DB::table(DB::raw('(' . $second->toSql() . ') as a'))
+//                    ->selectRaw('opp, max(max_time) max_time')
+//                    ->groupBy('opp')
+//                    ->get();
+//
+//        var_dump($query);
+//        dd();
 
-		//$results = PrivateMessage::where('receiver','=', Auth::id())->where('read_by_receiver', '=', 'N')->simplePaginate(10);
+        //以下这条语句包含了对方发来的和用户发给别人的所有会话
+        //时间长了肯定会有效率问题
+        $uid = Auth::id();
+        $dataset = "select a.opp sender_id, b.nickname sender_name, a.unread_cnt, a.max_time last_time from ".
+                "(".
+                "   select (case when receiver = $uid then sender else receiver end) as opp, sum(case when receiver = $uid and read_by_receiver = 'N' then 1 else 0 end) unread_cnt, max(created_at) max_time ".
+                "   from private_messages ".
+                "   where receiver = $uid or sender = $uid ".
+                "   group by (case when receiver = $uid then sender else receiver end) ".
+                ") a ".
+                "inner join ".
+                "users b on a.opp = b.id ".
+                "order by a.max_time desc, a.unread_cnt desc ";
 
-        //dd(count($results));
-		return View::make('i.mp-list', array('menu'=>'message', 'messages'=>$msg_list));
+        $msg_list = DB::table(DB::raw("($dataset) as t"))
+            ->orderBy("t.last_time", "desc")->orderBy("t.unread_cnt", "desc")->simplePaginate(10);
+        return View::make('i.mp-list', array('menu'=>'message', 'messages'=>$msg_list));
 	}
 	
 	public function getMessageSystem(){
@@ -161,7 +197,7 @@ class IController extends \BaseController {
             ->select('users.id', 'contacts.phone', 'orders.price')
             ->simplePaginate(10);*/
 
-        $messages = Auth::user()->systemMessages()->orderBy('send_time','desc')->simplePaginate(5);
+        $messages = Auth::user()->systemMessages()->where('is_deleted','=','N')->orderBy('send_time','desc')->simplePaginate(5);
 		return View::make('i.ms-list', array('menu'=>'message', 'messages'=>$messages));
 	}
 	

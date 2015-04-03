@@ -386,57 +386,126 @@
 			
 			},
 			message: function(){
-				//标记为已读
-				$('.pm-mark-read-btn').on('click', function(){
-					$e = $(this);
-					$tr = $e.parent().parent();
-					_App.PM.markRead([$e.attr('data-pm-id')], function(data){
-						if(data.errno == 'SUCCESS'){
-							$tr.fadeOut("slow",function(){
-							   $tr.remove();
-							});
-						}
-					});
-				});
-				
-				//删除已读私信
-				$('.pm-delete-btn').on('click', function(){
-					$e = $(this);
-					$tr = $e.parent().parent();
-					_App.PM.deleteRead([$e.attr('data-pm-id')], function(data){
-						if(data.errno == 'SUCCESS'){
-							$tr.fadeOut("slow",function(){
-							   $tr.remove();
-							});
-						}
-					});
-				});
-				
-				//回复私信
-				$('.pm-reply-btn').on('click', function(){
-					$e = $(this);
-					$tr = $e.parent().parent();
-					$('#reply-modal am-modal-hd span').html('私信给：' + $e.attr('data-pm-receiver-name'));
-					$('.am-modal-prompt-input').val('');
-					
-					$('#reply-modal').modal({
-					  relatedTarget: this,
-					  onConfirm: function(e) {
-						_App.PM.send($e.attr('data-pm-receiver'), e.data, function(data){
-							if(data.errno == 'SUCCESS'){
-								_App.Common.ModalManager.showAlertModal('发送成功！');
-							}else{
-								_App.Common.ModalManager.showAlertModal('发送失败！');
-							}
-						});
-					  },
-					  onCancel: function(e) {
-						//
-					  }
-					});
-					
-						  
-				});
+
+                $('.admin-select-all').on('click', function(){
+                    $("input[type='checkbox'][name='item_id']").prop('checked', $(this).prop('checked'));
+                });
+
+                $('.admin-pm-delete').on('click', function(){
+                    var $items = $("input[type='checkbox'][name='item_id']:checked");
+
+                    if($items.length <= 0){
+                        alert('请选择要删除的会话');
+                    }else{
+                        if(confirm('确认删除所选会话？')) {
+                            var sender_ids = [];
+                            $items.each(function () {
+                                sender_ids.push($(this).val());
+                            })
+                            $.ajax({
+                                url: BASE_URL + '/pm/delete-sessions',
+                                method: 'post',
+                                data: {sender_id: sender_ids},
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.errno == 'SUCCESS') {
+                                        alert('删除成功！')
+                                        window.location.reload();
+                                    } else {
+                                        alert('删除失败！');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+                $('.admin-pm-mark-read').on('click', function(){
+                    var $items = $("input[type='checkbox'][name='item_id']:checked");
+
+                    if($items.length <= 0){
+                        alert('请选择要标记为已读的会话');
+                    }else{
+                        if(confirm('确认将所选会话标记为已读？')) {
+                            var sender_ids = [];
+                            $items.each(function () {
+                                sender_ids.push($(this).val());
+                            })
+                            $.ajax({
+                                url: BASE_URL + '/pm/mark-read-sessions',
+                                method: 'post',
+                                data: {sender_id: sender_ids},
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.errno == 'SUCCESS') {
+                                        alert('操作成功！');
+                                        window.location.reload();
+                                    } else {
+                                        alert('操作失败！');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+                $('.admin-sm-delete').on('click', function(){
+                    var $items = $("input[type='checkbox'][name='item_id']:checked");
+
+                    if($items.length <= 0){
+                        alert('请选择要删除的消息');
+                    }else{
+                        if(confirm('确认删除所选消息？')) {
+                            var delivery_ids = [];
+                            $items.each(function () {
+                                delivery_ids.push($(this).val());
+                            })
+                            $.ajax({
+                                url: BASE_URL + '/sm/delete-deliveries',
+                                method: 'post',
+                                data: {delivery_ids: delivery_ids},
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.errno == 'SUCCESS') {
+                                        alert('删除成功！')
+                                        window.location.reload();
+                                    } else {
+                                        alert('删除失败！');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+                $('.admin-sm-mark-read').on('click', function(){
+                    var $items = $("input[type='checkbox'][name='item_id']:checked");
+
+                    if($items.length <= 0){
+                        alert('请选择要标记为已读的会话');
+                    }else{
+                        if(confirm('确认将所选会话标记为已读？')) {
+                            var delivery_ids = [];
+                            $items.each(function () {
+                                delivery_ids.push($(this).val());
+                            })
+                            $.ajax({
+                                url: BASE_URL + '/sm/mark-read-deliveries',
+                                method: 'post',
+                                data: {delivery_ids: delivery_ids},
+                                dataType: 'json',
+                                success: function (data) {
+                                    if (data.errno == 'SUCCESS') {
+                                        alert('操作成功！');
+                                        window.location.reload();
+                                    } else {
+                                        alert('操作失败！');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
 			}
 		}
 	}

@@ -30,10 +30,11 @@ class UserTableSeeder extends Seeder {
     public function run()
     {
         DB::table('users')->delete();
+
         User::create(array(
-            'account' => '15168102723',
+            'account' => '15201926937',
             'password' => Hash::make('123456'),
-            'nickname' => '冲比冲',
+            'nickname' => '管理员',
             'province_code' => '330000',
             'city_code' => 'cx',
             'user_type' => '1',
@@ -42,6 +43,21 @@ class UserTableSeeder extends Seeder {
 
         UserinfoPrivate::create(array(
             'user_id' => 1,
+            'mobile' => '15201926937'
+        ));
+
+        User::create(array(
+            'account' => '15168102723',
+            'password' => Hash::make('123456'),
+            'nickname' => '冲比冲',
+            'province_code' => '330000',
+            'city_code' => 'cx',
+            'user_type' => '1',
+            'user_level' => '1'
+        ));
+
+        UserinfoPrivate::create(array(
+            'user_id' => 2,
             'mobile' => '15168102723'
         ));
 
@@ -56,7 +72,7 @@ class UserTableSeeder extends Seeder {
         ));
 
         UserinfoEnterprise::create(array(
-            'user_id' => 2,
+            'user_id' => 3,
             'email' => '443895389@qq.com'
         ));
 
@@ -69,38 +85,38 @@ class PrivateMessageTableSeeder extends Seeder{
     {
         DB::table('private_messages')->delete();
         PrivateMessage::create(array(
-            'sender' => '2',
-            'receiver' => 1,
+            'sender' => 3,
+            'receiver' => 2,
             'content' => 'Hello world1'
         ));
         PrivateMessage::create(array(
-            'sender' => '1',
+            'sender' => 3,
             'receiver' => 2,
             'content' => '你在说撒'
         ));
 
         PrivateMessage::create(array(
-            'sender' => '2',
-            'receiver' => 1,
+            'sender' => 3,
+            'receiver' => 2,
             'content' => '2B'
         ));
         PrivateMessage::create(array(
-            'sender' => '1',
-            'receiver' => 2,
+            'sender' => 2,
+            'receiver' => 3,
             'content' => '。。。。。。'
         ));
         PrivateMessage::create(array(
-            'sender' => '1',
-            'receiver' => 2,
+            'sender' => 2,
+            'receiver' => 3,
             'content' => '算求'
         ));
         PrivateMessage::create(array(
-            'sender' => '3',
-            'receiver' => 1,
+            'sender' => 3,
+            'receiver' => 2,
             'content' => '我是小白'
         ));
         PrivateMessage::create(array(
-            'sender' => '3',
+            'sender' => 1,
             'receiver' => 2,
             'content' => '我是小白'
         ));

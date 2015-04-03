@@ -31,6 +31,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::controller('i', 'IController');
     Route::controller('project', 'ProjectController');
 	Route::controller('pm', 'PrivateMessageController');
+    Route::controller('sm', 'SystemMessageController');
 	Route::controller('sub', 'SubscriptionController');
     Route::controller('app', 'AppointmentController');
 });

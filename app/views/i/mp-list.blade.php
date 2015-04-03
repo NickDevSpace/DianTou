@@ -13,19 +13,19 @@
     <table class="am-table am-table-striped am-table-hover">
         <thead>
             <tr>
-                <th style="width:5%"><input class="megall" type="checkbox" name="megall" value=""></th>
+                <th style="width:5%"><input class="admin-select-all" type="checkbox"></th>
                 <th style="width:7%"><span>全选</span></th>
-                <th style="width:70%"><span>删除</span><span style="margin-left:20px;">标记为已读</span></th>
+                <th style="width:70%"><a href="#" class="admin-pm-delete">删除</a><a href="#" class="admin-pm-mark-read" style="margin-left:20px;">标记为已读</a></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach($messages as $msg)
             <tr>
-                <td><input class="megall" type="checkbox" name="megall" value=""></td>
+                <td><input type="checkbox" name="item_id" value="{{{$msg->sender_id}}}"></td>
                 <td><img src="http://s0.meituan.net/www/img/user-avatar.v9bfc4a71.png" width="30" class="am-img-thumbnail am-circle"/></td>
-                <td>我给你发了{{{$msg->unread_cnt}}}条新消息，点击<a data-sender-id="{{{$msg->sender_id}}}" data-sender-name="{{{$msg->sender_name}}}" class="show-chat-window-btn" href="#">查看</a></td>
-                <td>{{{$msg->last_time}}}</td>
+                <td><a href="#">{{{$msg->sender_name}}}</a>给你发了{{{$msg->unread_cnt}}}条新消息，点击<a data-sender-id="{{{$msg->sender_id}}}" data-sender-name="{{{$msg->sender_name}}}" class="show-chat-window-btn" href="#">查看</a></td>
+                <td><a href="#">{{{$msg->last_time}}}</a></td>
             </tr>
             @endforeach
         </tbody>
@@ -37,7 +37,7 @@
           </div>
         </div>
     @endif
-    <?php //echo $messages->links(); ?>
+    <?php echo $messages->links(); ?>
     <!--
     <div class="am-u-sm-12">
     @if(count($messages) == 0)
@@ -238,6 +238,8 @@
                 showChatHistory('after');
             }
         }, 5000);
+
+
 
 		App.init(['i.message']);
 

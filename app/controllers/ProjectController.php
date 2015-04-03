@@ -35,6 +35,12 @@ class ProjectController extends \BaseController {
         if($p_w != null){
             $where .= "and concat(project_name,sub_title) like ? ";
             array_push($params, '%'.$p_w.'%');
+
+            //增加搜索日志
+            $search_log = new SearchLog();
+            $search_log->keyword = $p_w;
+            $search_log->user_id = Auth::id();
+            $search_log->save();
         }
 
 

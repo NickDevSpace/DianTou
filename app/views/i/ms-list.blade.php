@@ -14,16 +14,16 @@
     <table class="am-table am-table-striped am-table-hover">
         <thead>
             <tr>
-                <th style="width:5%"><input class="megall" type="checkbox" name="megall" value=""></th>
+                <th style="width:5%"><input class="admin-select-all" type="checkbox"></th>
                 <th style="width:7%"><span>全选</span></th>
-                <th style="width:70%"><span>删除</span><span style="margin-left:20px;">标记为已读</span></th>
+                <th style="width:70%"><a href="#" class="admin-sm-delete">删除</a><a href="#" class="admin-sm-mark-read" style="margin-left:20px;">标记为已读</a></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach($messages as $msg)
             <tr>
-                <td><input class="megall" type="checkbox" name="megall" value=""></td>
+                <td><input class="megall" type="checkbox" name="item_id" value="{{{$msg->id}}}"></td>
                 <td>@if($msg->is_read == 'Y')<span class="am-icon-envelope-o am-icon-sm" style="color:#aaa;"></span>@else<span class="am-icon-envelope-o am-icon-sm" style="color:#f79726"></span>@endif</td>
                 <td><a href="{{{action('IController@getMessageSystemDetail', array($msg->id))}}}">{{{$msg->title}}}</a></td>
                 <td>{{{$msg->send_time}}}</td>
@@ -50,7 +50,7 @@
 <script>
     $(function(){
 		
-		
+		App.init(['i.message']);
 
     });
 

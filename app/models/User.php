@@ -40,6 +40,9 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
         }
     }
 
+    public function receivedPrivateMessages(){
+        return $this->hasMany('PrivateMessage', 'id', 'receiver');
+    }
     public function systemMessages()
     {
         return $this->belongsToMany('SystemMessage', 'system_message_deliveries', 'receiver', 'message_id');
