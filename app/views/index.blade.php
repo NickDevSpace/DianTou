@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('page_title')
-首页 | 点投
+首页 - 点投
 @stop
 @section('head')
     <style>

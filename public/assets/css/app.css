@@ -45,14 +45,15 @@ a:hover, a:focus{
     position: relative;
     display: inline-block;
     cursor: pointer;
-    background: #5EB95E;
-    padding: 8px 15px;
-    color: #fff;
+    background: #eaeaea;//#5EB95E;
+
+    padding: 8px 18px;
+    //color: #fff;
     text-align: center;
     overflow: hidden;
 }
 .webuploader-pick-hover {
-    background: #429842;
+    //background: #429842;
 }
 
 .webuploader-pick-disable {

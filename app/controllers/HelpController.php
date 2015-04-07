@@ -3,7 +3,7 @@
 class HelpController extends \BaseController {
 
 	public function getIndex(){
-		return View::make('help.001');
+		return View::make('help.dtgqzcjj');
 	}
 	
 	public function getShow($id){

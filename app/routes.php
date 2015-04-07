@@ -42,6 +42,7 @@ Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()
     Route::controller('user', 'AdminUserController');
     Route::controller('audit', 'AdminAuditController');
     Route::controller('sm', 'AdminSystemMessageController');
+    Route::controller('project', 'AdminProjectController');
 });
 
 

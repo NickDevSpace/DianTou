@@ -202,7 +202,20 @@ return array(
                             'transport' => 'http',
                             ''
                         ),
-    'alipay_account' => 'diantou2015@163.com'
+    'alipay_account' => 'diantou2015@163.com',
+
+    'DICT.PROJECT_STATE' => array('SAVE_DRAFT'=>'保存草稿',
+                                'SUBMIT_AUDIT'=>'提交审核',     //提交审核
+                                'AUDIT_FAILED'=>'审核失败',     //审核失败
+                                'AUDIT_PASS'=>'审核通过',       //审核通过
+                                'ROADSHOW'=>'路演中',         //路演中
+                                'APPOINTMENT'=>'预约中',              //预约中
+                                'APPOINTMENT_FINISHED'=>'预约结束',     //预约结束
+                                'RAISE'=>'融资中',            //融资中
+                                'RAISE_FAILED'=>'融资失败',     //融资失败
+                                'RAISE_SUCCESS'=>'融资成功',        //融资成功
+                                'SHARE_OUT_BONUS'=>'分红',      //分红
+                                'END'=>'项目结束'),         //项目结束
 
 
 

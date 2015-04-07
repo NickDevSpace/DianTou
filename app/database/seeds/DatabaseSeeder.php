@@ -142,7 +142,7 @@ class ProjectTableSeeder extends Seeder {
             'retain_stockholder' => 3,
 			'assign_copies' => 150,
             'quota_of_copy' => 20000,
-            'assign_share' => 0.6,
+            'assign_share' => 40,
 			'raise_days' => 30,
             'raise_start_date' => '2015-01-01',
             'raise_end_date' => '2015-05-01',

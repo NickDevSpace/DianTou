@@ -27,6 +27,7 @@
 				<th>项目名称</th>
 				<th>发起时间</th>
 				<th>融资总额</th>
+				<th>当前进度</th>
 				<th>当前状态</th>
 				<th>操作</th>
 			</tr>
@@ -34,11 +35,18 @@
 		<tbody>
 				@foreach($projects as $p)
 					<tr>
-						<td>{{{$p->project_name}}}</td>
+						<td><a href="{{{action('ProjectController@getShow', array(1))}}}">{{{$p->project_name}}}</a></td>
 						<td>{{{$p->created_at}}}</td>
-						<td>{{{$p->total_quota}}}</td>
-						<td>{{{$p->state}}}</td>
-						<td><a href="#">修改</a> <a href="#">删除</a></td>
+						<td>{{{$p->raise_quota}}}</td>
+						<td>{{{$p->raised_bal}}}({{{$p->raised_bal * 100 / $p->raise_quota}}}%)</td>
+						<td>{{{Config::get('app.DICT.PROJECT_STATE')[$p->state]}}}</td>
+						<td>
+						    <a href="{{{action('ProjectController@getShow', array(1))}}}">项目详情</a>
+						    @if($p->state == 'SAVE_DRAFT')
+						    <a href="{{{action('ProjectController@getEdit', array($p->id))}}}">修改</a>
+						    @endif
+
+						</td>
 					</tr>
 				@endforeach
 				

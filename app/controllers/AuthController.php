@@ -223,6 +223,17 @@ class AuthController extends \BaseController {
                 $user->verification_state = '2';        //把状态改为待审核
                 $user->userinfo->save();
                 $user->save();
+
+                //增加一条审核申请记录
+                $audit_apply = new AuditApply();
+                $audit_apply->obj_id = $user->id;
+                $audit_apply->obj_type = 'USER_CERTIFY';
+                $audit_apply->obj_snapshot = $user->userinfo->toJson();
+                $audit_apply->submit_user = Auth::id();
+                $audit_apply->submit_time = date('Y-m-d H:i:s', time());
+                $audit_apply->audit_state = '0';
+                $audit_apply->save();
+
                 return Redirect::action('IController@getAccountAuth')->with('message', '提交成功！');
 
         }else{

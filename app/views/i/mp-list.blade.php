@@ -87,7 +87,7 @@
                 <ul class="am-comments-list am-comments-list-flip">
                     <li class="am-comment" style="display:none">
                         <a href="#link-to-user-home">
-                        <img class="am-comment-avatar" width="48" height="48" alt="" src="https://avatars2.githubusercontent.com/u/6135346">
+                        <img class="am-comment-avatar" width="48" height="48" alt="" src="http://s0.meituan.net/www/img/user-avatar.v9bfc4a71.png">
                         </a>
                         <div class="am-comment-main">
                         <div class="am-comment-bd">
@@ -163,7 +163,7 @@
                                     lis += '<li class="am-comment am-comment-flip">';
                                 }
                                 lis += '<a href="#link-to-user-mgr-home">';
-                                lis += '<img class="am-comment-avatar" width="48" height="48" alt="" src="https://avatars2.githubusercontent.com/u/6135346">';
+                                lis += '<img class="am-comment-avatar" width="48" height="48" alt="" src="http://s0.meituan.net/www/img/user-avatar.v9bfc4a71.png">';
                                 lis += '</a>';
                                 lis += '<div class="am-comment-main">';
                                 lis += '<div class="am-comment-bd">';

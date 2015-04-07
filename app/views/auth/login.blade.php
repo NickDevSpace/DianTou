@@ -70,7 +70,7 @@
 
                 <div style="margin-bottom: 10px;">
                     <input id="remember-me" type="checkbox" name="remember-me">
-                    记住密码
+                    7天之内自动登录
                     <a href="#" style="float:right">忘记密码？</a>
                 </div>
 

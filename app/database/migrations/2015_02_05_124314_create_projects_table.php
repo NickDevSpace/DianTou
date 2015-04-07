@@ -95,7 +95,7 @@ class CreateProjectsTable extends Migration {
 			//其他
 			$table->char('hot_level', 1)->default('1');  // 项目热销情况 1普通 2热销 3火爆
 			$table->char('risk_level', 1)->default('1');  // 风险等级 1 低 2 中 3 高
-			$table->char('state', 2)->default('01');   //01草稿暂存 02审核中  03审核失败  04审核通过  05预约中 06预约结束 07募集中 08募集失败 09募集成功 10项目分红 11项目结束
+			$table->string('state', 32)->default('SAVE_DRAFT');   //SAVE_DRAFT草稿暂存 SUBMIT_AUDIT审核中  AUDIT_FAILED审核失败  AUDIT_PASS审核通过  ROADSHOW 路演中 APPOINTMENT预约中 APPOINTMENT_FINISHED预约结束 RAISE募集中 RAISE_FAILED募集失败 RAISE_SUCCESS募集成功 SHARE_OUT_BONUS项目分红 END项目结束
 
             $table->integer('user_id');     //发起人
 

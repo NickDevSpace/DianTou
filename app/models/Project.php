@@ -12,4 +12,12 @@ class Project extends \Eloquent {
     {
         return $this->hasOne('City', 'city_code', 'city_code');
     }
+
+    public function industry(){
+        return $this->hasOne('Industry', 'industry_code', 'industry_code');
+    }
+
+    public function user(){
+        return $this->hasOne('User', 'id', 'user_id');
+    }
 }

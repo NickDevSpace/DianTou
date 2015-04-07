@@ -69,70 +69,67 @@
             <ul class="am-nav am-nav-pills">
                 <li class="am-active"><a>项目信息</a></li>
                 <li><a href="#">融资信息</a></li>
-                <li><a href="#">确认信息</a></li>
+                <li><a href="#">提交审核</a></li>
                 <li><a href="#">完成</a></li>
             </ul>
         </div>
         <div class="am-g">
-            <form id="project-create-form" action="{{{action('ProjectController@postSave')}}}" method="post" class="am-form am-form-horizontal">
+            <form id="project-create-form" action="{{{action('ProjectController@postUpdate')}}}" method="post" class="am-form am-form-horizontal">
+                <input type="hidden" name="project_id" value="{{{$project->id}}}">
+
                 <div class="am-form-group">
                     <label for="i-project-name" class="am-u-sm-2 am-form-label">项目名称</label>
                     <div class="am-u-sm-10 am-u-end">
-                        <input type="text" id="i-project-name" name="project_name" placeholder="输入项目名称" data-validate-message="项目名称不能为空" required >
+                        <input type="text" id="i-project-name" name="project_name" value="{{{$project->project_name}}}" placeholder="输入项目名称" data-validate-message="项目名称不能为空" required >
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="i-project-cover" class="am-u-sm-2 am-form-label">项目封面</label>
                     <div class="am-u-sm-6">
                          <div id="cover-picker">选择图片</div>
-                         <input type="hidden" id="i-project-cover" name="project_cover"/>
+                         <input type="hidden" id="i-project-cover" name="project_cover" value="{{{$project->project_cover}}}"/>
                     </div>
                     <div class="am-u-sm-3 am-u-end">
-                         <div id="project-cover-preview"></div>
+                         <div id="project-cover-preview">
+                            <img width="230" height="175" src="/{{{$project->project_cover}}}" alt="预览图" class="am-img-thumbnail"/>
+                         </div>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="i-sub-title" class="am-u-sm-2 am-form-label">项目标语</label>
                     <div class="am-u-sm-10 am-u-end">
-                        <input type="text" name="sub_title" placeholder="输入项目标语" data-validate-message="项目标语不能为空" required>
+                        <input type="text" name="sub_title" value="{{{$project->sub_title}}}" placeholder="输入项目标语" data-validate-message="项目标语不能为空" required>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="i-industry-2" class="am-u-sm-2 am-form-label">所属行业</label>
                     <div class="am-u-sm-5">
-                        <?php echo Form::amSelect(array('list'=>$industry_select, 'value_field'=>'industry_code','text_field'=>'industry_name', 'header_text' => '请选择', 'id' => 'i-industry-1', 'required' => 'true')); ?>
+                        <?php echo Form::amSelect(array('list'=>$industry_select, 'value_field'=>'industry_code','text_field'=>'industry_name', 'header_text' => '请选择', 'id' => 'i-industry-1', 'selected'=>$project->industry['parent'], 'required' => 'true')); ?>
                     </div>
                     <div class="am-u-sm-5 am-u-end">
-                        <?php echo Form::amSelect(array('list'=>array(), 'value_field'=>'','text_field'=>'', 'header_text' => '请选择', 'id' => 'i-industry-2', 'name'=>'industry_code', 'required' => 'true')); ?>
+                        <?php echo Form::amSelect(array('list'=>$sub_industry_select, 'value_field'=>'industry_code','text_field'=>'industry_name', 'header_text' => '请选择', 'id' => 'i-industry-2', 'name'=>'industry_code', 'selected'=>$project->industry_code, 'required' => 'true')); ?>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="i-city-code" class="am-u-sm-2 am-form-label">所在城市</label>
                     <div class="am-u-sm-5">
-                        <?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'required' => 'true')); ?>
+                        <?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'selected'=>$project->province_code, 'required' => 'true')); ?>
                     </div>
                     <div class="am-u-sm-5 am-u-end">
-                        <?php echo Form::amSelect(array('list'=>array(), 'value_field'=>'','text_field'=>'', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'required' => 'true')); ?>
+                        <?php echo Form::amSelect(array('list'=>$city_select, 'value_field'=>'city_code','text_field'=>'city_name', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'selected'=>$project->city_code, 'required' => 'true')); ?>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="address" class="am-u-sm-2 am-form-label">详细地址</label>
                     <div class="am-u-sm-10 am-u-end">
-                        <input type="text" id="address" name="address" placeholder="输入详细地址" data-validate-message="项目地址不能为空" required>
+                        <input type="text" id="address" name="address" value="{{{$project->address}}}" placeholder="输入详细地址" data-validate-message="项目地址不能为空" required>
                     </div>
                 </div>
                 <div class="am-form-group">
                     <label for="i-detail" class="am-u-sm-2 am-form-label">项目介绍</label>
                     <div class="am-u-sm-10 am-u-end">
                         <textarea id="i-detail" name="detail" style="width:100%;height:400px;visibility:hidden;">
-                        <h2>关于我（也可使用个性化小标题）</h2>
-                        向支持者介绍你自己或你的团队，并详细说明你与所发起的项目之间的背景，让支持者能够在最短时间内了解你，以拉近彼此之间的距离。
-                        <h2>我想要做什么（也可使用个性化小标题）</h2>
-                        这是项目介绍中最关键的部分，建议上传5张以上高清图片（宽700、高不限），配合文字来简洁生动地说明你的项目，让支持者对你要做的事情一目了然并充满兴趣。
-                        <h2>为什么我需要你的支持及资金用途（也可使用个性化小标题）</h2>
-                        请在这一部分说明你的项目不同寻常的特色，为什么需要大家的支持以及详细的资金用途，这会增加你项目的可信度并由此提高筹资的成功率。
-                        <h2>可能存在的风险（也可使用个性化小标题）</h2>
-                        请在此标注你的项目在实施过程中可能存在的风险，让支持者对你的项目有全面而清晰的认识。
+                        {{{$project->detail}}}
                         </textarea>
                     </div>
                 </div>
@@ -140,7 +137,7 @@
                     <label for="business_plan" class="am-u-sm-2 am-form-label">项目计划书</label>
                     <div class="am-u-sm-3 am-u-end">
                         <div id="plan-picker" >选择文件</div>
-                        <input type="hidden" name="business_plan"/>
+                        <input type="hidden" name="business_plan" value="{{{$project->business_plan}}}"/>
                     </div>
                 </div>
                 <div class="am-form-group">

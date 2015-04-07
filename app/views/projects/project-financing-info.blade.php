@@ -67,88 +67,70 @@
     <div class="am-u-sm-8">
         <div class="steps">
             <ul class="am-nav am-nav-pills">
-                <li class="am-active"><a>项目信息</a></li>
-                <li><a href="#">融资信息</a></li>
+                <li><a>项目信息</a></li>
+                <li  class="am-active"><a href="#">融资信息</a></li>
                 <li><a href="#">确认信息</a></li>
                 <li><a href="#">完成</a></li>
             </ul>
         </div>
         <div class="am-g">
-            <form id="project-create-form" action="{{{action('ProjectController@postSave')}}}" method="post" class="am-form am-form-horizontal">
+            <form id="financing-info-form" action="{{{action('ProjectController@postFinancingInfo')}}}" method="post" class="am-form am-form-horizontal">
+
+                <input type="hidden" name="project_id" value="{{{$project->id}}}">
+                <input type="hidden" name="save_action">
+
                 <div class="am-form-group">
-                    <label for="i-project-name" class="am-u-sm-2 am-form-label">项目名称</label>
+                    <label for="i-total-quota" class="am-u-sm-2 am-form-label">融资需求金额</label>
                     <div class="am-u-sm-10 am-u-end">
-                        <input type="text" id="i-project-name" name="project_name" placeholder="输入项目名称" data-validate-message="项目名称不能为空" required >
+                        <input type="number" id="i-total-quota" name="raise_quota" value="{{{$project->raise_quota}}}" placeholder="填写该项目融资所需的总金额（元）" data-validate-message="融资总额必须为大于等于10000" min="10000" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-project-cover" class="am-u-sm-2 am-form-label">项目封面</label>
-                    <div class="am-u-sm-6">
-                         <div id="cover-picker">选择图片</div>
-                         <input type="hidden" id="i-project-cover" name="project_cover"/>
-                    </div>
-                    <div class="am-u-sm-3 am-u-end">
-                         <div id="project-cover-preview"></div>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-sub-title" class="am-u-sm-2 am-form-label">项目标语</label>
+                    <label for="i-retain-stockholder" class="am-u-sm-2 am-form-label">当前股东人数</label>
                     <div class="am-u-sm-10 am-u-end">
-                        <input type="text" name="sub_title" placeholder="输入项目标语" data-validate-message="项目标语不能为空" required>
+                        <input type="number" id="i-retain-stockholder" name="retain_stockholder" value="{{{$project->retain_stockholder}}}" placeholder="填写该项目目前的股东人数" data-validate-message="请填写介于1-199的整数" min="1" max="199"required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-industry-2" class="am-u-sm-2 am-form-label">所属行业</label>
-                    <div class="am-u-sm-5">
-                        <?php echo Form::amSelect(array('list'=>$industry_select, 'value_field'=>'industry_code','text_field'=>'industry_name', 'header_text' => '请选择', 'id' => 'i-industry-1', 'required' => 'true')); ?>
-                    </div>
-                    <div class="am-u-sm-5 am-u-end">
-                        <?php echo Form::amSelect(array('list'=>array(), 'value_field'=>'','text_field'=>'', 'header_text' => '请选择', 'id' => 'i-industry-2', 'name'=>'industry_code', 'required' => 'true')); ?>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-city-code" class="am-u-sm-2 am-form-label">所在城市</label>
-                    <div class="am-u-sm-5">
-                        <?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'required' => 'true')); ?>
-                    </div>
-                    <div class="am-u-sm-5 am-u-end">
-                        <?php echo Form::amSelect(array('list'=>array(), 'value_field'=>'','text_field'=>'', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'required' => 'true')); ?>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="address" class="am-u-sm-2 am-form-label">详细地址</label>
+                    <label for="i-assign-share" class="am-u-sm-2 am-form-label">出让股份占比</label>
                     <div class="am-u-sm-10 am-u-end">
-                        <input type="text" id="address" name="address" placeholder="输入详细地址" data-validate-message="项目地址不能为空" required>
+                        <input type="number" id="i-assign-share" name="assign_share" value="{{{$project->assign_share}}}" placeholder="出让股份占比" data-validate-message="项目方出资金额不能大于融资总额" min="0" required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-detail" class="am-u-sm-2 am-form-label">项目介绍</label>
+                    <label for="i-assign-copies" class="am-u-sm-2 am-form-label">可认购份数</label>
                     <div class="am-u-sm-10 am-u-end">
-                        <textarea id="i-detail" name="detail" style="width:100%;height:400px;visibility:hidden;">
-                        <h2>关于我（也可使用个性化小标题）</h2>
-                        向支持者介绍你自己或你的团队，并详细说明你与所发起的项目之间的背景，让支持者能够在最短时间内了解你，以拉近彼此之间的距离。
-                        <h2>我想要做什么（也可使用个性化小标题）</h2>
-                        这是项目介绍中最关键的部分，建议上传5张以上高清图片（宽700、高不限），配合文字来简洁生动地说明你的项目，让支持者对你要做的事情一目了然并充满兴趣。
-                        <h2>为什么我需要你的支持及资金用途（也可使用个性化小标题）</h2>
-                        请在这一部分说明你的项目不同寻常的特色，为什么需要大家的支持以及详细的资金用途，这会增加你项目的可信度并由此提高筹资的成功率。
-                        <h2>可能存在的风险（也可使用个性化小标题）</h2>
-                        请在此标注你的项目在实施过程中可能存在的风险，让支持者对你的项目有全面而清晰的认识。
-                        </textarea>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="business_plan" class="am-u-sm-2 am-form-label">项目计划书</label>
-                    <div class="am-u-sm-3 am-u-end">
-                        <div id="plan-picker" >选择文件</div>
-                        <input type="hidden" name="business_plan"/>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <div class="am-u-sm-3 am-u-sm-centered">
-                    <button type="submit" class="am-btn am-btn-success">&nbsp;&nbsp;下一步&nbsp;&nbsp;</button>
+                        <input type="number" id="i-assign-copies" name="assign_copies" value="{{{$project->assign_copies}}}" placeholder="认购份数" data-validate-message="认购份数必须为大于0小于200的整数" min="1" max="200" required>
                     </div>
                 </div>
 
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-2 am-form-label">每份金额</label>
+                    <div class="am-u-sm-10 am-u-end">
+                        <input type="number" name="quota_of_copy" value="{{{$project->quota_of_copy}}}" readonly="true" placeholder="每份金额" >
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-2 am-form-label">融资期限</label>
+                    <div class="am-u-sm-10 am-u-end">
+                        <input type="number" id="i-assign-copies" name="raise_days" value="{{{$project->raise_days}}}" placeholder="融资期限" data-validate-message="融资期限必须为大于0小于365的整数" min="1" max="365" required>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="" class="am-u-sm-2 am-form-label">是否允许其他地区用户认购</label>
+                    <div class="am-u-sm-10 am-u-end">
+                        <?php echo Form::amSelect(array('list'=>array(array('value'=>'Y', 'text'=>'是'), array('value'=>'N', 'text'=>'否')), 'value_field'=>'value','text_field'=>'text', 'id' => 'i-allow-nolocal', 'name' => 'allow_nolocal', 'selected'=> $project->allow_nolocal,'required' => 'true')); ?>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <div class="am-u-sm-6 am-u-sm-centered">
+                    <button id="before-btn" type="button" class="am-btn am-btn-default">&nbsp;&nbsp;上一步&nbsp;&nbsp;</button>
+                    <button id="submit-btn" type="button" class="am-btn am-btn-success">&nbsp;&nbsp;下一步&nbsp;&nbsp;</button>
+
+                    </div>
+                </div>
 
             </form>
         </div>
@@ -211,6 +193,17 @@
 <script>
     
 	$(function(){
+
+	    $('#submit-btn').on('click', function(){
+            $('input[name="save_action"]').val('submit');
+            $('#financing-info-form').submit();
+        });
+
+        $('#before-btn').on('click', function(){
+            $('input[name="save_action"]').val('back');
+            $('#financing-info-form').submit();
+        });
+
 		App.init(['project.create']);
 	});
 

@@ -17,7 +17,7 @@ class SubscriptionController extends \BaseController {
 			dd('ERROR_PROJECT_NOT_FOUND');
 		}
 		
-		if($project->state != '07'){  //如果项目不处于募集状态，则提示错误页面
+		if($project->state != 'RAISE'){  //如果项目不处于募集状态，则提示错误页面
 			dd('ERROR_PROJECT_NOT_FOR_SUBSCRIPTION');
 		}
 

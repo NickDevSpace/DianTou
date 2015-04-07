@@ -9,9 +9,7 @@
     <div class="am-fl am-cf">
       <div class="am-btn-toolbar am-fl">
         <div class="am-btn-group am-btn-group-xs">
-          <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-          <button type="button" class="am-btn am-btn-default"><span class="am-icon-edit"></span> 修改</button>
-          <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+
         </div>
 
         <div class="am-form-group am-margin-left am-fl">
@@ -47,174 +45,54 @@
           <table class="am-table am-table-striped am-table-hover table-main">
             <thead>
               <tr>
-                <th class="table-check"><input type="checkbox" /></th><th class="table-id">ID</th><th class="table-title">标题</th><th class="table-type">类别</th><th class="table-author">作者</th><th class="table-date">修改日期</th><th class="table-set">操作</th>
+                <th class="table-check"><input type="checkbox" /></th>
+                <th class="table-id">ID</th>
+                <th class="table-title">账号</th>
+                <th class="table-type">昵称</th>
+                <th class="table-type">账号类型</th>
+                <th class="table-author">账号状态</th>
+                <th class="table-author">注册时间</th>
+                <th class="table-set">操作</th>
               </tr>
           </thead>
           <tbody>
+            @foreach($users as $u)
             <tr>
-              <td><input type="checkbox" /></td>
-              <td>1</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
+                <td><input type="checkbox" /></td>
+                <td>{{{$u->id}}}</td>
+                <td><a href="{{{action('AdminUserController@getDetail', array($u->id))}}}">{{{$u->account}}}</a></td>
+                <td>{{{$u->nickname}}}</td>
+                <td>@if($u->user_type == '1')个人@else 企业 @endif</td>
+                <td>@if($u->active == 'Y')正常@else 禁用 @endif</td>
+                <td>{{{$u->created_at}}}</td>
+                <td>
+                    <div class="am-btn-toolbar">
+                      <div class="am-btn-group am-btn-group-xs">
+                        @if($u->active == 'Y')
+                            <button class="user-lock-btn am-btn am-btn-default am-btn-xs am-text-danger" data-user-id="{{{$u->id}}}"><span class="am-icon-lock"></span>禁用账号</button>
+                        @else
+                            <button class="user-unlock-btn am-btn am-btn-default am-btn-xs am-text-success" data-user-id="{{{$u->id}}}"><span class="am-icon-unlock-alt"></span>启用账号</button>
+                        @endif
+                      </div>
+                    </div>
+                </td>
             </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>2</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>3</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>1</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>2</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>3</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>1</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>2</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><input type="checkbox" /></td>
-              <td>3</td>
-              <td><a href="#">Business management</a></td>
-              <td>default</td>
-              <td>测试1号</td>
-              <td>2014年9月4日 7:28:47</td>
-              <td>
-                <div class="am-btn-toolbar">
-                  <div class="am-btn-group am-btn-group-xs">
-                    <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                    <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
-                  </div>
-                </div>
-              </td>
-            </tr>
+            @endforeach
 
             </tbody>
         </table>
-          <div class="am-cf">
-      共 15 条记录
-          <div class="am-fr">
-            <ul class="am-pagination">
-              <li class="am-disabled"><a href="#">«</a></li>
-              <li class="am-active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">»</a></li>
-            </ul>
-          </div>
-        </div>
+        @if(count($users) == 0)
+            <div class="admin-empty-content-note">没有记录</div>
+        @endif
+
       <hr />
-      <p>注：.....</p>
     </form>
+    <div class="am-cf">
+    共 {{{$total}}} 条记录
+      <div class="am-fr">
+        <?php echo $users->links();?>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -224,6 +102,45 @@
 <script>
     $(function(){
 
+        $('.user-lock-btn').on('click', function(){
+            if(confirm('禁用后用户将无法登录网站！确认禁用该账号？')) {
+                var id = $(this).attr('data-user-id');
+                $.ajax({
+                    url: BASE_URL + '/admin/user/lock-user',
+                    method: 'post',
+                    data: {id: id},
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.errno == 'SUCCESS') {
+                            alert('操作成功！');
+                            window.location.reload();
+                        } else {
+                            alert('操作失败！');
+                        }
+                    }
+                });
+            }
+        });
+
+        $('.user-unlock-btn').on('click', function(){
+            if(confirm('确认启用该账号？')) {
+                var id = $(this).attr('data-user-id');
+                $.ajax({
+                    url: BASE_URL + '/admin/user/unlock-user',
+                    method: 'post',
+                    data: {id: id},
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.errno == 'SUCCESS') {
+                            alert('操作成功！');
+                            window.location.reload();
+                        } else {
+                            alert('操作失败！');
+                        }
+                    }
+                });
+            }
+        })
     });
 
 </script>
