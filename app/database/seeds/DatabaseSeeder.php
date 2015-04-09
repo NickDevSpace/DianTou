@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('PrivateMessageTableSeeder');
         $this->call('ProvinceTableSeeder');
         $this->call('CityTableSeeder');
-        $this->call('DictTableSeeder');
+        $this->call('SystemDictsTableSeeder');
         $this->call('IndustryTableSeeder');
 		$this->call('ProjectTableSeeder');
 		$this->call('FollowTableSeeder');
@@ -330,76 +330,74 @@ class IndustryTableSeeder extends Seeder {
 
 
 
-class DictTableSeeder extends Seeder {
+class SystemDictsTableSeeder extends Seeder {
     public function run()
     {
-        // 1. 概念阶段  2. 筹备中  3. 已运营尚未盈利  3.已运营且已盈利
-        DB::table('dicts')->delete();
 
-        Dict::create(array(
-            'dict_name' => 'project_stage',
-            'key' => '1',
-            'value' => '概念阶段'
+        DB::table('system_dicts')->delete();
+
+        // 项目状态
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'SAVE_DRAFT',
+            'dict_value' => '保存草稿'
         ));
-        Dict::create(array(
-            'dict_name' => 'project_stage',
-            'key' => '2',
-            'value' => '筹备中'
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'SUBMIT_AUDIT',
+            'dict_value' => '提交审核'
         ));
-        Dict::create(array(
-            'dict_name' => 'project_stage',
-            'key' => '3',
-            'value' => '已运营尚未盈利'
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'AUDIT_FAILED',
+            'dict_value' => '审核未通过'
         ));
-        Dict::create(array(
-            'dict_name' => 'project_stage',
-            'key' => '4',
-            'value' => '已运营且已盈利'
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'AUDIT_PASS',
+            'dict_value' => '审核通过'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'ROADSHOW',
+            'dict_value' => '路演中'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'APPOINTMENT',
+            'dict_value' => '预约中'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'APPOINTMENT_FINISHED',
+            'dict_value' => '预约结束'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'RAISE',
+            'dict_value' => '融资中'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'RAISE_FAILED',
+            'dict_value' => '融资失败'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'RAISE_SUCCESS',
+            'dict_value' => '融资成功'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'SHARE_OUT_BONUS',
+            'dict_value' => '分红'
+        ));
+        SystemDict::create(array(
+            'dict_name' => 'PROJECT_STATE',
+            'dict_key' => 'END',
+            'dict_value' => '项目结束'
         ));
 
-        Dict::create(array(
-            'dict_name' => 'has_company',
-            'key' => 'Y',
-            'value' => '是'
-        ));
-
-        Dict::create(array(
-            'dict_name' => 'has_company',
-            'key' => 'N',
-            'value' => '否'
-        ));
-
-        //1.审核中  2.审核未通过  3.审核通过  4.正在众筹  5.众筹成功  6.众筹失败
-        Dict::create(array(
-            'dict_name' => 'financing_state',
-            'key' => '1',
-            'value' => '审核中'
-        ));
-        Dict::create(array(
-            'dict_name' => 'financing_state',
-            'key' => '2',
-            'value' => '审核未通过'
-        ));
-        Dict::create(array(
-            'dict_name' => 'financing_state',
-            'key' => '3',
-            'value' => '审核通过'
-        ));
-        Dict::create(array(
-            'dict_name' => 'financing_state',
-            'key' => '4',
-            'value' => '正在众筹'
-        ));
-        Dict::create(array(
-            'dict_name' => 'financing_state',
-            'key' => '5',
-            'value' => '众筹失败'
-        ));
-        Dict::create(array(
-            'dict_name' => 'financing_state',
-            'key' => '6',
-            'value' => '众筹成功'
-        ));
 
     }
 }

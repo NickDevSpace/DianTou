@@ -35,7 +35,7 @@ class CreateAuditAppliesTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+        Schema::drop('audit_applies');
 	}
 
 }
