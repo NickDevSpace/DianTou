@@ -46,7 +46,7 @@
             <tr>
                 <td><input type="checkbox" /></td>
                 <td>{{{$a->id}}}</td>
-                <td><a href="{{{action('AdminProjectController@getDetail',array($a->obj_id))}}}">{{{$a->obj['project_name']}}}</a></td>
+                <td><a href="{{{action('ProjectController@getShow',array($a->obj_id))}}}">{{{$a->obj['project_name']}}}</a></td>
                 <td><a href="{{{action('AdminUserController@getDetail',array($a->submitUser['id']))}}}">{{{$a->submitUser['account']}}}</a></td>
                 <td>{{{$a->submit_time}}}</td>
                 <td>

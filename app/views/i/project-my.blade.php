@@ -42,8 +42,11 @@
 						<td>{{{Config::get('app.DICT.PROJECT_STATE')[$p->state]}}}</td>
 						<td>
 						    <a href="{{{action('ProjectController@getShow', array(1))}}}">项目详情</a>
-						    @if($p->state == 'SAVE_DRAFT')
+						    @if($p->state == 'SAVE_DRAFT' || $p->state == 'AUDIT_FAILED')
 						    <a href="{{{action('ProjectController@getEdit', array($p->id))}}}">修改</a>
+						    @endif
+						    @if($p->state == 'AUDIT_PASS')
+						    <a href="{{{action('RoadshowSceneController@getSceneApply')}}}?project_id={{{$p->id}}}">申请路演</a>
 						    @endif
 
 						</td>

@@ -23,7 +23,7 @@ class CreateProjectLifeEventsTable extends Migration {
             $table->integer('project_id');
             $table->string('event_type');
             $table->string('event_desc');
-            $table->string('event_date');
+            $table->date('event_date');
             $table->timestamps();
         });
 	}

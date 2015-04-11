@@ -16,7 +16,7 @@ class AdminSystemMessageController extends \BaseController
 
         $messages = SystemMessage::where('title', 'like', '%' . $query['w'] . '%')->orWhere('content', 'like', '%' . $query['w'] . '%')
             ->orderBy('send_time', 'desc')
-            ->simplePaginate(12);
+            ->simplePaginate(10);
         $total = SystemMessage::where('title', 'like', '%' . $query['w'] . '%')->orWhere('content', 'like', '%' . $query['w'] . '%')->count();
         return View::make('admin.sm.index', array('query' => $query, 'messages' => $messages, 'total' => $total));
     }

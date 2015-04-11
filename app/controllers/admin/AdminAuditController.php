@@ -108,28 +108,55 @@ class AdminAuditController extends \BaseController {
         if($audit_state == null || $audit_apply_id == null)
             dd('ERROR_PARAMS_NOT_VALID');
 
-        //保存审批信息
-        $audit_apply = AuditApply::findOrFail($audit_apply_id);
-        $audit_apply->audit_comment = $audit_comment;
-        $audit_apply->audit_user = Auth::id();
-        $audit_apply->audit_time = date('Y-m-d H:i:s', time());
-        $audit_apply->audit_state = $audit_state == '1' ? '1':'2';
-        $audit_apply->save();
-
-        //更新项目审核状态
-        $project = $audit_apply->obj;
-        $project->state = $audit_state == '1' ? 'ROADSHOW':'AUDIT_FAILED';
-        $project->save();
-
-        //发送系统消息
-        $user_id = Auth::id();
-        $title = '项目审核结果';
         if($audit_state == '1'){
+            //保存审批信息
+            $audit_apply = AuditApply::findOrFail($audit_apply_id);
+            $audit_apply->audit_comment = $audit_comment;
+            $audit_apply->audit_user = Auth::id();
+            $audit_apply->audit_time = date('Y-m-d H:i:s', time());
+            $audit_apply->audit_state = '1';
+            $audit_apply->save();
+
+            //更新项目审核状态
+            $project = $audit_apply->obj;
+            $project->state = 'AUDIT_PASS';
+            $project->save();
+
+            //发送系统消息
+            $user_id = Auth::id();
+            $title = '项目审核结果';
             $content = '亲爱的'.Auth::user()->nickname.'：您好！恭喜您，您的项目《'.$project->project_name.'》已顺利通过点投网审核！祝您圆梦成功！';
+            SystemMessageService::send($user_id, $title, $content);
+
+            //项目里程碑
+            $event = new ProjectLifeEvent();
+            $event->project_id = $project->id;
+            $event->event_type = 'ONLINE';
+            $event->event_desc = '项目上线';
+            $event->event_date = date('Y-m-d', time());
+            $event->save();
+
         }else{
+            //保存审批信息
+            $audit_apply = AuditApply::findOrFail($audit_apply_id);
+            $audit_apply->audit_comment = $audit_comment;
+            $audit_apply->audit_user = Auth::id();
+            $audit_apply->audit_time = date('Y-m-d H:i:s', time());
+            $audit_apply->audit_state = '2';
+            $audit_apply->save();
+
+            //更新项目审核状态
+            $project = $audit_apply->obj;
+            $project->state = 'AUDIT_FAILED';
+            $project->save();
+
+            //发送系统消息
+            $user_id = Auth::id();
+            $title = '项目审核结果';
             $content = '亲爱的'.Auth::user()->nickname.'：您好！很遗憾，您的项目《'.$project->project_name.'》未通过点投网审核！点投网审核意见如下：'.$audit_comment.'<br/>您可以尝试修改项目信息，重新发起审核申请，祝您圆梦成功！';
+            SystemMessageService::send($user_id, $title, $content);
         }
-        SystemMessageService::send($user_id, $title, $content);
+
 
 
         return Redirect::action('AdminAuditController@getProjectAudit')->with('message', '操作成功');

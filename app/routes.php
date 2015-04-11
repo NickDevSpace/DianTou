@@ -34,6 +34,7 @@ Route::group(array('before' => 'auth'), function()
     Route::controller('sm', 'SystemMessageController');
 	Route::controller('sub', 'SubscriptionController');
     Route::controller('app', 'AppointmentController');
+    Route::controller('roadshow', 'RoadshowSceneController');
 });
 
 Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()
@@ -43,6 +44,7 @@ Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()
     Route::controller('audit', 'AdminAuditController');
     Route::controller('sm', 'AdminSystemMessageController');
     Route::controller('project', 'AdminProjectController');
+    Route::controller('roadshow', 'RoadshowManageController');
 });
 
 

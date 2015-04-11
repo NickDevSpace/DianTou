@@ -71,6 +71,7 @@
       </li>
       <li><a href="{{{action('AdminUserController@getIndex')}}}"><span class="am-icon-user"></span> 用户管理</a></li>
       <li><a href="{{{action('AdminProjectController@getIndex')}}}"><span class="am-icon-archive"></span> 项目管理</a></li>
+      <li><a href="{{{action('RoadshowManageController@getIndex')}}}"><span class="am-icon-archive"></span> 路演管理</a></li>
       <li><a href="#"><span class="am-icon-archive"></span> 交易管理</a></li>
       <li><a href="#"><span class="am-icon-file"></span> 页面广告管理</a></li>
 
