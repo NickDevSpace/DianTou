@@ -18,11 +18,11 @@ class CreateProjectRoadshowsTable extends Migration {
             $table->integer('project_id');
             $table->integer('roadshow_scene_id');
             $table->integer('show_seq');
+            $table->char('attended',1)->default('N');       //是否出席
             $table->string('show_video')->nullable();
             $table->text('show_detail')->nullable();
-            $table->string('rate')->nullable();     //A+ A A- B+ B B-
-            $table->char('attended',1)->default('N');       //是否出席
-            $table->char('end_flag',1)->default('N');
+            $table->decimal('point', 5,2)->default(0.00);     //打分 10分满分 例如9.85
+            $table->char('audit_state',1)->default('N');
             $table->timestamps();
         });
 	}

@@ -56,13 +56,14 @@
                       </tr>
                   </thead>
                   <tbody>
+                    <?php $date = date('Y-m-d', time());?>
                     @foreach($roadshow_scenes as $r)
                     <tr>
                         <td>{{{$r->scene_date}}}</td>
                         <td><a href="{{{action('RoadshowSceneController@getSceneDetail', array($r->id))}}}" target="_blank">{{{$r->title}}}</a></td>
                         <td>{{{$r->province['province_name']}}} {{{$r->city['city_name']}}}</td>
                         <td>{{{$r->seats - $r->projectRoadshows->count()}}}/{{{$r->seats}}}</td>
-                        <td>@if($r->state == '1') 未开始 @elseif($r->state == '2') 进行中 @else 已结束 @endif </td>
+                        <td>@if($r->scene_date > $date) 未开始 @elseif($r->scene_date == $date) 进行中 @else 已结束 @endif </td>
                         <td>
                             @if($r->state == '1' && $r->projectRoadshows->count() < $r->seats)
                             <button class="apply-roadshow-btn am-btn am-btn-success am-btn-xs " data-roadshow-scene-id="{{{$r->id}}}">

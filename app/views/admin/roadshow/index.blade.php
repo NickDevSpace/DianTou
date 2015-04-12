@@ -2,7 +2,7 @@
 
 @section('admin-content')
 <div class="am-cf am-padding">
-  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">路演管理</strong> / <small>Roadshow Management</small></div>
+  <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">路演场次管理</strong> / <small>Roadshow Scene Management</small></div>
 </div>
 <div class="am-g">
 
@@ -39,7 +39,7 @@
               <tr>
                 <th class="table-check"><input type="checkbox" /></th>
                 <th class="table-id">ID</th>
-                <th class="">标题</th>
+                <th class="">场次</th>
                 <th class="table-title">路演城市</th>
                 <th class="">路演时间</th>
                 <th class="">名额数</th>

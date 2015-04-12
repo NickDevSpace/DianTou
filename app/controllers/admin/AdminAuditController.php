@@ -162,5 +162,40 @@ class AdminAuditController extends \BaseController {
         return Redirect::action('AdminAuditController@getProjectAudit')->with('message', '操作成功');
     }
 
+    public function getRoadshowAudit(){
+//        $table->integer('project_id');
+//        $table->integer('roadshow_scene_id');
+//        $table->integer('show_seq');
+//        $table->string('show_video')->nullable();
+//        $table->text('show_detail')->nullable();
+//        $table->string('rate')->nullable();     //A+ A A- B+ B B-
+//        $table->char('attended',1)->default('N');       //是否出席
+//        $table->char('end_flag',1)->default('N');
+        $query_params['province_code'] = Input::get('province_code');
+        $query_params['city_code'] = Input::get('city_code');
+        $query_params['start_date'] = Input::get('start_date', '1899-12-31');
+        $query_params['end_date'] = Input::get('end_date', '2999-12-31');
+        $query_params['keyword'] = Input::get('keyword', '');
+
+
+        $project_roadshows = ProjectRoadshow::with('roadshowScene')->whereHas('RoadshowScene', function($q){
+             $q->where('scene_date', '<=', date('Y-m-d', time()));
+        })->simplePaginate(10);
+
+
+        $province_select = Province::all();
+        $city_select = array();
+        return View::make('admin.audit.roadshow-audit-index', array('query_params' => $query_params, 'province_select' => $province_select, 'city_select' => $city_select, 'project_roadshows'=> $project_roadshows));
+
+
+    }
+
+    public function getRoadshowAuditDetail($id){
+            $project_roadshow = ProjectRoadshow::with('project')->find($id);
+
+            return View::make('admin.audit.roadshow-audit-detail', array('project_roadshow' => $project_roadshow));
+
+    }
+
 
 }

@@ -55,10 +55,11 @@
     <ul class="am-list admin-sidebar-list">
       <li><a href="{{{action('AdminIndexController@getIndex')}}}"><span class="am-icon-home"></span> 首页</a></li>
       <li class="admin-parent">
-          <a class="am-cf" data-am-collapse="{target: '#nav-check'}"><span class="am-icon-legal"></span> 审核中心 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <a class="am-cf" data-am-collapse="{target: '#nav-check'}"><span class="am-icon-legal"></span> 项目生命管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="nav-check">
             <li><a href="{{{action('AdminAuditController@getUserCertify')}}}" class="am-cf"><span class="am-icon-credit-card"></span> 实名认证审核<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
             <li><a href="{{{action('AdminAuditController@getProjectAudit')}}}"><span class="am-icon-puzzle-piece"></span> 项目审核<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+            <li><a href="{{{action('AdminAuditController@getRoadshowAudit')}}}"><span class="am-icon-puzzle-piece"></span> 路演审核<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
           </ul>
       </li>
       <li class="admin-parent">
@@ -71,7 +72,7 @@
       </li>
       <li><a href="{{{action('AdminUserController@getIndex')}}}"><span class="am-icon-user"></span> 用户管理</a></li>
       <li><a href="{{{action('AdminProjectController@getIndex')}}}"><span class="am-icon-archive"></span> 项目管理</a></li>
-      <li><a href="{{{action('RoadshowManageController@getIndex')}}}"><span class="am-icon-archive"></span> 路演管理</a></li>
+      <li><a href="{{{action('RoadshowManageController@getIndex')}}}"><span class="am-icon-archive"></span> 路演场次管理</a></li>
       <li><a href="#"><span class="am-icon-archive"></span> 交易管理</a></li>
       <li><a href="#"><span class="am-icon-file"></span> 页面广告管理</a></li>
 
