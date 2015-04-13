@@ -3,11 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-/**
- * Class CreateCommentsTable
- * 每个项目页面底下的评论
- */
-class CreateCommentsTable extends Migration {
+class CreateInvestmentTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -16,14 +12,14 @@ class CreateCommentsTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('comments', function(Blueprint $table)
+		Schema::create('investment', function(Blueprint $table)
         {
             $table->increments('id');
             $table->integer('project_id');
             $table->integer('user_id');
-            $table->integer('replay_to')->nullable();
-            $table->text('content');
+            $table->integer('mount');      
             $table->timestamps();
+
         });
 	}
 
@@ -34,7 +30,7 @@ class CreateCommentsTable extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('comments');
+		Schema::drop('investment');
 	}
 
 }

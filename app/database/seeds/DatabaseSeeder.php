@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('IndustryTableSeeder');
 		$this->call('ProjectTableSeeder');
 		$this->call('FollowTableSeeder');
+        $this->call('CommentTableSeeder');
 		//$this->call('AppointmentTableSeeder');
 		//$this->call('SubscriptionTableSeeder');
         //$this->call('SentrySeeder');
@@ -181,6 +182,17 @@ class AppointmentTableSeeder extends Seeder {
         ));
         
     }
+}
+
+class CommentTableSeeder extends seeder {
+     public function run()
+     {
+          Comment::create(array(
+               'project_id' => 1,
+               'user_id' => 1,
+               'content' => '不错哦',
+          ));
+     }
 }
 
 class SubscriptionTableSeeder extends Seeder {

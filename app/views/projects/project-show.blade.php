@@ -152,8 +152,8 @@
 		<div class="am-container">
 			<div class="am-u-sm-8 project-left">
 				<div class="project-baseinfo">
-					<h1>菲星智能行记录导航仪FX9</h1>
-					<span>发起人:菲星数码 </span>
+					<h1>{{{$project->project_name}}}</h1>
+					<span>发起人</span>
 					<span style="margin-left:100px">行业 :电子/数码</span>
 					<span style="margin-left:100px">地址:浙江省慈溪市宗汉街道</span>
 					<div id="riskhint">&nbsp&nbsp&nbsp&nbsp&nbsp风险提示:请您仔细阅读此项目认购协议条款，确认并知晓众筹股权(无保本)投资风险，认购后您将不能更改投资人姓名，也不能代他人认购和转让他人，只以您在XXX平台上身份认证时提交的身份证为准进行投资合同文本签署和工商注册办理.如认购后申请退出，需支付相应反悔金．
