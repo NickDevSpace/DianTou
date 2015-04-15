@@ -162,7 +162,7 @@ class AdminAuditController extends \BaseController {
         return Redirect::action('AdminAuditController@getProjectAudit')->with('message', '操作成功');
     }
 
-    public function getRoadshowAudit(){
+    public function getRoadshowAcceptance(){
 //        $table->integer('project_id');
 //        $table->integer('roadshow_scene_id');
 //        $table->integer('show_seq');
@@ -185,15 +185,110 @@ class AdminAuditController extends \BaseController {
 
         $province_select = Province::all();
         $city_select = array();
-        return View::make('admin.audit.roadshow-audit-index', array('query_params' => $query_params, 'province_select' => $province_select, 'city_select' => $city_select, 'project_roadshows'=> $project_roadshows));
+        return View::make('admin.audit.roadshow-acceptance-index', array('query_params' => $query_params, 'province_select' => $province_select, 'city_select' => $city_select, 'project_roadshows'=> $project_roadshows));
 
 
     }
 
-    public function getRoadshowAuditDetail($id){
+    public function getRoadshowDoAcceptance($id){
             $project_roadshow = ProjectRoadshow::with('project')->find($id);
 
-            return View::make('admin.audit.roadshow-audit-detail', array('project_roadshow' => $project_roadshow));
+            return View::make('admin.audit.roadshow-do-acceptance', array('project_roadshow' => $project_roadshow));
+
+    }
+
+    //保存验收结果
+    public function postRoadshowDoAcceptance(){
+        $inputs = array(
+            'project_roadshow_id' => Input::get('project_roadshow_id'),
+            'accept_state' => Input::get('accept_state'),
+            'attended' => Input::get('attended'),
+            'show_video' => Input::get('show_video'),
+            'show_detail' => Input::get('show_detail'),
+            'point' => Input::get('point'),
+            'next_state' => Input::get('next_state')
+        );
+
+        $project_roadshow = ProjectRoadshow::findOrFail($inputs['project_roadshow_id']);
+
+        $project_roadshow->accept_state = $inputs['accept_state'];
+        $project_roadshow->attended = $inputs['attended'];
+        $project_roadshow->show_video = $inputs['show_video'];
+        $project_roadshow->show_detail = $inputs['show_detail'];
+        $project_roadshow->point = $inputs['point'];
+        $project_roadshow->next_state = $inputs['next_state'];
+        $project_roadshow->accept_state = $inputs['accept_state'];
+        $project_roadshow->save();
+
+        //确认完成
+        if($inputs['accept_state'] == '3'){
+            $project = Project::findOrFail($project_roadshow->project_id);
+            $project->state = $inputs['next_state'];
+            $project->save();
+
+            switch($inputs['next_state']){
+                case 'APPOINTMENT':{
+                    //发送系统消息
+                    $user_id = Auth::id();
+                    $title = '项目路演验收结果';
+                    $content = "亲爱的".Auth::user()->nickname."：您好！恭喜您，您的项目《".$project->project_name."》路演已顺利通过点投网验收！项目已进入\"预约\"状态！";
+                    SystemMessageService::send($user_id, $title, $content);
+
+                    //项目里程碑
+                    $event = new ProjectLifeEvent();
+                    $event->project_id = $project->id;
+                    $event->event_type = 'APPOINTMENT';
+                    $event->event_desc = '开始预约';
+                    $event->event_date = date('Y-m-d', time());
+                    $event->save();
+
+                    break;
+                }
+                case 'RAISE':{
+                    //发送系统消息
+                    $user_id = Auth::id();
+                    $title = '项目路演验收结果';
+                    $content = "亲爱的".Auth::user()->nickname."：您好！恭喜您，您的项目《".$project->project_name."》路演已顺利通过点投网验收！项目已进入\"融资\"状态！";
+                    SystemMessageService::send($user_id, $title, $content);
+
+                    //项目里程碑
+                    $event = new ProjectLifeEvent();
+                    $event->project_id = $project->id;
+                    $event->event_type = 'RAISE';
+                    $event->event_desc = '开始融资';
+                    $event->event_date = date('Y-m-d', time());
+                    $event->save();
+
+                    break;
+                }
+                case 'END':{
+                    //发送系统消息
+                    $user_id = Auth::id();
+                    $title = '项目路演验收结果';
+                    $content = "亲爱的".Auth::user()->nickname."：您好！很遗憾，您的项目《".$project->project_name."》路演未通过点投网验收，项目已进入\"结束\"状态！感谢您对点投网的支持！";
+                    SystemMessageService::send($user_id, $title, $content);
+
+                    //项目里程碑
+                    $event = new ProjectLifeEvent();
+                    $event->project_id = $project->id;
+                    $event->event_type = 'END';
+                    $event->event_desc = '项目结束';
+                    $event->event_date = date('Y-m-d', time());
+                    $event->save();
+
+                    break;
+                }
+                default: {}
+
+            }
+
+            return Redirect::action('AdminAuditController@getRoadshowAcceptance')->with('message', '验收成功');
+        }else{
+            return Redirect::action('AdminAuditController@getRoadshowAcceptance')->with('message', '保存成功');
+        }
+
+
+
 
     }
 

@@ -59,7 +59,7 @@
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="nav-check">
             <li><a href="{{{action('AdminAuditController@getUserCertify')}}}" class="am-cf"><span class="am-icon-credit-card"></span> 实名认证审核<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
             <li><a href="{{{action('AdminAuditController@getProjectAudit')}}}"><span class="am-icon-puzzle-piece"></span> 项目审核<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-            <li><a href="{{{action('AdminAuditController@getRoadshowAudit')}}}"><span class="am-icon-puzzle-piece"></span> 路演审核<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+            <li><a href="{{{action('AdminAuditController@getRoadshowAcceptance')}}}"><span class="am-icon-puzzle-piece"></span> 路演验收<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
           </ul>
       </li>
       <li class="admin-parent">
