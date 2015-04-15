@@ -6,7 +6,6 @@
 	<ul class="am-nav am-nav-pills">
 		<li class="am-active"><a href="{{{action('IController@getProjectMy')}}}">我的项目</a></li>
 		<li><a href="{{{action('IController@getProjectFollow')}}}">关注的项目</a></li>
-		<li><a href="{{{action('IController@getProjectApp')}}}">预约的项目</a></li>
 		<li><a href="{{{action('IController@getProjectSub')}}}">投资的项目</a></li>
 		<li style="float:right">项目</li>
 	</ul>

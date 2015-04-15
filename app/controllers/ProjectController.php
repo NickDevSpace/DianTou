@@ -149,7 +149,6 @@ class ProjectController extends \BaseController {
         $project->assign_copies = Input::get('assign_copies');
         $project->quota_of_copy = Input::get('quota_of_copy');
         $project->raise_days = Input::get('raise_days');
-        $project->app_flag = 'Y';       //必须允许预约
         $project->allow_nolocal = Input::get('allow_nolocal', 'Y');
 
         $project->save();

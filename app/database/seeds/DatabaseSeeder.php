@@ -147,7 +147,6 @@ class ProjectTableSeeder extends Seeder {
 			'raise_days' => 30,
             'raise_start_date' => '2015-01-01',
             'raise_end_date' => '2015-05-01',
-			'app_flag' => 'Y',
 			'allow_nolocal' => 'Y',
 			'user_id' => 1
         ));
@@ -373,16 +372,6 @@ class SystemDictsTableSeeder extends Seeder {
             'dict_name' => 'PROJECT_STATE',
             'dict_key' => 'ROADSHOW',
             'dict_value' => '路演中'
-        ));
-        SystemDict::create(array(
-            'dict_name' => 'PROJECT_STATE',
-            'dict_key' => 'APPOINTMENT',
-            'dict_value' => '预约中'
-        ));
-        SystemDict::create(array(
-            'dict_name' => 'PROJECT_STATE',
-            'dict_key' => 'APPOINTMENT_FINISHED',
-            'dict_value' => '预约结束'
         ));
         SystemDict::create(array(
             'dict_name' => 'PROJECT_STATE',

@@ -72,20 +72,17 @@ class CreateProjectsTable extends Migration {
 			
             //融资需求
             $table->decimal('raise_quota',17,2);       //融资需求金额
+            $table->decimal('min_raise_quota',17,2);       //最小阈值
+            $table->decimal('max_raise_quota',17,2);        //最大阈值
             $table->integer('retain_stockholder');      //项目方当前股东人数，所有股东数加起来不能超过200
             $table->decimal('assign_share', 17,2);      //出让股份占比
-			$table->integer('assign_copies');		//出让份数      份数不能超过200-当前股东人数
-            $table->decimal('quota_of_copy',17,2);     //每份金额       融资需求金额除以出让份数
+            $table->decimal('min_sub_quota',17,2);
+			//$table->integer('assign_copies');		//出让份数      份数不能超过200-当前股东人数
+            //$table->decimal('quota_of_copy',17,2);     //每份金额       融资需求金额除以出让份数
             $table->integer('raise_days');        //融资天数
             $table->date('raise_start_date')->nullable();      //融资开始时间
             $table->date('raise_end_date')->nullable();        //融资结束时间
-			$table->char('app_flag', 1)->default('Y');		//是否支持预约，如果选择否，那么项目审批后直接进入融资阶段；
-															//如果选择是，那么项目通过审批后进入预约状态，预约状态会持续一段时间，用户可以进行预约（按预约比率缴纳保证金），我们为预约的用户在项目融资阶段保留他们预约的金额，并在一段时间内供他们认购，如果超出时间限制则吞没保证
-
-			$table->date('app_start_date')->nullable();		//预约开始时间
-			$table->date('app_end_date')->nullable();		//预约结束时间，到期后可进入融资阶段，如果预约情况不佳，可直接废弃该项目
-
-            $table->char('allow_nolocal', 1)->nullable()->default('Y');   //是否允许非本地区的用户认购 Y N
+			$table->char('allow_nolocal', 1)->nullable()->default('Y');   //是否允许非本地区的用户认购 Y N
 			
             
             //当前预约/认购情况，客户每做一笔预约或认购交易都需要更新这两个字段
@@ -99,7 +96,6 @@ class CreateProjectsTable extends Migration {
 
             $table->integer('user_id');     //发起人
 
-            $table->integer('check_user_id');       //审核人
 			$table->timestamps();
 
             $table->unique('project_no');

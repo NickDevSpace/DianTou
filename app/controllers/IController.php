@@ -103,19 +103,6 @@ class IController extends \BaseController {
 		return View::make('i.project-follow', array('menu'=>'project', 'projects'=>$projects));
 	}
 	
-	public function getProjectApp(){
-		$uid = Auth::id();
-		$results = DB::table('projects')
-					->join('appointments', function($join) use($uid)
-					{
-						$join->on('projects.id', '=', 'appointments.project_id')
-							 ->where('appointments.user_id', '=', $uid)->where('appointments.state', '=' ,'1');
-					})
-					->select('projects.*', 'appointments.app_amt', 'appointments.app_share', 'appointments.app_time', 'appointments.state')
-					->simplePaginate(10);
-		return View::make('i.project-app', array('menu'=>'project', 'results'=>$results));
-	}
-	
 	public function getProjectSub(){
 		$uid = Auth::id();
 		$results = DB::table('projects')

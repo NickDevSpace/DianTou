@@ -163,28 +163,35 @@ class AdminAuditController extends \BaseController {
     }
 
     public function getRoadshowAcceptance(){
-//        $table->integer('project_id');
-//        $table->integer('roadshow_scene_id');
-//        $table->integer('show_seq');
-//        $table->string('show_video')->nullable();
-//        $table->text('show_detail')->nullable();
-//        $table->string('rate')->nullable();     //A+ A A- B+ B B-
-//        $table->char('attended',1)->default('N');       //是否出席
-//        $table->char('end_flag',1)->default('N');
         $query_params['province_code'] = Input::get('province_code');
         $query_params['city_code'] = Input::get('city_code');
-        $query_params['start_date'] = Input::get('start_date', '1899-12-31');
-        $query_params['end_date'] = Input::get('end_date', '2999-12-31');
-        $query_params['keyword'] = Input::get('keyword', '');
+        $query_params['start_date'] = Input::get('start_date');
+        $query_params['end_date'] = Input::get('end_date');
+        $query_params['keyword'] = Input::get('keyword');
 
 
-        $project_roadshows = ProjectRoadshow::with('roadshowScene')->whereHas('RoadshowScene', function($q){
-             $q->where('scene_date', '<=', date('Y-m-d', time()));
-        })->simplePaginate(10);
-
+        $project_roadshows = ProjectRoadshow::with('roadshowScene')->whereHas('RoadshowScene', function($q) use($query_params){
+                                                $q->where('scene_date', '<=', date('Y-m-d', time()));
+                                                if($query_params['province_code'] != null && $query_params['province_code'] != ''){
+                                                    $q->where('province_code', '=', $query_params['province_code']);
+                                                }
+                                                if($query_params['city_code'] != null && $query_params['city_code'] != ''){
+                                                    $q->where('city_code', '=', $query_params['city_code']);
+                                                }
+                                                if($query_params['start_date'] != null){
+                                                    $q->where('scene_date', '>=', $query_params['start_date']);
+                                                }
+                                                if($query_params['end_date'] != null){
+                                                    $q->where('scene_date', '<=', $query_params['end_date']);
+                                                }
+                                            })
+                                            ->with('project')->whereHas('Project', function($q) use($query_params){
+                                                $q->where('project_name', 'like', '%'.$query_params['keyword'].'%');
+                                            })->simplePaginate(10);
 
         $province_select = Province::all();
-        $city_select = array();
+        $city_select = City::where('province_code','=',$query_params['province_code'])->get();
+
         return View::make('admin.audit.roadshow-acceptance-index', array('query_params' => $query_params, 'province_select' => $province_select, 'city_select' => $city_select, 'project_roadshows'=> $project_roadshows));
 
 
@@ -218,33 +225,21 @@ class AdminAuditController extends \BaseController {
         $project_roadshow->point = $inputs['point'];
         $project_roadshow->next_state = $inputs['next_state'];
         $project_roadshow->accept_state = $inputs['accept_state'];
+        $project_roadshow->accept_user = Auth::id();
         $project_roadshow->save();
 
         //确认完成
         if($inputs['accept_state'] == '3'){
             $project = Project::findOrFail($project_roadshow->project_id);
             $project->state = $inputs['next_state'];
-            $project->save();
 
             switch($inputs['next_state']){
-                case 'APPOINTMENT':{
-                    //发送系统消息
-                    $user_id = Auth::id();
-                    $title = '项目路演验收结果';
-                    $content = "亲爱的".Auth::user()->nickname."：您好！恭喜您，您的项目《".$project->project_name."》路演已顺利通过点投网验收！项目已进入\"预约\"状态！";
-                    SystemMessageService::send($user_id, $title, $content);
-
-                    //项目里程碑
-                    $event = new ProjectLifeEvent();
-                    $event->project_id = $project->id;
-                    $event->event_type = 'APPOINTMENT';
-                    $event->event_desc = '开始预约';
-                    $event->event_date = date('Y-m-d', time());
-                    $event->save();
-
-                    break;
-                }
                 case 'RAISE':{
+                    //修改项目信息
+                    $project->raise_start_date = DateUtil::today();
+                    $project->raise_end_date = DateUtil::addDays(DateUtil::today(),$project->raise_days );
+                    $project->save();
+
                     //发送系统消息
                     $user_id = Auth::id();
                     $title = '项目路演验收结果';
@@ -262,6 +257,9 @@ class AdminAuditController extends \BaseController {
                     break;
                 }
                 case 'END':{
+                    //修改项目信息
+                    $project->save();
+
                     //发送系统消息
                     $user_id = Auth::id();
                     $title = '项目路演验收结果';
@@ -286,9 +284,12 @@ class AdminAuditController extends \BaseController {
         }else{
             return Redirect::action('AdminAuditController@getRoadshowAcceptance')->with('message', '保存成功');
         }
+    }
 
+    public function getRoadshowAcceptanceDetail($id){
+        $project_roadshow = ProjectRoadshow::with('project')->with('roadshowScene')->findOrFail($id);
 
-
+        return View::make('admin.audit.roadshow-acceptance-detail', array('project_roadshow' => $project_roadshow));
 
     }
 

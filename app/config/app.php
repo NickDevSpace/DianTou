@@ -209,8 +209,6 @@ return array(
                                 'AUDIT_FAILED'=>'审核失败',     //审核失败
                                 'AUDIT_PASS'=>'审核通过',       //审核通过
                                 'ROADSHOW'=>'路演中',         //路演中
-                                'APPOINTMENT'=>'预约中',              //预约中
-                                'APPOINTMENT_FINISHED'=>'预约结束',     //预约结束
                                 'RAISE'=>'融资中',            //融资中
                                 'RAISE_FAILED'=>'融资失败',     //融资失败
                                 'RAISE_SUCCESS'=>'融资成功',        //融资成功

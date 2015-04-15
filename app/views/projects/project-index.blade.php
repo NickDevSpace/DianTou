@@ -155,7 +155,7 @@
                         <div style="font-size:12px; overflow:hidden;">
                         <div style="clear:both"></div>
                         <span class="am-fl">{{{($p->raised_bal * 100 / $p->raise_quota)}}}%</span>
-                        <span class="am-fr">剩余20天</span>
+                        <span class="am-fr">剩余{{{DateUtil::leftDays($p->raise_end_date)}}}天</span>
                         </div>
                       </div>
                     </div>

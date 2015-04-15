@@ -44,7 +44,7 @@
         <div class="am-form-group">
           <label for="user-name" class="am-u-sm-3 am-form-label">并使项目</label>
           <div class="am-u-sm-9">
-            <?php echo Form::amSelect(array('list'=>array(array('dict_key'=>'APPOINTMENT', 'dict_value'=>'进入预约状态'), array('dict_key'=>'RAISE', 'dict_value'=>'进入融资状态'), array('dict_key'=>'2', 'dict_value'=>'项目结束')), 'value_field'=>'dict_key','text_field'=>'dict_value', 'id' => 'i-attended', 'name' => 'next_state', 'selected'=>$project_roadshow->next_state, 'required' => 'true')); ?>
+            <?php echo Form::amSelect(array('list'=>array(array('dict_key'=>'RAISE', 'dict_value'=>'进入融资状态'), array('dict_key'=>'END', 'dict_value'=>'项目结束')), 'value_field'=>'dict_key','text_field'=>'dict_value', 'id' => 'i-attended', 'name' => 'next_state', 'selected'=>$project_roadshow->next_state, 'required' => 'true')); ?>
           </div>
         </div>
 
@@ -65,7 +65,7 @@
 <script>
     $(function(){
         $('#ok-btn').on('click', function(){
-            if(confirm('确认该项目通过路演验收？')){
+            if(confirm('确认完成该项目路演验收？')){
                 $('input[name="accept_state"]').val("3");
                 if(checkForm()){
                     $('#form').submit();

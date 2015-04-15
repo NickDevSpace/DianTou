@@ -180,5 +180,10 @@ class XController extends \BaseController {
     }
 
 
+    public function getTest(){
+            //DateUtil::addDays(DateUtil::today(), '20')
+        dd(        date('Y-m-d',strtotime('+30 day',strtotime('2015-04-15')))  );
+    }
+
 
 }
