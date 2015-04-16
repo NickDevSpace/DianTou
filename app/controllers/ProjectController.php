@@ -256,6 +256,13 @@ class ProjectController extends \BaseController {
 		//
 	}
 
+    public function getTmpShow($id){
+        $project = Project::findOrFail($id);
+
+        return View::make('projects.project-tmp-show', array('project'=>$project));
+
+    }
+
 
 
 
