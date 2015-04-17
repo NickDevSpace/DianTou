@@ -22,7 +22,9 @@ class CreateProjectRoadshowsTable extends Migration {
             $table->string('show_video')->nullable();
             $table->text('show_detail')->nullable();
             $table->decimal('point', 5,2)->default(0.00);     //打分 10分满分 例如9.85
-            $table->char('audit_state',1)->default('N');
+            $table->string('next_state');      //项目下一步状态 三选一 APPOINTMENT/RAISE/END
+            $table->char('accept_state',1)->default('1');     //1-未完成  2-暂存  3-完成
+            $table->integer('accept_user');       //验收用户
             $table->timestamps();
         });
 	}

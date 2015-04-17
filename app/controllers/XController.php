@@ -100,12 +100,35 @@ class XController extends \BaseController {
         $jpeg_quality = 90;
 
         $src = Input::get('path');
+        $cons_with = Input::get('cons_with');
         $dst = $PROJECT_DIR.'/'.pathinfo($src, PATHINFO_BASENAME);
-        $img_r = imagecreatefromjpeg($src);
+
+        $size=getimagesize($src);
+        $img_r = null;
+        switch($size["mime"]){
+            case "image/jpeg":
+                $img_r = imagecreatefromjpeg($src); //jpeg file
+                break;
+            case "image/gif":
+                $img_r = imagecreatefromgif($src); //gif file
+                break;
+            case "image/png":
+                $img_r = imagecreatefrompng($src); //png file
+                break;
+            default:
+                break;
+        }
+
+        if($img_r == null){
+            Response::json(array('errno'=>1, 'message'=>'图片处理失败'));
+        }
+
+
         $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 
-        imagecopyresampled($dst_r,$img_r,0,0,Input::get('x'),Input::get('y'),
-            $targ_w,$targ_h,Input::get('w'),Input::get('h'));
+        $rate =  ($size[0] / $cons_with);
+        imagecopyresampled($dst_r,$img_r,0,0,Input::get('x') * $rate,Input::get('y') * $rate,
+            $targ_w,$targ_h,Input::get('w') * $rate,Input::get('h') * $rate);
 
         imagejpeg($dst_r,$dst,$jpeg_quality);
         return Response::json(array('errno'=>0, 'path'=>$dst));
@@ -179,6 +202,16 @@ class XController extends \BaseController {
         return Response::json(array('error'=>2, 'message'=> 'FILE_NOT_UPLOADED'));
     }
 
+
+    public function getTest(){
+        $project = Project::find(11);
+
+        if($project == null){
+            dd('null');
+        }
+
+        dd('lkasjdlkfjsdf');
+    }
 
 
 }

@@ -24,4 +24,8 @@ class Project extends \Eloquent {
     public function comments(){
     	return $this->hasMany('Comment');
     }
+
+    public function follows(){
+        return $this->hasMany('Follow', 'project_id', 'id');
+    }
 }

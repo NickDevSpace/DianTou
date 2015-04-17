@@ -131,27 +131,49 @@ class ProjectTableSeeder extends Seeder {
         DB::table('projects')->delete();
         Project::create(array(
             'project_no' => '201500000001',
-			'project_name' => '测试默认项目',
+			'project_name' => '测试项目',
             'project_cover' => 'upload/default.jpg',
-            'sub_title' => '测试默认项目子标题',
+            'sub_title' => '测试项目子标题',
 			'industry_code' => 'I0101',
             'province_code' => '330000',
             'city_code' => 'cx',
 			'address' => '慈溪浒山街道',
 			'detail' => '<h3>项目展示</h3>',
 			'raise_quota' => 3000000,
+            'min_raise_quota' => 2500000,
+            'max_raise_quota' => 3500000,
+            'min_sub_quota' => 20000,
             'retain_stockholder' => 3,
-			'assign_copies' => 150,
-            'quota_of_copy' => 20000,
             'assign_share' => 40,
 			'raise_days' => 30,
-            'raise_start_date' => '2015-01-01',
-            'raise_end_date' => '2015-05-01',
-			'app_flag' => 'Y',
 			'allow_nolocal' => 'Y',
 			'user_id' => 1
         ));
-		
+
+        Project::create(array(
+            'project_no' => '201500000002',
+            'project_name' => '烤鱼店',
+            'project_cover' => 'upload/default.jpg',
+            'sub_title' => '烤鱼店烤鱼店烤鱼店',
+            'industry_code' => 'I0101',
+            'province_code' => '330000',
+            'city_code' => 'cx',
+            'address' => '慈溪坎墩街道',
+            'detail' => '<h3>项目展示</h3>',
+            'raise_quota' => 2000000,
+            'min_raise_quota' => 1800000,
+            'max_raise_quota' => 3200000,
+            'min_sub_quota' => 20000,
+            'retain_stockholder' => 1,
+            'assign_share' => 40,
+            'raise_days' => 45,
+            'raise_start_date' => '2015-04-15',
+            'raise_end_date' => '2015-05-25',
+            'state' => 'RAISE',
+            'allow_nolocal' => 'Y',
+            'user_id' => 1
+        ));
+
     }
 }
 
@@ -200,9 +222,7 @@ class SubscriptionTableSeeder extends Seeder {
     {
         Subscription::create(array(
             'project_id' => 1,
-			'sub_part_count' => 5,
             'sub_amt' => 50000,
-			'sub_share' => 0.03,
 			'sub_time' => date('Y-m-d H:i:s', time()),
 			'state' => '1',
 			'user_id' => 1,
@@ -373,16 +393,6 @@ class SystemDictsTableSeeder extends Seeder {
             'dict_name' => 'PROJECT_STATE',
             'dict_key' => 'ROADSHOW',
             'dict_value' => '路演中'
-        ));
-        SystemDict::create(array(
-            'dict_name' => 'PROJECT_STATE',
-            'dict_key' => 'APPOINTMENT',
-            'dict_value' => '预约中'
-        ));
-        SystemDict::create(array(
-            'dict_name' => 'PROJECT_STATE',
-            'dict_key' => 'APPOINTMENT_FINISHED',
-            'dict_value' => '预约结束'
         ));
         SystemDict::create(array(
             'dict_name' => 'PROJECT_STATE',

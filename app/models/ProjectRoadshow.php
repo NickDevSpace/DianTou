@@ -10,4 +10,8 @@ class ProjectRoadshow extends \Eloquent {
     public function roadshowScene(){
         return $this->hasOne('RoadshowScene', 'id', 'roadshow_scene_id');
     }
+
+    public function acceptUser(){
+        return $this->hasOne('User', 'id', 'accept_user');
+    }
 }

@@ -19,6 +19,7 @@
 			"app/tests/TestCase.php",
 			"app/biz/impl",
 			"app/biz/service",
+            "app/biz/utils",
 			"app/biz/lib/alipay"
 		]
 	},
