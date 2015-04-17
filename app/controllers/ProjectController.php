@@ -200,8 +200,12 @@ class ProjectController extends \BaseController {
     public function getShow($id)
 	{
 		$project = Project::find($id);
-        return View::make('projects.project-show', array('project' => $project));
+		$user = $project->user;
+		$comments = $project->comments;
+        return View::make('projects.project-show', array('project' => $project,'user' => $user , 'comments' => $comments));
 	}
+	
+
 
 
 	

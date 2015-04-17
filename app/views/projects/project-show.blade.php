@@ -153,8 +153,8 @@
 			<div class="am-u-sm-8 project-left">
 				<div class="project-baseinfo">
 					<h1>{{{$project->project_name}}}</h1>
-					<span>发起人</span>
-					<span style="margin-left:100px">行业 :电子/数码</span>
+					<span>发起人:{{{$user->nickname}}}</span>
+					<span style="margin-left:100px">行业 :{{{$project->industry->industry_name}}}</span>
 					<span style="margin-left:100px">地址:浙江省慈溪市宗汉街道</span>
 					<div id="riskhint">&nbsp&nbsp&nbsp&nbsp&nbsp风险提示:请您仔细阅读此项目认购协议条款，确认并知晓众筹股权(无保本)投资风险，认购后您将不能更改投资人姓名，也不能代他人认购和转让他人，只以您在XXX平台上身份认证时提交的身份证为准进行投资合同文本签署和工商注册办理.如认购后申请退出，需支付相应反悔金．
 请勿相信任何非XXX官方对外公布的承诺或非官方发布的协议。对此，点投将不承担任何法律责任，如需核实信息请拨打官方客服电话：110。</div>
@@ -175,17 +175,7 @@
 					 
 					 <div class="am-tabs-bd">
 					 	 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
-      							<h2>	关于我</h2>
-								<p>	<br />
-								</p>
-								<p class="MsoNormal">	2004年，在菲星创始人冯海文先生领航下，一支年轻团队怀揣先进的<span>DV</span>闪存和高清技术，立志用影像改变世界，建立了第一个研发与生产中心，在数码影像领域开始了探索，菲星传奇由此拉开序幕。经过<span>10</span>年的发展，分别在香港、纽约、新加坡、广州等地以独资、合资、合作等方式建立了覆盖全球的专业研发机构生产中心和品牌运营基地，目前已涵盖<span>MP3</span>，数码相机，数码摄像机及行车记录仪等多种时尚影音数码产品。展望未来，冯海文更以成就数码科技梦想作为伟大使命。坚持“追求卓越，创造共赢”的经营理念，凭借雄厚的资金实力和强大的技术研发团队，秉承合作共赢的发展宗旨，不断创新，以精益求精的专业精神致力于卓越的产品和服务，为消费者带来更好更多的产品……<span>.</span> </p>
-								<p>	<br />
-								</p>
-								<h2>	我想要做什么</h2>
-								<p><img src="/upload/tmp/dota.jpg"></img></p>
-								<h2>	为什么我需要你的支持及资金用途</h2>
-								<p>	<span style="color:#282828;font-family:'open sans', arial, 'hiragino sans gb', 'microsoft yahei', 微软雅黑, stheiti, 'wenquanyi micro hei', simsun, sans-serif;font-size:14px;line-height:24px;background-color:#ffffff;">我们是一群喜爱影音产品同时有理想的人，多年以来一直致力于消费者享受更时尚的影音产品。我们希望通过“众筹网”能打开市场的知名度，更希望能够筹到更多消费者对于我们创意理念的支持。同时，我们也希望您能参与到产品的持续改进和分享中来，以我为人人，人人为我来网聚大家的力量。此次筹集的资金将全部用于下一代新产品的研发及深度改进，所有支持者都有机会成为首批受惠消费者。</span> </p>
-								<h2>	可能存在的风险</h2>
+      							<?php echo $project->detail?>
     					 </div>
     					 <div class="am-tab-panel am-fade" id="tab2">
     					 		预算
@@ -224,7 +214,8 @@
 						     </div>						     
 						     <button type="button" class="am-btn am-btn-success" style="float:right">提交</button>		
 						     <div class="comment-list">
-							     <article class="am-comment"> <!-- 评论容器 -->
+						     @foreach ($comments as $c)
+							     <article class="am-comment" style="margin-top:10px"> <!-- 评论容器 -->
 								  <a href="">
 								    <img class="am-comment-avatar" alt="" src="http://zcr2.ncfstatic.com/avatar/000/76/53/82virtual_avatar_small.jpg"/>
 								  </a>
@@ -233,15 +224,15 @@
 								    <header class="am-comment-hd">
 								      <!--<h3 class="am-comment-title">评论标题</h3>-->
 								      <div class="am-comment-meta"> <!-- 评论元数据 -->
-								        <a href="#link-to-user" class="am-comment-author">陈冲</a> <!-- 评论者 -->
+								        <a href="#link-to-user" class="am-comment-author">{{{$c->user->nickname}}}</a> <!-- 评论者 -->
 								        评论于 <time datetime="">2015.03.07</time>
 								      </div>
 								    </header>
 								
-								    <div class="am-comment-bd">可以的</div> 
+								    <div class="am-comment-bd">{{{$c->content}}}</div> 
 								  </div>
 								</article>
-							     
+							 @endforeach
 						     </div>
     					 </div>
 					 </div>

@@ -20,4 +20,8 @@ class Project extends \Eloquent {
     public function user(){
         return $this->hasOne('User', 'id', 'user_id');
     }
+    
+    public function comments(){
+    	return $this->hasMany('Comment');
+    }
 }
