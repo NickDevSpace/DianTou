@@ -35,6 +35,7 @@ Route::group(array('before' => 'auth'), function()
 	Route::controller('sub', 'SubscriptionController');
     Route::controller('app', 'AppointmentController');
     Route::controller('roadshow', 'RoadshowSceneController');
+    Route::controller('follow', 'FollowController');
 });
 
 Route::group(array('before' => 'auth.admin', 'prefix' => 'admin'), function()

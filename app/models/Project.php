@@ -20,4 +20,8 @@ class Project extends \Eloquent {
     public function user(){
         return $this->hasOne('User', 'id', 'user_id');
     }
+
+    public function follows(){
+        return $this->hasMany('Follow', 'project_id', 'id');
+    }
 }

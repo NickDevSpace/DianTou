@@ -175,7 +175,7 @@
 									$.ajax({
 										url: BASE_URL + '/x/project-cover-crop',
 										type: 'POST',
-										data: {path: coverCroper.image_path, x:coverCroper.jcrop_api.tellSelect().x, y: coverCroper.jcrop_api.tellSelect().y, w: coverCroper.jcrop_api.tellSelect().w, h: coverCroper.jcrop_api.tellSelect().h },
+										data: {path: coverCroper.image_path, cons_with: 500, x:coverCroper.jcrop_api.tellSelect().x, y: coverCroper.jcrop_api.tellSelect().y, w: coverCroper.jcrop_api.tellSelect().w, h: coverCroper.jcrop_api.tellSelect().h },
 										async: false,
 										dataType: 'json',
 										success: function(data){
@@ -187,6 +187,8 @@
 											}else{
 												$('#project-cover-preview').html('图片保存失败，请重试');
 											}
+
+                                            alert(coverCroper.jcrop_api.getBounds()[0] + "  " + coverCroper.jcrop_api.getBounds()[1]);
 										}
 									});
 
