@@ -24,17 +24,15 @@
             <thead>
                 <tr>
                     <th>项目名称</th>
-                    <th>认购份数</th>
-                    <th>股份占比</th>
+                    <th>投资金额</th>
                     <th>应付金额</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{{$project->project_name}}}</td>
-                    <td>{{{$sub->sub_copies}}}</td>
-                    <td>{{{($sub->sub_share * 100).'%'}}}</td>
-                    <td>{{{$sub->sub_amt}}}</td>
+                    <td>{{{$sub->project['project_name']}}}</td>
+                    <td>￥{{{$sub->sub_amt}}}</td>
+                    <td>￥{{{$sub->sub_amt}}}</td>
                 </tr>
             </tbody>
 

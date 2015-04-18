@@ -77,8 +77,6 @@ class CreateProjectsTable extends Migration {
             $table->integer('retain_stockholder');      //项目方当前股东人数，所有股东数加起来不能超过200
             $table->decimal('assign_share', 17,2);      //出让股份占比
             $table->decimal('min_sub_quota',17,2);
-			//$table->integer('assign_copies');		//出让份数      份数不能超过200-当前股东人数
-            //$table->decimal('quota_of_copy',17,2);     //每份金额       融资需求金额除以出让份数
             $table->integer('raise_days');        //融资天数
             $table->date('raise_start_date')->nullable();      //融资开始时间
             $table->date('raise_end_date')->nullable();        //融资结束时间
@@ -87,7 +85,6 @@ class CreateProjectsTable extends Migration {
             
             //当前预约/认购情况，客户每做一笔预约或认购交易都需要更新这两个字段
 			$table->decimal('raised_bal', 17,2)->default(0.00);		//项目当前被认购金额
-			$table->integer('raised_copies')->default(0);		//被预约的分数
 			
 			//其他
 			$table->char('hot_level', 1)->default('1');  // 项目热销情况 1普通 2热销 3火爆

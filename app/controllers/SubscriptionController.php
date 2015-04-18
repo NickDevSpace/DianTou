@@ -3,15 +3,15 @@
 class SubscriptionController extends \BaseController {
 
     /**
-     * 点击认购，输入份数后进入此方法
+     * 点击认购，输入份数后进入此方法，改成post
      */
-	public function getMakeSub(){
+	public function postSaveSub(){
 		$inputs = array(
 			'project_id' => Input::get('project_id'),
-			'sub_copies' => Input::get('sub_copies')
+			'sub_amt' => Input::get('sub_amt')
 		);
 		
-		$project = Project::where('id', '=', $inputs['project_id'])->first();
+		$project = Project::findOrFail($inputs['project_id']);
 		
 		if(!$project){ //如果找不到符合条件的项目，则提示错误页面
 			dd('ERROR_PROJECT_NOT_FOUND');
@@ -45,14 +45,18 @@ class SubscriptionController extends \BaseController {
         $sub->sub_order = Session::get('SN.sub_order_sn');
         $sub->project_id = $inputs['project_id'];
         $sub->user_id = Auth::id();
-        $sub->sub_copies = $inputs['sub_copies'];
-        $sub->quota_of_copy = $project->quota_of_copy;
-        $sub->sub_amt = $inputs['sub_copies'] * $project->quota_of_copy;
-        $sub->sub_share = $sub->sub_amt / ($project->raise_quota / $project->assign_share);
+        $sub->sub_amt = $inputs['sub_amt'];
         $sub->save();
-        //跳转到订单页面支付页面
-        return View::make('subscriptions.order', array('project'=>$project, 'sub'=>$sub));
+        //跳转到订单详细页面
+        return Redirect::action('SubscriptionController@getSubDetail', array($sub->id));
+
 	}
+
+    public function getSubDetail($id){
+        $sub = Subscription::with('project')->findOrFail($id);
+
+        return View::make('subscriptions.order', array('sub'=>$sub));
+    }
 
     /**
      * 点击立即支付按钮

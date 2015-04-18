@@ -30,6 +30,10 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
     public function city(){
         return $this->hasOne('City', 'city_code', 'city_code');
     }
+    
+    public function comments() {
+    	return $this->hasMany('Comment');
+    }
 
     public function userinfo()
     {
