@@ -49,6 +49,18 @@
                   </div>
                 </div>
                 <div class="am-g am-margin-top">
+                  <div class="am-u-sm-3 am-text-right">最大融资阈值</div>
+                  <div class="am-u-sm-9">
+                        {{{$project->max_raise_quota}}}
+                  </div>
+                </div>
+                <div class="am-g am-margin-top">
+                  <div class="am-u-sm-3 am-text-right">最小融资阈值</div>
+                  <div class="am-u-sm-9">
+                        {{{$project->min_raise_quota}}}
+                  </div>
+                </div>
+                <div class="am-g am-margin-top">
                   <div class="am-u-sm-3 am-text-right">当前股东人数</div>
                   <div class="am-u-sm-9">
                         {{{$project->retain_stockholder}}}
@@ -61,15 +73,9 @@
                   </div>
                 </div>
                 <div class="am-g am-margin-top">
-                  <div class="am-u-sm-3 am-text-right">可认购份数</div>
+                  <div class="am-u-sm-3 am-text-right">单人最小投资金额</div>
                   <div class="am-u-sm-9">
-                        {{{$project->assign_copies}}}
-                  </div>
-                </div>
-                <div class="am-g am-margin-top">
-                  <div class="am-u-sm-3 am-text-right">每份金额</div>
-                  <div class="am-u-sm-9">
-                        {{{$project->quota_of_copy}}}
+                        {{{$project->min_sub_quota}}}
                   </div>
                 </div>
                 <div class="am-g am-margin-top">

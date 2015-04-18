@@ -46,6 +46,12 @@
                     </div>
                 </div>
                 <div class="am-form-group">
+                    <label for="i-address" class="am-u-sm-3 am-form-label">联系地址：</label>
+                    <div class="am-u-sm-6 am-u-end">
+                        <input type="text" id="i-address" name="address" class="am-form-field" placeholder="填写您的常用联系地址，以便点投和你联系"/>
+                    </div>
+                </div>
+                <div class="am-form-group">
                     <label for="i-crdt-id" class="am-u-sm-3 am-form-label">身份证号：</label>
                     <div class="am-u-sm-6 am-u-end">
                         <input type="text" id="i-crdt-id" name="crdt_id"  placeholder="请输入您的身份证号码" data-validate-message="身份证号码格式不正确" required >
@@ -53,21 +59,21 @@
                 </div>
                 <div class="am-form-group resource-upload-wrapper">
                     <label for="i-crdt-photo-a" class="am-u-sm-3 am-form-label">身份证正面：</label>
-                    <div class="am-u-sm-2 am-u-end">
+                    <div class="am-u-sm-3 am-u-end">
                         <div class="resource-picker" data-res-name="crdt_photo_a">选择文件</div>
                         <input type="hidden" name="crdt_photo_a"/>
                     </div>
-                    <div class="am-u-sm-3">
+                    <div class="am-u-sm-3 am-u-end">
                          <div id="rp_crdt_photo_a" class="resource-preview"></div>
                     </div>
                 </div>
                 <div class="am-form-group resource-upload-wrapper">
                     <label for="i-crdt-photo-b" class="am-u-sm-3 am-form-label">身份证反面：</label>
-                    <div class="am-u-sm-2 am-u-end">
+                    <div class="am-u-sm-3 am-u-end">
                         <div class="resource-picker" data-res-name="crdt_photo_b">选择文件</div>
                         <input type="hidden" name="crdt_photo_b"/>
                     </div>
-                    <div class="am-u-sm-3">
+                    <div class="am-u-sm-3 am-u-end">
                          <div id="rp_crdt_photo_b" class="resource-preview"></div>
                     </div>
                 </div>
@@ -92,7 +98,9 @@
 </div>
 
 @stop
-
+@section('vendor_js')
+<script src="{{{asset('assets/vendor/webuploader/webuploader.min.js')}}}"></script>
+@stop
 @section('page_js')
 <script>
     $(function(){
@@ -102,6 +110,40 @@
             var mobile = $("input[name='account']").val();
             App.Common.SMSVerification.sendVCode(mobile, $btn);
         });
+
+        //增加上传按钮的绑定
+        var res_args = {
+            options: {
+                server: BASE_URL + '/x/project-resource-upload',
+                pick: '.resource-picker',
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                },
+                fileVal: 'res_file'
+            },
+            onCreate: function(){
+                var me = this;
+                $('.resource-picker').on('click', function(){
+                    var curResName = $(this).attr('data-res-name');
+                    me.curResName = curResName;
+                    me.options.formData = {res_name: curResName};
+                });
+            },
+            onUploadSuccess: function( file, response ){
+                var me = this;
+                if(response.errno == 0){
+                    $('input[name="' + me.curResName + '"]').val(response.path);
+                    var imgURL = BASE_URL + '/' + response.path;
+                    $('#rp_'+ me.curResName).html('<img width="230" height="175" src="' + imgURL + '" alt="预览图" class="am-img-thumbnail"/>');
+                }else{
+                    _App.Common.ModalManager.showAlertModal('提示', '上传失败！请重试！');
+                }
+            }
+        };
+
+        var resUploader = new CommonUploader(res_args);
     });
 
 </script>

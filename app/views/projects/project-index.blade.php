@@ -149,8 +149,8 @@
                       <div class="am-thumbnail-caption">
                         <h3>{{{$p->project_name}}}</h3>
                         <p>{{{$p->sub_title}}}</p>
-                        <div class="am-progress am-progress-sm">
-                            <div class="am-progress-bar" style="width:{{{($p->raised_bal * 100 / $p->raise_quota)}}}%"></div>
+                        <div class="am-progress am-progress-sm ">
+                            <div class="am-progress-bar am-progress-bar-success" style="width:{{{($p->raised_bal * 100 / $p->raise_quota)}}}%"></div>
                         </div>
                         <div style="font-size:12px; overflow:hidden;">
                         <div style="clear:both"></div>

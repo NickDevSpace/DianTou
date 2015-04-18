@@ -60,7 +60,7 @@
 
 					</div>
 					<div style="text-align:center;">
-					    <span>昵称：</span>Steve Nash
+					    <span>昵称：</span>{{{Auth::user()->nickname}}}
 
 					</div>
 					<div style="padding:0px 25px; margin-top:25px;">

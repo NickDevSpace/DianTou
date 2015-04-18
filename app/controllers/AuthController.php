@@ -206,6 +206,7 @@ class AuthController extends \BaseController {
         $inputs  = array('real_name' => Input::get('real_name'),
                         'sex' => Input::get('sex'),
                         'birthday' => Input::get('birthday'),
+                        'address' => Input::get('address'),
                         'crdt_id' => Input::get('crdt_id'),
                         'crdt_photo_a' => Input::get('crdt_photo_a'),
                         'crdt_photo_b' => Input::get('crdt_photo_b')
@@ -217,6 +218,7 @@ class AuthController extends \BaseController {
                 $user->userinfo['real_name'] = $inputs['real_name'];
                 $user->userinfo['sex'] = $inputs['sex'];
                 $user->userinfo['birthday'] = $inputs['birthday'];
+                $user->userinfo['address'] = $inputs['address'];
                 $user->userinfo['crdt_id'] = $inputs['crdt_id'];
                 $user->userinfo['crdt_photo_a'] = $inputs['crdt_photo_a'];
                 $user->userinfo['crdt_photo_b'] = $inputs['crdt_photo_b'];

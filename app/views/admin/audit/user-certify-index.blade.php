@@ -45,10 +45,11 @@
                 <td>@if($a->obj->user_type == '1')个人@else 企业 @endif</td>
                 <td>{{{$a->submit_time}}}</td>
                 <td>
-                    <div class="am-btn-toolbar">
-                      <div class="am-btn-group am-btn-group-xs">
-                        <a href="{{{action('AdminAuditController@getUserCertifyDetail', array($a->id))}}}">审核</a>
-                      </div>
+                    <div class="am-btn-group am-btn-group-xs">
+                        <button class="admin-op-btn am-btn am-btn-default am-btn-xs am-text-success" data-url="{{{action('AdminAuditController@getUserCertifyDetail', array($a->id))}}}" data-target="_self">
+                            <span class="am-icon-info-circle"></span>
+                            审核
+                        </button>
                     </div>
                 </td>
             </tr>

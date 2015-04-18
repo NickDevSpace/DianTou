@@ -51,7 +51,7 @@ class ProjectController extends \BaseController {
 
         $industry_list = Industry::where('parent', '=', 'I')->where('enabled', '=', 'Y')->get();
         //dd($all_industries->toArray());
-        $state_list = array(array('state_code'=>'ROADSHOW', 'state_name'=>'路演中'), array('state_code'=>'APPOINTMENT','state_name'=>'预约中'), array('state_code'=>'RAISE', 'state_name'=>'融资中'), array('state_code'=>'RAISE_SUCCESS', 'state_name'=>'融资成功'));
+        $state_list = array(array('state_code'=>'ROADSHOW', 'state_name'=>'路演中'), array('state_code'=>'RAISE', 'state_name'=>'融资中'), array('state_code'=>'RAISE_SUCCESS', 'state_name'=>'融资成功'));
 
         $cates = array('industry_list'=>$industry_list->toArray(), 'state_list'=>$state_list);
 
@@ -144,10 +144,11 @@ class ProjectController extends \BaseController {
 
         //融资信息
         $project->raise_quota = Input::get('raise_quota');
+        $project->max_raise_quota = Input::get('max_raise_quota');
+        $project->min_raise_quota = Input::get('min_raise_quota');
         $project->retain_stockholder = Input::get('retain_stockholder');
         $project->assign_share = Input::get('assign_share');
-        $project->assign_copies = Input::get('assign_copies');
-        $project->quota_of_copy = Input::get('quota_of_copy');
+        $project->min_sub_quota = Input::get('min_sub_quota');
         $project->raise_days = Input::get('raise_days');
         $project->allow_nolocal = Input::get('allow_nolocal', 'Y');
 

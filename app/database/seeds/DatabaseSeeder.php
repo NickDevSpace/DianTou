@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ProjectTableSeeder');
 		$this->call('FollowTableSeeder');
         $this->call('CommentTableSeeder');
+        $this->call('RoadshowScenesTableSeeder');
 		//$this->call('AppointmentTableSeeder');
 		//$this->call('SubscriptionTableSeeder');
         //$this->call('SentrySeeder');
@@ -177,6 +178,55 @@ class ProjectTableSeeder extends Seeder {
     }
 }
 
+class RoadshowScenesTableSeeder extends Seeder {
+    public function run()
+    {
+        DB::table('roadshow_scenes')->delete();
+        RoadshowScene::create(array(
+            'province_code' => '330000',
+            'city_code' => 'cx',
+            'title' => '慈溪点投路演01',
+            'scene_date' => '2015-05-20',
+            'address' => '慈溪市杭州湾大酒店',
+            'detail' => '开始时间：8:00，结束时间：16:00',
+            'seats' => '5',
+            'create_user' => 1
+        ));
+
+        RoadshowScene::create(array(
+            'province_code' => '330000',
+            'city_code' => 'cx',
+            'title' => '慈溪点投路演02',
+            'scene_date' => '2015-05-31',
+            'address' => '慈溪市杭州湾大酒店',
+            'detail' => '开始时间：8:00，结束时间：16:00',
+            'seats' => '3',
+            'create_user' => 1
+        ));
+
+        RoadshowScene::create(array(
+            'province_code' => '330000',
+            'city_code' => 'yy',
+            'title' => '余姚点投路演01',
+            'scene_date' => '2015-05-20',
+            'address' => '余姚太平洋大酒店',
+            'detail' => '开始时间：8:00，结束时间：16:00',
+            'seats' => '5',
+            'create_user' => 1
+        ));
+
+        RoadshowScene::create(array(
+            'province_code' => '330000',
+            'city_code' => 'yy',
+            'title' => '余姚点投路演02',
+            'scene_date' => '2015-05-28',
+            'address' => '余姚太平洋大酒店',
+            'detail' => '开始时间：8:00，结束时间：16:00',
+            'seats' => '5',
+            'create_user' => 1
+        ));
+    }
+}
 
 class FollowTableSeeder extends Seeder {
     public function run()
@@ -186,23 +236,6 @@ class FollowTableSeeder extends Seeder {
             'project_id' => 1,
             'user_id' => 1,
         ));
-    }
-}
-
-class AppointmentTableSeeder extends Seeder {
-    public function run()
-    {
-		Appointment::create(array(
-            'project_id' => 1,
-			'app_part_count' => 5,
-            'app_amt' => 50000,
-			'app_share' => 0.03,
-			'app_margin_amt' => 5000,
-			'app_time' => date('Y-m-d H:i:s', time()),
-			'state' => '1',
-			'user_id' => 1,
-        ));
-        
     }
 }
 
@@ -269,6 +302,13 @@ class CityTableSeeder extends Seeder {
             'province_code' => '330000'
 
         ));
+
+        City::create(array(
+            'city_code' => 'fh',
+            'city_name' => '奉化市',
+            'province_code' => '330000'
+
+        ));
         
 
         City::create(array(
@@ -303,6 +343,21 @@ class IndustryTableSeeder extends Seeder {
         Industry::create(array(
             'industry_code' => 'I0103',
             'industry_name' => '日料',
+            'parent' => 'I01'
+        ));
+        Industry::create(array(
+            'industry_code' => 'I0104',
+            'industry_name' => '中式',
+            'parent' => 'I01'
+        ));
+        Industry::create(array(
+            'industry_code' => 'I0105',
+            'industry_name' => '海鲜',
+            'parent' => 'I01'
+        ));
+        Industry::create(array(
+            'industry_code' => 'I0106',
+            'industry_name' => '快餐',
             'parent' => 'I01'
         ));
 

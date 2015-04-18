@@ -80,46 +80,56 @@
                 <input type="hidden" name="save_action">
 
                 <div class="am-form-group">
-                    <label for="i-total-quota" class="am-u-sm-2 am-form-label">融资需求金额</label>
-                    <div class="am-u-sm-10 am-u-end">
+                    <label for="i-total-quota" class="am-u-sm-3 am-form-label">拟融资金额（元）</label>
+                    <div class="am-u-sm-8 am-u-end">
                         <input type="number" id="i-total-quota" name="raise_quota" value="{{{$project->raise_quota}}}" placeholder="填写该项目融资所需的总金额（元）" data-validate-message="融资总额必须为大于等于10000" min="10000" required>
                     </div>
                 </div>
+
                 <div class="am-form-group">
-                    <label for="i-retain-stockholder" class="am-u-sm-2 am-form-label">当前股东人数</label>
-                    <div class="am-u-sm-10 am-u-end">
+                    <label for="i-max-raise_quota" class="am-u-sm-3 am-form-label">最大融资阈值（元）</label>
+                    <div class="am-u-sm-8 am-u-end">
+                        <input type="number" id="i-max-raise_quota" name="max_raise_quota" value="{{{$project->max_raise_quota}}}" placeholder="填写该项目融资所需的总金额（元）" data-validate-message="融资总额必须为大于等于10000" min="10000" required>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="i-min-raise-quota" class="am-u-sm-3 am-form-label">最小融资阈值（元）</label>
+                    <div class="am-u-sm-8 am-u-end">
+                        <input type="number" id="i-min-raise-quota" name="min_raise_quota" value="{{{$project->min_raise_quota}}}" placeholder="填写该项目融资所需的总金额（元）" data-validate-message="融资总额必须为大于等于10000" min="10000" required>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="i-assign-share" class="am-u-sm-3 am-form-label">出让股份占比（%）</label>
+                    <div class="am-u-sm-8 am-u-end">
+                        <input type="number" id="i-assign-share" name="assign_share" value="{{{$project->assign_share}}}" placeholder="出让股份占比" data-validate-message="项目方出资金额不能大于融资总额" min="0" required>
+                    </div>
+                </div>
+
+                <div class="am-form-group">
+                    <label for="i-retain-stockholder" class="am-u-sm-3 am-form-label">当前股东人数</label>
+                    <div class="am-u-sm-8 am-u-end">
                         <input type="number" id="i-retain-stockholder" name="retain_stockholder" value="{{{$project->retain_stockholder}}}" placeholder="填写该项目目前的股东人数" data-validate-message="请填写介于1-199的整数" min="1" max="199"required>
                     </div>
                 </div>
                 <div class="am-form-group">
-                    <label for="i-assign-share" class="am-u-sm-2 am-form-label">出让股份占比</label>
-                    <div class="am-u-sm-10 am-u-end">
-                        <input type="number" id="i-assign-share" name="assign_share" value="{{{$project->assign_share}}}" placeholder="出让股份占比" data-validate-message="项目方出资金额不能大于融资总额" min="0" required>
-                    </div>
-                </div>
-                <div class="am-form-group">
-                    <label for="i-assign-copies" class="am-u-sm-2 am-form-label">可认购份数</label>
-                    <div class="am-u-sm-10 am-u-end">
-                        <input type="number" id="i-assign-copies" name="assign_copies" value="{{{$project->assign_copies}}}" placeholder="认购份数" data-validate-message="认购份数必须为大于0小于200的整数" min="1" max="200" required>
+                    <label for="i-min-sub-quota" class="am-u-sm-3 am-form-label">单人最小投资金额（元）</label>
+                    <div class="am-u-sm-8 am-u-end">
+                        <input type="number" id="i-min-sub-quota" name="min_sub_quota" value="{{{$project->min_sub_quota}}}" placeholder="单人最小投资金额" data-validate-message="单人最小投资金额必须xxxx"  required>
                     </div>
                 </div>
 
                 <div class="am-form-group">
-                    <label for="" class="am-u-sm-2 am-form-label">每份金额</label>
-                    <div class="am-u-sm-10 am-u-end">
-                        <input type="number" name="quota_of_copy" value="{{{$project->quota_of_copy}}}" readonly="true" placeholder="每份金额" >
-                    </div>
-                </div>
-
-                <div class="am-form-group">
-                    <label for="" class="am-u-sm-2 am-form-label">融资期限</label>
-                    <div class="am-u-sm-10 am-u-end">
+                    <label for="" class="am-u-sm-3 am-form-label">融资期限（天）</label>
+                    <div class="am-u-sm-8 am-u-end">
                         <input type="number" id="i-assign-copies" name="raise_days" value="{{{$project->raise_days}}}" placeholder="融资期限" data-validate-message="融资期限必须为大于0小于365的整数" min="1" max="365" required>
                     </div>
                 </div>
+
                 <div class="am-form-group">
-                    <label for="" class="am-u-sm-2 am-form-label">是否允许其他地区用户认购</label>
-                    <div class="am-u-sm-10 am-u-end">
+                    <label for="" class="am-u-sm-3 am-form-label">是否允许其他城市用户投资</label>
+                    <div class="am-u-sm-8 am-u-end">
                         <?php echo Form::amSelect(array('list'=>array(array('value'=>'Y', 'text'=>'是'), array('value'=>'N', 'text'=>'否')), 'value_field'=>'value','text_field'=>'text', 'id' => 'i-allow-nolocal', 'name' => 'allow_nolocal', 'selected'=> $project->allow_nolocal,'required' => 'true')); ?>
                     </div>
                 </div>

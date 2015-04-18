@@ -79,9 +79,9 @@
 						init : function(image_path){
 							var that = this;
 							that.image_path = image_path;
-							that.$container.html('<img width="500" src="' + BASE_URL + '/' + image_path + '">');
+							that.$container.html('<img width="600" src="' + BASE_URL + '/' + image_path + '">');
 							that.$container.find('img').Jcrop({
-								boxWidth:500,
+								boxWidth:600,
 								bgColor:     'black',
 								bgOpacity:   .4,
 								setSelect:   [ 0, 0, 460, 350 ],
@@ -171,11 +171,12 @@
 						if(response.errno == 0){
 							coverCroper.init(response.path);
 							$('#cover-editor').modal({
+                                width:600,
 								onConfirm: function(options) {
 									$.ajax({
 										url: BASE_URL + '/x/project-cover-crop',
 										type: 'POST',
-										data: {path: coverCroper.image_path, cons_with: 500, x:coverCroper.jcrop_api.tellSelect().x, y: coverCroper.jcrop_api.tellSelect().y, w: coverCroper.jcrop_api.tellSelect().w, h: coverCroper.jcrop_api.tellSelect().h },
+										data: {path: coverCroper.image_path, cons_with: 600, x:coverCroper.jcrop_api.tellSelect().x, y: coverCroper.jcrop_api.tellSelect().y, w: coverCroper.jcrop_api.tellSelect().w, h: coverCroper.jcrop_api.tellSelect().h },
 										async: false,
 										dataType: 'json',
 										success: function(data){
@@ -188,7 +189,6 @@
 												$('#project-cover-preview').html('图片保存失败，请重试');
 											}
 
-                                            alert(coverCroper.jcrop_api.getBounds()[0] + "  " + coverCroper.jcrop_api.getBounds()[1]);
 										}
 									});
 
@@ -223,6 +223,7 @@
 						var me = this;
 						if(response.errno == 0){
 							_App.Common.ModalManager.showAlertModal('提示', '上传成功！');
+                            $('#plan-view').html(file.name);
 						}else{
 							_App.Common.ModalManager.showAlertModal('提示', '上传失败！请重试！');
 						}

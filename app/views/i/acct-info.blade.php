@@ -69,7 +69,7 @@
 		</div>
 	</div>
 	-->
-	<button type="submit" class="am-btn am-btn-primary am-center">确 定</button>
+	<button type="submit" class="am-btn am-btn-success am-center">保存修改</button>
 </form>
 
 @stop

@@ -16,7 +16,7 @@
         <div class="am-u-md-3 am-cf">
         <div class="am-fr">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field" name="keyword" value="" placeholder="输入账号">
+            <input type="text" class="am-form-field" name="keyword" value="" placeholder="关键字">
                 <span class="am-input-group-btn">
                   <button class="am-btn am-btn-default" type="submit">搜索</button>
                 </span>
@@ -50,10 +50,11 @@
                 <td><a href="{{{action('AdminUserController@getDetail',array($a->submitUser['id']))}}}">{{{$a->submitUser['account']}}}</a></td>
                 <td>{{{$a->submit_time}}}</td>
                 <td>
-                    <div class="am-btn-toolbar">
-                      <div class="am-btn-group am-btn-group-xs">
-                        <a href="{{{action('AdminAuditController@getProjectAuditDetail', array($a->id))}}}">审核</a>
-                      </div>
+                    <div class="am-btn-group am-btn-group-xs">
+                        <button class="admin-op-btn am-btn am-btn-default am-btn-xs am-text-success" data-url="{{{action('AdminAuditController@getProjectAuditDetail', array($a->id))}}}" data-target="_self">
+                            <span class="am-icon-info-circle"></span>
+                            审核
+                        </button>
                     </div>
                 </td>
             </tr>

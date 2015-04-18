@@ -138,9 +138,12 @@
                 </div>
                 <div class="am-form-group">
                     <label for="business_plan" class="am-u-sm-2 am-form-label">项目计划书</label>
-                    <div class="am-u-sm-3 am-u-end">
+                    <div class="am-u-sm-6 am-u-end">
                         <div id="plan-picker" >选择文件</div>
                         <input type="hidden" name="business_plan"/>
+                    </div>
+                    <div class="am-u-sm-3 am-u-end dt-form-desc">
+                        <span id="plan-view"></span>
                     </div>
                 </div>
                 <div class="am-form-group">
