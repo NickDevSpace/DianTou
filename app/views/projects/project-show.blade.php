@@ -1,333 +1,267 @@
 @extends('layouts.master')
 @section('page_title')
-项目详情
+{{{$project->project_name}}} - 项目详情 - 点投
 @stop
 @section('head')
-	<link rel="stylesheet" href="{{{asset('assets/vendor/kindeditor/themes/default/default.css')}}}"/>
-    <link rel="stylesheet" href="{{{asset('assets/vendor/jcrop/css/jquery.Jcrop.css')}}}"/>
-    <style>
-    	body {
-    		background: none repeat scroll 0% 0% #EBEEF1;
-    	}
-    	.p-status li {
-    		background: url("/assets/icons/u2_c2.gif") no-repeat scroll right center transparent;
-    		margin-bottom:20px;
-    		font-size:1.2em;
-    	}
-    	
-    	.f-status {
-    		padding:10px;
-    		border-bottom:2px dotted #CCC;
-    		border-top:2px dotted #CCC;
-    	}
-    	
-    	.buy-btn {
-    		padding:10px;
-    		border-bottom:2px dotted #CCC;
-    	}
-    	
-    	p{
-    		margin:0!important;
-    	}
-    	
-    	.p-status{
-    		padding:10px;
-    		margin-top:10px;
-    		border-bottom:2px dotted #CCC;
-    	}
-    
-    	.project-detail{
-    		padding:100px 50px;
-    		width:1200px;
-    		margin:10px auto;
-    		border:1px solid;
-    		border-radius: 18px;
-			box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.4);
-			background-image:url(/upload/tmp/pro-bg.jpg);
-			background-repeat:no-repeat;
-			background-color:white;
-    	}
-    	
-    	.project-left{
-    	}
-    	
-    	.project-finance{
-    		height:250px;
-    		background-color:white;
-    		border:1px solid;
-    		padding:20px;
-    	}
-    	
-    	.project-baseinfo{
-    		position:relative;
-    		height:250px;
-    		padding:25px 15px;
-    		border:1px solid;
-    		background-color:white;
-    	}
-    	
-    	.project-right-bottom {
-    		margin-top:20px;
-    		border:none;
-    	}
-   		
-   		.project-buttons{
-   			margin-top:20px;
-   			border:1px solid;
-   			border-color:#CCC;
-   		}
-   		
-   		#riskhint {
-   			color:red;
-   			margin-top:10px;
-   		}
-   		
-   		.projectintro{
-   			height:500px;
-   			background-color:gray;
-   			margin-top:100px;
-   		}
-  
-   		.projectbudget{
-   			height:500px;
-   			background-color:orange;
-   			margin-top:100px;
-   			opacity:0;
-   		}
-   		
-   		.commentarea{
-   			resize:none;
-   			border-radius:5px;
-   			width:100%;
-   			height:100%;
-   			border:none;
-   		}
-    	
-    	.projectpan{
-    		height:250px;
-    		margin-top:30px;
-    		background-color:red;
-    	}
-    	
-    	.commentdiv {
-    		box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.15) inset;
-    		border:1px solid;
-    		border-color:#CCC;
-    		height:120px;
-    		padding:1px;
-    	}
-    	
-    	.comment-list {
-    		margin-top:80px;
-    	}
-    	
-    	.cycle-avator {
-    		border-radius: 25px;
-    		float:left;
-    	}
-    	
-    	.one-comment {
-    		padding:5px 20px;
-    		border-bottom:1px solid;
-    		display:block;
-    	}
-    	
-    	.clear {
-    		clear:both;
-    	}
-    	
-    	.cycle-avator img {
-    		border-radius: 15px;
-    		display:block;
-    	}
-    	
-    	.finance-text {
-    		text-align:center;
-    	}
-    </style>
-@stop
-@section('content')
-<div class="project-detail">
-	<div class="am-g">
-		<div class="am-container">
-			<div class="am-u-sm-8 project-left">
-				<div class="project-baseinfo">
-					<h1>{{{$project->project_name}}}</h1>
-					<span>发起人:{{{$user->nickname}}}</span>
-					<span style="margin-left:100px">行业 :{{{$project->industry->industry_name}}}</span>
-					<span style="margin-left:100px">地址:浙江省慈溪市宗汉街道</span>
-					<div id="riskhint">&nbsp&nbsp&nbsp&nbsp&nbsp风险提示:请您仔细阅读此项目认购协议条款，确认并知晓众筹股权(无保本)投资风险，认购后您将不能更改投资人姓名，也不能代他人认购和转让他人，只以您在XXX平台上身份认证时提交的身份证为准进行投资合同文本签署和工商注册办理.如认购后申请退出，需支付相应反悔金．
-请勿相信任何非XXX官方对外公布的承诺或非官方发布的协议。对此，点投将不承担任何法律责任，如需核实信息请拨打官方客服电话：110。</div>
-				</div>
-				<div class="project-buttons am-tabs" data-am-tabs>
-<!-- 					<div class="am-u-sm-6"> -->
-<!-- 						<button id="button-intro" type="button" class="am-btn am-btn-primary am-btn-block am-btn-xl">项目介绍</button> -->
-<!-- 					</div> -->
-<!-- 					<div class="am-u-sm-6"> -->
-<!-- 						<button id="button-budget" type="button" class="am-btn am-btn-secondary am-btn-block am-btn-xl">项目预算</button> -->
-<!-- 					</div> -->
-					 <ul class="am-tabs-nav am-nav am-nav-tabs">
-					    <li class="am-active"><a href="javascript: void(0)">项目介绍</a></li>
-					    <li><a href="javascript: void(0)">预算</a></li>
-					    <li><a href="javascript: void(0)">投资者</a></li>
-					    <li><a href="javascript: void(0)">评论</a></li>
-					 </ul>
-					 
-					 <div class="am-tabs-bd">
-					 	 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
-      							<?php echo $project->detail?>
-    					 </div>
-    					 <div class="am-tab-panel am-fade" id="tab2">
-    					 		预算
-    					 </div>
-    					 <div class="am-tab-panel am-fade" id="tab3">
-							<table class="am-table am-table-striped">
-							    <thead>
-							        <tr>
-							            <th>投资者</th>
-							            <th>投资金额</th>
-							            <th>时间</th>
-							        </tr>
-							    </thead>
-							    <tbody>
-							        <tr>
-							            <td>张三</td>
-							            <td>20000</td>
-							            <td>2015-03-02</td>
-							        </tr>
-							        <tr>
-							            <td>李四</td>
-							            <td>30000</td>
-							            <td>2015-03-04</td>
-							        </tr>
-							        <tr>
-							            <td>陈冲</td>
-							            <td>40000000</td>
-							            <td>2015-02-01</td>
-							        </tr>
-							    </tbody>
-							</table>  					 
-    					 </div>
-    					 <div class="am-tab-panel am-fade" id="tab4">
-    					 	 <div class="am-form-group commentdiv">
-						      	<textarea class="am-radius commentarea"  id="comment-text"></textarea>
-						     </div>						     
-						     <button type="button" class="am-btn am-btn-success" style="float:right">提交</button>		
-						     <div class="comment-list">
-						     @foreach ($comments as $c)
-							     <article class="am-comment" style="margin-top:10px"> <!-- 评论容器 -->
-								  <a href="">
-								    <img class="am-comment-avatar" alt="" src="http://zcr2.ncfstatic.com/avatar/000/76/53/82virtual_avatar_small.jpg"/>
-								  </a>
-								
-								  <div class="am-comment-main"> <!-- 评论内容容器 -->
-								    <header class="am-comment-hd">
-								      <!--<h3 class="am-comment-title">评论标题</h3>-->
-								      <div class="am-comment-meta"> <!-- 评论元数据 -->
-								        <a href="#link-to-user" class="am-comment-author">{{{$c->user->nickname}}}</a> <!-- 评论者 -->
-								        评论于 <time datetime="">2015.03.07</time>
-								      </div>
-								    </header>
-								
-								    <div class="am-comment-bd">{{{$c->content}}}</div> 
-								  </div>
-								</article>
-							 @endforeach
-						     </div>
-    					 </div>
-					 </div>
-					
-				</div>
+<style>
 
-			</div>
-			<div class="am-u-sm-4 project-right">
-				<div class="project-finance">
-					<h2 style="color:#666;margin-bottom:10px">已融到资金</h2>
-					<p style="font-size:2.5em;border-bottom:1px dotted">￥498,000</p>
-					<div style="height:80px;">
-						<div class="am-u-sm-6 finance-text" style="border-right:1px dotted">
-							<p style="font-size:2em">81%</p>
-							<p style="color:#666;font-size:1em">已完成</p>
-						</div>
-						<div class="am-u-sm-6 finance-text">
-							<p><span style="font-size:2em">7</span><span style="font-size:1em">/40天</span></p>
-							<p style="color:#666;font-size:1em">剩余天数</p>
-						</div>
-					</div>
-					<div class="am-progress">
-  						<div class="am-progress-bar" style="width: 81%">81%</div>
-					</div>
-				</div>
-				<div class="project-right-bottom" style="height:400px">
-					<div id="pan" style="height:300px;"></div>
-					<div class="f-status">
-						<p>1、每份金额：￥10，000</p>
-						<p>2、总筹：￥500，000</p>
-						<p><span>3、剩余：</span><span style="color:red;">30</span><span> 份</span></p>
-					</div>
-					<div class="buy-btn">
-						<button type="button" class="am-btn am-btn-primary am-btn-block am-btn-xl">我要投资</button>
-					</div>
-					<div class="p-status"> 
-						<ul>
-							<li>营业执照</li>
-							<li>财务报表</li>
-							<li>税务登记证</li>
-							<li>法人代表身份证</li>
-							<li>场地租赁合同</li>
-							<li>行业许可证</li>
-							<li>组织机构代码证</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
+</style>
+@stop
+
+@section('content')
+<div class="top-container am-container">
+    <div class="am-u-sm-5">
+        <div class="banner-img">
+            <span>{{{Config::get('app.DICT.PROJECT_STATE')[$project->state]}}}</span>
+            <img src="/{{{$project->project_cover}}}" width="420">
+        </div>
+        <div class="banner-share">
+            <!-- JiaThis Button BEGIN -->
+            <div class="jiathis_style"><span class="jiathis_txt">分享到：</span>
+            <a class="jiathis_button_weixin"></a>
+            <a class="jiathis_button_tsina"></a>
+            <a class="jiathis_button_tqq"></a>
+            <a class="jiathis_button_renren"></a>
+            <a class="jiathis_button_douban"></a>
+            <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+            <a class="jiathis_counter_style"></a>
+            </div>
+            <script type="text/javascript" >
+            var jiathis_config={
+            	summary:"",
+            	shortUrl:true,
+            	hideMore:false
+            }
+            </script>
+            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+            <!-- JiaThis Button END -->
+
+        </div>
+    </div>
+    <div class="am-u-sm-7">
+        <div class="banner-title">
+            <h1>{{{$project->project_name}}}</h1>
+            <span class="banner-sub-title">{{{$project->sub_title}}}</span>
+            <a href="#" style="position: absolute; top:0; right:0"><span class="am-badge am-badge-warning am-text-default" >加关注</span></a>
+        </div>
+        <div class="banner-base-info">
+            <span class="banner-text">发起人：{{{$project->user['nickname']}}}</span>
+            <span class="banner-text">行业：{{{$project->industry->parentIndustry['industry_name']}}} {{{$project->industry['industry_name']}}}</span>
+            <span class="banner-text">城市：{{{$project->province['province_name']}}} {{{$project->city['city_name']}}}</span>
+            <span class="banner-text">融资金额：￥{{{$project->raise_quota}}}</span>
+            <span class="banner-text">出让股份：{{{$project->assign_share}}}%</span>
+            <span class="banner-text">起投金额：￥{{{$project->min_sub_quota}}}</span>
+
+        </div>
+        <div class="banner-finance-info">
+            <?php $progress = $project->raised_bal * 100/ $project->raise_quota;?>
+            <?php $left_days = $project->raise_end_date ? DateUtil::leftDays($project->raise_end_date) : $project->raise_days; ?>
+            <div class="clearfix" style="overflow:hidden;">
+                <div class="finance-text" style="border-right:1px dotted #eee; width:50%; float:left; text-align: center">
+                    <p style="font-size:2em">{{{$progress}}}%</p>
+                    <p style="color:#666;font-size:1em">已完成</p>
+                </div>
+                <div class="finance-text" style="width:50%; float:right; text-align: center">
+                    <p><span style="font-size:2em">{{{$left_days}}}</span><span style="font-size:1em">/{{{$project->raise_days}}}天</span></p>
+                    <p style="color:#666;font-size:1em">剩余天数</p>
+                </div>
+            </div>
+            <div class="am-progress">
+                <div class="am-progress-bar" style="width: {{{$progress}}}%">{{{$progress}}}%</div>
+            </div>
+            <div style="margin-top:-10px;">
+                <span style="float:left">已融资：<em style="color:#ff5001">￥{{{$project->raised_bal}}}</em></span>
+                <span style="float:right">目标金额：￥{{{$project->raise_quota}}}</span>
+            </div>
+            <div style="margin-top:60px;">
+            <button id="sub-btn" type="button" class="am-btn am-btn-success am-btn-block" data-am-modal="{target: '#sub-prompt', closeViaDimmer: 0}">我要投资</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="am-container" style="margin-bottom: 50px;">
+    <div class="am-u-sm-8">
+        <div class="project-buttons am-tabs" data-am-tabs>
+             <ul class="am-tabs-nav am-nav am-nav-tabs">
+                <li class="am-active"><a href="javascript: void(0)">项目详情</a></li>
+                <li><a href="javascript: void(0)">投资记录</a></li>
+                <li><a href="javascript: void(0)">大事件</a></li>
+                <li><a href="javascript: void(0)">评论</a></li>
+             </ul>
+
+             <div class="am-tabs-bd">
+                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                        <?php echo $project->detail?>
+                 </div>
+                 <div class="am-tab-panel am-fade" id="tab3">
+                    <table class="am-table am-table-striped">
+                        <thead>
+                            <tr>
+                                <th>投资者</th>
+                                <th>投资金额</th>
+                                <th>时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>张三</td>
+                                <td>20000</td>
+                                <td>2015-03-02</td>
+                            </tr>
+                            <tr>
+                                <td>李四</td>
+                                <td>30000</td>
+                                <td>2015-03-04</td>
+                            </tr>
+                            <tr>
+                                <td>陈冲</td>
+                                <td>40000000</td>
+                                <td>2015-02-01</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                 </div>
+                 <div class="am-tab-panel am-fade" id="tab4">
+                     <div class="am-form-group commentdiv">
+                        <textarea class="am-radius commentarea"  id="comment-text"></textarea>
+                     </div>
+                     <button type="button" class="am-btn am-btn-success" style="float:right">提交</button>
+                     <div class="comment-list">
+                     @foreach ($comments as $c)
+                         <article class="am-comment" style="margin-top:10px"> <!-- 评论容器 -->
+                          <a href="">
+                            <img class="am-comment-avatar" alt="" src="http://zcr2.ncfstatic.com/avatar/000/76/53/82virtual_avatar_small.jpg"/>
+                          </a>
+
+                          <div class="am-comment-main"> <!-- 评论内容容器 -->
+                            <header class="am-comment-hd">
+                              <!--<h3 class="am-comment-title">评论标题</h3>-->
+                              <div class="am-comment-meta"> <!-- 评论元数据 -->
+                                <a href="#link-to-user" class="am-comment-author">{{{$c->user->nickname}}}</a> <!-- 评论者 -->
+                                评论于 <time datetime="">2015.03.07</time>
+                              </div>
+                            </header>
+
+                            <div class="am-comment-bd">{{{$c->content}}}</div>
+                          </div>
+                        </article>
+                     @endforeach
+                     </div>
+                 </div>
+             </div>
+
+        </div>
+    </div>
+    <div class="am-u-sm-4">
+        <div class="am-g">
+            <div class="side-item am-panel am-panel-default">
+                <div class="am-panel-bd">
+                    <div style="position:relative;">
+                        <a style="display: block; float:left" href="#">
+                            <img src="http://s0.meituan.net/www/img/user-avatar.v9bfc4a71.png" width="48" class="am-img-thumbnail am-circle"/>
+                        </a>
+                        <div style="float:left; margin-left:20px;"><span style="color:#999">发起人：</span><br/><strong>{{{$project->user['nickname']}}}</strong>
+                        </div>
+                        <a class="am-badge am-badge-success am-radius am-text-sm" style="position:absolute; top:0; right:0">私信</a>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div style="margin-top:20px;">
+                        <p><span style="color:#999">所在城市：</span>{{{$project->user->province['province_name']}}} {{{$project->user->city['city_name']}}}</p>
+                        <p><span style="color:#999">个人简介：</span>{{{$project->user['introduction']}}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-@stop 
+<div class="am-modal am-modal-no-btn" tabindex="-1" id="sub-prompt">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">我要投资
+      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+    </div>
+    <div class="am-modal-bd">
+      <form id="sub_form" class="am-form am-form-horizontal" action="{{{action('SubscriptionController@postSaveSub')}}}" method="post">
+          <input type="hidden" name="project_id" value="{{{$project->id}}}">
+          <div class="am-form-group">
+            <label for="user-email" class="am-u-sm-2 am-form-label">投资金额</label>
+            <div class="am-u-sm-9 am-u-end">
+              <input type="text" data-min="{{{$project->min_sub_quota}}}" data-raise-quota="{{{$project->raise_quota}}}" data-raised-bal="{{{$project->raised_bal}}}" name="sub_amt" value="" placeholder="单位（元），起投金额：￥{{{$project->min_sub_quota}}}" required>
 
+            </div>
+          </div>
+          <div class="am-g am-margin-top">
 
-@section('vendor_scripts')
-<script src="{{{asset('assets/js/json2.js')}}}"></script>
-<script src="{{{asset('assets/vendor/kindeditor/kindeditor-min.js')}}}"></script>
-<script src="{{{asset('assets/vendor/kindeditor/lang/zh_CN.js')}}}"></script>
-<script src="{{{asset('assets/vendor/webuploader/webuploader.min.js')}}}"></script>
-<script src="{{{asset('assets/vendor/jcrop/js/jquery.Jcrop.min.js')}}}"></script>
+            <div class="am-u-sm-2 am-text-right">投资股份</div>
+            <div class="am-u-sm-1 am-u-end"><span id="sub_share">0</span>%</div>
+          </div>
+      </form>
+      <div class="am-g" style="margin-top:10px;">
+            <div class="am-u-sm-4 am-u-sm-centered"><button id="sub-confirm" type="button" class="am-btn am-btn-success am-btn-block">确认</button></div>
+      </div>
+    </div>
+  </div>
+</div>
 @stop
-@section('page_scripts')
-<script type="text/javascript">
-	var myChart = echarts.init(document.getElementById('pan'),bluetheme);
-	var option = {
-		    title : {
-		        text: '资金比例',
-		        x:'center',
-		        textStyle:{
-			        fontSize:20,
-			        fontWeight:'bolder',
-			        color:'black'
-			    }
-		    },
-		    tooltip : {
-		        trigger: 'item',
-		        formatter: "{a} <br/>{b} : {c} ({d}%)"
-		    },
-		    toolbox: {
-		        show : false
-		    },
-		    series : [
-		        {
-		            name:'金额',
-		            type:'pie',
-		            radius : '70%',
-		            center: ['50%', '52%'],
-		            data:[
-		                {value:100000, name:'项目方出资'},
-		                {value:400000, name:'在线融资'},
-		            ]
-		        }
-		    ]
-		};         
-	myChart.setOption(option);
+
+
+@section('vendor_js')
+@stop
+@section('page_js')
+<script>
+    $(function(){
+
+
+
+
+        function checkSubForm(){
+            var $sub_prompt = $('#sub-prompt');
+            var $input = $('#sub_form').find('input[name="sub_amt"]');
+            var fieldWrapper = $input.closest('div');
+            var sub_amt = Number($input.val());
+            var min_sub = Number($input.attr('data-min'));
+            var left_amt = Number($input.attr('data-raise-quota')) - Number($input.attr('data-raised-bal'));
+
+
+            fieldWrapper.find('.am-text-danger').remove();
+            if(isNaN(sub_amt)){
+                $('<span class="am-text-danger">请填写正确的金额</span>').appendTo(fieldWrapper);
+                return false;
+            }
+            if(sub_amt  < min_sub){
+                $('<span class="am-text-danger">投资金额必须大于等于最低投资金额</span>').appendTo(fieldWrapper);
+                return false;
+            }
+
+            if(sub_amt > left_amt){
+                $('<span class="am-text-danger">投资金额不能超过项目剩余认购金额</span>').appendTo(fieldWrapper);
+                return false;
+            }
+
+            return true;
+        }
+
+        $('#sub_form').find('input[name="sub_amt"]').on('keyup', function(e){
+            checkSubForm();
+            var sub_amt = Number($(this).val());
+            var raise_quota = Number($(this).attr('data-raise-quota'));
+            $('#sub_share').html((sub_amt * 100 / raise_quota).toFixed(4));
+            return false;
+        });
+
+        $('#sub-confirm').on('click',function(){
+            if(checkSubForm()){
+                $('#sub_form').submit();
+                $('#sub_prompt').modal('close');
+            }
+        });
+
+
+
+    });
 </script>
 @stop

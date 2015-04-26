@@ -16,6 +16,7 @@ class IController extends \BaseController {
 		$user->nickname = Input::get('nickname');
 		$user->province_code = Input::get('province_code');
 		$user->city_code = Input::get('city_code');
+        $user->introduction = Input::get('introduction');
 		
 		//return bool
 		$ret = $user->save();

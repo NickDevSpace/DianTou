@@ -12,6 +12,13 @@ class DateUtil {
         return date('Y-m-d', time());
     }
 
+    public static function datetime(){
+        return date('Y-m-d H:i:s', time());
+    }
+    public static function time(){
+        return date('H:i:s', time());
+    }
+
     public static function addDays($ymd_date, $add_days){
         return date('Y-m-d',strtotime('+'.$add_days.' day',strtotime($ymd_date)));
     }
@@ -25,4 +32,6 @@ class DateUtil {
         $d2=strtotime($future_date);
         return round(($d2-$d1)/3600/24);
     }
+
+
 }

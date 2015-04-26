@@ -193,3 +193,58 @@ fieldset[disabled] .am-btn-diantou.am-btn-active {
     color:#f00;
     margin-right:5px;
 }
+
+.clearfix{
+    clear:both;
+}
+
+
+
+/*********************************************/
+.top-container{
+    margin-top:50px;
+    margin-bottom:50px;
+}
+.banner-img{
+    position:relative;
+}
+.banner-img span{
+    background: url("../i/bg_progress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #ffffff;
+    cursor: default;
+    display: inline-block;
+    font-size: 12px;
+    height: 41px;
+    left: -6px;
+    line-height: 36px;
+    position: absolute;
+    text-align: center;
+    top: 15px;
+    width: 95px;
+}
+.banner-share{
+    margin-top:15px;
+}
+.banner-sub-title{
+    color:#999;
+    font-size:1.2em;
+}
+.banner-base-info{
+    width:40%;
+    float:left;
+    border-right:1px solid #eee;
+}
+.banner-text{
+    line-height:2.5em;
+    display:block;
+}
+.banner-title{
+    margin-bottom:25px;
+    position: relative;
+}
+.banner-finance-info{
+    width:55%;
+    float:right;
+}
+
+

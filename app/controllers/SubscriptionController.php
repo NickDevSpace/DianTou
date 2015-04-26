@@ -22,7 +22,7 @@ class SubscriptionController extends \BaseController {
 		}
 
         //如果当前所剩余份数小于请求份数，也提示错误，则提示错误页面
-		
+
 
         //一切环境OK，继续
         //把唯一订单号放入用户session中
@@ -46,6 +46,7 @@ class SubscriptionController extends \BaseController {
         $sub->project_id = $inputs['project_id'];
         $sub->user_id = Auth::id();
         $sub->sub_amt = $inputs['sub_amt'];
+        $sub->sub_share = $inputs['sub_amt'] * 100 / $project->raise_quota;
         $sub->save();
         //跳转到订单详细页面
         return Redirect::action('SubscriptionController@getSubDetail', array($sub->id));
@@ -68,6 +69,10 @@ class SubscriptionController extends \BaseController {
         }
 
         $sub = Subscription::where('sub_order','=',$sub_order)->first();
+
+        if($sub->state != '1'){
+            dd('ERROR_ORDER_STATE_NOT_VALID');
+        }
 
         $alipay_config = Config::get('app.alipay_config');
 
@@ -130,6 +135,40 @@ class SubscriptionController extends \BaseController {
         $alipaySubmit = new AlipaySubmit($alipay_config);
         $html_text = $alipaySubmit->buildRequestForm($parameter,"post", "");
         echo $html_text;
+
+
+
+
+    }
+
+    public function getFinishSub($order_id){
+        //!!!!!!!!!!!!!!!!!!!!!!!假设认购成功!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\
+        $sub = Subscription::where('sub_order','=',$order_id)->first();
+        $sub->state = '2';
+        $sub->save();
+
+        $project = Project::find($sub->project_id);
+        $project->raised_bal = $project->raised_bal + $sub->sub_amt;
+        $project->save();
+
+        Session::forget('SN.sub_order_sn');
+
+
+        //增加一条交易记录
+        $tx_log = new TxLog();
+        $tx_log->tx_date = DateUtil::today();
+        $tx_log->tx_time = DateUtil::datetime();
+        $tx_log->pay_acct = 'customer@alipay.com';
+        $tx_log->pay_acct_name = 'customer@alipay.com';
+        $tx_log->recv_acct = 'diantou@alipay.com';
+        $tx_log->recv_acct_name = 'diantou@alipay.com';
+        $tx_log->tx_amt = $sub->sub_amt;
+        $tx_log->tx_state = '0';
+        $tx_log->tx_chnl = 'alipay';
+        $tx_log->tx_type = '1';
+        $tx_log->remark = '认购付款';
+        $tx_log->order_no = $sub->sub_order;
+        $tx_log->save();
     }
 	
 	/**

@@ -17,7 +17,7 @@ class CreateTxLogsTable extends Migration {
             $table->increments('id');
 			
 			$table->date('tx_date');		//交易日期
-			$table->datetime('tx_time');		//交易时间
+			$table->datetime('tx_time')->defaultNow();		//交易时间
 			$table->string('pay_acct');		//付款人账号
 			$table->string('pay_acct_name');		//付款人户名
 			$table->string('recv_acct');		//收款人账号
@@ -27,8 +27,7 @@ class CreateTxLogsTable extends Migration {
 			$table->string('tx_chnl');		//交易途径（方式）
 			$table->char('tx_type');		//交易类型  客户付款  点投退款
 			$table->string('remark');		//备注
-			$table->integer('project_id');
-			$table->integer('user_id');		//
+			$table->string('order_id');
 			
             
             $table->timestamps();

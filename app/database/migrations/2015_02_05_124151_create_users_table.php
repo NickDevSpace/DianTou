@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration {
             $table->string('avatar', 255)->nullable();      //用户头像
             $table->string('province_code', 10);        //省份
             $table->string('city_code',10);     //城市
+            $table->text('introduction');       //个人简介
             $table->char('user_type',1);		//用户类型 个人 企业
             $table->integer('user_level')->default(1);      //用户等级：1 普通用户，2 审核用户，3 管理员
             $table->char('verification_state',1)->default('1');   //实名认证状态 1-未认证 2-等待审核 3-认证未通过 4-认证通过   流程是这样的：用户申请认证，状态变2，审核人员审核，若审核未通过，则变1，并发送系统消息或短信给用户，若审核通过则变3

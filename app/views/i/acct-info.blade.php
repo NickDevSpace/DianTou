@@ -54,13 +54,19 @@
 	-->
 	<div class="am-form-group">
 		<label for="i-city-code" class="am-u-sm-2 am-form-label">所在城市：</label>
-		<div class="am-u-sm-2">
+		<div class="am-u-sm-3">
 			<?php echo Form::amSelect(array('list'=>$province_select, 'value_field'=>'province_code','text_field'=>'province_name', 'header_text' => '请选择', 'id' => 'i-province-code', 'name' => 'province_code', 'required' => 'true', 'selected'=>$user->province_code)); ?>
 		</div>
-		<div class="am-u-sm-2 am-u-end">
+		<div class="am-u-sm-3 am-u-end">
 			<?php echo Form::amSelect(array('list'=>$city_select, 'value_field'=>'city_code','text_field'=>'city_name', 'header_text' => '请选择', 'id' => 'i-city-code', 'name' => 'city_code', 'required' => 'true', 'selected'=>$user->city_code)); ?>
 		</div>
 	</div>
+	<div class="am-form-group">
+        <label for="i-city-code" class="am-u-sm-2 am-form-label">个人简介：</label>
+        <div class="am-u-sm-6 am-u-end">
+            <textarea rows="8" name="introduction" placeholder="简单描述一下你自己吧">{{{$user->introduction}}}</textarea>
+        </div>
+    </div>
 	<!--
 	<div class="am-form-group">
 		<label for="address" class="am-u-sm-2 am-form-label">联系地址</label>

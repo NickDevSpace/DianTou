@@ -24,21 +24,25 @@
             <thead>
                 <tr>
                     <th>项目名称</th>
-                    <th>投资金额</th>
-                    <th>应付金额</th>
+                    <th>投资金额（元）</th>
+                    <th>投资股份</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>{{{$sub->project['project_name']}}}</td>
-                    <td>￥{{{$sub->sub_amt}}}</td>
-                    <td>￥{{{$sub->sub_amt}}}</td>
+                    <td>{{{$sub->sub_amt}}}</td>
+                    <td>{{{$sub->sub_share}}}%</td>
                 </tr>
             </tbody>
 
         </table>
-
-        <div class="am-u-sm-1 am-u-sm-offset-11"><button type="submit" class="am-btn am-btn-warning ">立即支付</button></div>
+        <div style="float:right">
+            <p>应付款： <span style="font-size:2em; color:#ff4200">￥{{{$sub->sub_amt}}}</span></p>
+            <div>
+                <button type="submit" class="am-btn am-btn-block am-btn-warning ">立即支付</button>
+            </div>
+        </div>
     </form>
 </div>
 @stop
