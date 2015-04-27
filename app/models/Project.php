@@ -22,7 +22,7 @@ class Project extends \Eloquent {
     }
     
     public function comments(){
-    	return $this->hasMany('Comment');
+    	return $this->hasMany('ProjectComment');
     }
 
     public function follows(){

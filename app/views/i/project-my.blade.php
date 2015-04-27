@@ -34,13 +34,13 @@
 		<tbody>
 				@foreach($projects as $p)
 					<tr>
-						<td><a href="{{{action('ProjectController@getShow', array(1))}}}">{{{$p->project_name}}}</a></td>
+						<td><a href="{{{action('ProjectController@getShow', array($p->id))}}}">{{{$p->project_name}}}</a></td>
 						<td>{{{$p->created_at}}}</td>
 						<td>{{{$p->raise_quota}}}</td>
 						<td>{{{$p->raised_bal}}}({{{$p->raised_bal * 100 / $p->raise_quota}}}%)</td>
 						<td>{{{Config::get('app.DICT.PROJECT_STATE')[$p->state]}}}</td>
 						<td>
-						    <a href="{{{action('ProjectController@getShow', array(1))}}}">项目详情</a>
+						    <a href="{{{action('ProjectController@getShow', array($p->id))}}}">项目详情</a>
 						    @if($p->state == 'SAVE_DRAFT' || $p->state == 'AUDIT_FAILED')
 						    <a href="{{{action('ProjectController@getEdit', array($p->id))}}}">修改</a>
 						    @endif

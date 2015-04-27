@@ -1,6 +1,6 @@
 <?php
 
-class Comment extends \Eloquent {
+class ProjectComment extends \Eloquent {
 	protected $fillable = [];
 	
 	public function user() 

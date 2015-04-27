@@ -200,7 +200,7 @@ fieldset[disabled] .am-btn-diantou.am-btn-active {
 
 
 
-/*********************************************/
+/*******************Project Show**************************/
 .top-container{
     margin-top:50px;
     margin-bottom:50px;
@@ -247,4 +247,46 @@ fieldset[disabled] .am-btn-diantou.am-btn-active {
     float:right;
 }
 
+.event-head{
+    color: #999999;
+    background: none repeat scroll 0 0 #f6f6f6;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 10px;
+    padding-left: 20px;
+}
 
+.event-head-icon{
+    margin-right:10px;
+}
+.event-list li{
+    border-left: 3px solid #f6f6f6;
+    margin-left: 70px;
+    padding-left: 20px;
+    padding-top: 12px;
+    position: relative;
+    list-style: outside none none;
+}
+
+.event-list .event-time{
+    color: #666666;
+    font-size: 12px;
+    left: -70px;
+    position: absolute;
+    top: 17px;
+}
+
+.event-list .event-icon{
+    background: none repeat scroll 0 0 #9fd35b;
+    border-radius: 5px;
+    display: block;
+    height: 10px;
+    left: -7px;
+    position: absolute;
+    top: 22px;
+    width: 10px;
+}
+
+.show-tab{
+    padding:20px !important;
+}

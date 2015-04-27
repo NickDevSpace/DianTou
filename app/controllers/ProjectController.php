@@ -197,13 +197,7 @@ class ProjectController extends \BaseController {
     }
 
 
-    public function getShow($id)
-	{
-		$project = Project::find($id);
-		$user = $project->user;
-		$comments = $project->comments;
-        return View::make('projects.project-show', array('project' => $project,'user' => $user , 'comments' => $comments));
-	}
+
 	
 
 
@@ -266,6 +260,29 @@ class ProjectController extends \BaseController {
 
         return View::make('projects.project-tmp-show', array('project'=>$project));
 
+    }
+
+    public function getShow($id)
+    {
+        $project = Project::find($id);
+        $user = $project->user;
+        $comments = $project->comments;
+        return View::make('projects.project-show', array('project' => $project,'user' => $user , 'comments' => $comments));
+    }
+
+    public function getShowSubscriptions($project_id){
+        $subs = Subscription::where('project_id','=',$project_id)->where('state','=','2')->orderBy('sub_time','desc')->simplePaginate(20);   //该项目的已付款的认购记录
+        return View::make('projects.project-show-subscriptions', array('subs'=>$subs));
+    }
+
+    public function getShowProjectLifeEvents($project_id){
+        $events = ProjectLifeEvent::where('project_id', '=', $project_id)->orderBy('created_at', 'desc')->get();
+        return View::make('projects.project-show-events', array('events'=>$events));
+    }
+
+    public function getShowComments($project_id){
+        $comments = ProjectComment::where('project_id', '=', $project_id)->orderBy('created_at', 'desc')->simplePaginate(10);
+        return View::make('projects.project-show-comments', array('comments'=>$comments));
     }
 
 

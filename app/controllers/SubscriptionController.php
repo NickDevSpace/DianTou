@@ -145,6 +145,7 @@ class SubscriptionController extends \BaseController {
         //!!!!!!!!!!!!!!!!!!!!!!!假设认购成功!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\
         $sub = Subscription::where('sub_order','=',$order_id)->first();
         $sub->state = '2';
+        $sub->sub_time = DateUtil::datetime();
         $sub->save();
 
         $project = Project::find($sub->project_id);

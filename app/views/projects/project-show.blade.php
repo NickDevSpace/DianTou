@@ -7,6 +7,18 @@
 
 
 </style>
+<script>
+    var Project = {
+        id : '{{{$project->id}}}',
+        project_name : '{{{$project->project_name}}}'
+    };
+    var Route = {
+        show_subscriptions : '{{{action('ProjectController@getShowSubscriptions')}}}/' + Project.id,
+        show_project_life_events : '{{{action('ProjectController@getShowProjectLifeEvents')}}}/' + Project.id,
+        show_comments : '{{{action('ProjectController@getShowComments')}}}/' + Project.id,
+        post_comments : '{{{action('ProjectCommentController@postSave')}}}'
+    };
+</script>
 @stop
 
 @section('content')
@@ -83,7 +95,7 @@
 </div>
 <div class="am-container" style="margin-bottom: 50px;">
     <div class="am-u-sm-8">
-        <div class="project-buttons am-tabs" data-am-tabs>
+        <div class="project-buttons am-tabs" data-am-tabs="{noSwipe: 1}">
              <ul class="am-tabs-nav am-nav am-nav-tabs">
                 <li class="am-active"><a href="javascript: void(0)">项目详情</a></li>
                 <li><a href="javascript: void(0)">投资记录</a></li>
@@ -92,63 +104,17 @@
              </ul>
 
              <div class="am-tabs-bd">
-                 <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                 <div class="show-tab am-tab-panel am-fade am-in am-active" id="tab1">
                         <?php echo $project->detail?>
                  </div>
-                 <div class="am-tab-panel am-fade" id="tab3">
-                    <table class="am-table am-table-striped">
-                        <thead>
-                            <tr>
-                                <th>投资者</th>
-                                <th>投资金额</th>
-                                <th>时间</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>张三</td>
-                                <td>20000</td>
-                                <td>2015-03-02</td>
-                            </tr>
-                            <tr>
-                                <td>李四</td>
-                                <td>30000</td>
-                                <td>2015-03-04</td>
-                            </tr>
-                            <tr>
-                                <td>陈冲</td>
-                                <td>40000000</td>
-                                <td>2015-02-01</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                 <div class="show-tab am-tab-panel am-fade" id="tab-subs">
+
                  </div>
-                 <div class="am-tab-panel am-fade" id="tab4">
-                     <div class="am-form-group commentdiv">
-                        <textarea class="am-radius commentarea"  id="comment-text"></textarea>
-                     </div>
-                     <button type="button" class="am-btn am-btn-success" style="float:right">提交</button>
-                     <div class="comment-list">
-                     @foreach ($comments as $c)
-                         <article class="am-comment" style="margin-top:10px"> <!-- 评论容器 -->
-                          <a href="">
-                            <img class="am-comment-avatar" alt="" src="http://zcr2.ncfstatic.com/avatar/000/76/53/82virtual_avatar_small.jpg"/>
-                          </a>
+                 <div class="show-tab am-tab-panel am-fade" id="tab-events">
 
-                          <div class="am-comment-main"> <!-- 评论内容容器 -->
-                            <header class="am-comment-hd">
-                              <!--<h3 class="am-comment-title">评论标题</h3>-->
-                              <div class="am-comment-meta"> <!-- 评论元数据 -->
-                                <a href="#link-to-user" class="am-comment-author">{{{$c->user->nickname}}}</a> <!-- 评论者 -->
-                                评论于 <time datetime="">2015.03.07</time>
-                              </div>
-                            </header>
+                 </div>
+                 <div class="show-tab am-tab-panel am-fade" id="tab-comments">
 
-                            <div class="am-comment-bd">{{{$c->content}}}</div>
-                          </div>
-                        </article>
-                     @endforeach
-                     </div>
                  </div>
              </div>
 
@@ -215,8 +181,70 @@
 <script>
     $(function(){
 
+        initShowSubscriptions();
+        initShowProjectLifeEvents();
+        initShowComments();
+        function initShowSubscriptions(){
+            $.ajax({
+                url: Route.show_subscriptions,
+                method: 'get',
+                success: function(data){
+                    $('#tab-subs').html(data);
+                }
+            });
+        }
+        function initShowProjectLifeEvents(){
+            $.ajax({
+                url: Route.show_project_life_events,
+                method: 'get',
+                success: function(data){
+                    $('#tab-events').html(data);
+                }
+            });
+        }
 
+        function initShowComments(){
+            $.ajax({
+                url: Route.show_comments,
+                method: 'get',
+                success: function(data){
+                    $('#tab-comments').html(data);
+                }
+            });
+        }
 
+        $(document).on('click', '#tab-comments #comment-btn', function(){
+            var content = $('#comment-content').val();
+            if($.trim(content) == ''){
+                alert('请填写评论内容');
+                return false;
+            }
+
+            $.ajax({
+                url: Route.post_comments,
+                method: 'post',
+                data:{project_id: Project.id, content: content},
+                success: function(data){
+                    if(data.errno == 'SUCCESS'){
+                        initShowComments();
+                    }else{
+                        alert('评论失败，请重试');
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '.show-tab .am-pagination li a', function(){
+            var $e = $(this);
+            $.ajax({
+                url: $(this).attr('href'),
+                method: 'get',
+                success: function(data){
+                    $e.closest('.show-tab').html(data);
+                }
+            });
+            return false;
+        });
 
         function checkSubForm(){
             var $sub_prompt = $('#sub-prompt');

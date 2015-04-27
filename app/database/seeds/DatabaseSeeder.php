@@ -242,7 +242,7 @@ class FollowTableSeeder extends Seeder {
 class CommentTableSeeder extends seeder {
      public function run()
      {
-          Comment::create(array(
+          ProjectComment::create(array(
                'project_id' => 1,
                'user_id' => 1,
                'content' => '不错哦',
