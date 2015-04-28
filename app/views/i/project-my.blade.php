@@ -39,7 +39,7 @@
 						<td>{{{$p->created_at}}}</td>
 						<td>{{{$p->raise_quota}}}</td>
                         <td>{{{$p->assign_share}}}%</td>
-						<td>{{{$p->raised_bal}}}({{{$p->raised_bal * 100 / $p->raise_quota}}}%)</td>
+						<td>{{{$p->raised_bal}}}({{{round($p->raised_bal * 100 / $p->raise_quota, 0)}}}%)</td>
 						<td>{{{Config::get('app.DICT.PROJECT_STATE')[$p->state]}}}</td>
 						<td>
 						    <a href="{{{action('ProjectController@getShow', array($p->id))}}}">项目详情</a>

@@ -75,7 +75,7 @@
 
         </div>
         <div class="banner-finance-info">
-            <?php $progress = $project->raised_bal * 100/ $project->raise_quota;?>
+            <?php $progress = round($project->raised_bal * 100/ $project->raise_quota, 0);?>
             <?php $left_days = $project->raise_end_date ? DateUtil::leftDays($project->raise_end_date) : $project->raise_days; ?>
             <div class="clearfix" style="overflow:hidden;">
                 <div class="finance-text" style="border-right:1px dotted #eee; width:50%; float:left; text-align: center">

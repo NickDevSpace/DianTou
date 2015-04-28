@@ -36,7 +36,7 @@
 					<tr>
 						<td><a href="{{{action('ProjectController@getShow', array($f->project->id))}}}">{{{$f->project->project_name}}}</a></td>
                         <td>{{{$f->project->raise_quota}}}</td>
-                        <td>{{{$f->project->raised_bal}}}({{{$f->project->raised_bal * 100 / $f->project->raise_quota}}}%)</td>
+                        <td>{{{$f->project->raised_bal}}}({{{round($f->project->raised_bal * 100 / $f->project->raise_quota, 0)}}}%)</td>
                         <td>{{{DateUtil::leftDays($f->project->raise_end_date)}}} 天</td>
                         <td>{{{Config::get('app.DICT.PROJECT_STATE')[$f->project->state]}}}</td>
 						<td><a href="{{{action('ProjectController@getShow', array($f->project->id))}}}" target="_blank">项目详情</a></td>

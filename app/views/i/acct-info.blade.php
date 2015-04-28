@@ -75,7 +75,13 @@
 		</div>
 	</div>
 	-->
-	<button type="submit" class="am-btn am-btn-success am-center">保存修改</button>
+	<div class="am-form-group">
+        <label for="i-city-code" class="am-u-sm-2 am-form-label"></label>
+        <div class="am-u-sm-6 am-u-end">
+            <button type="submit" class="am-btn am-btn-success ">保存修改</button>
+        </div>
+    </div>
+
 </form>
 
 @stop

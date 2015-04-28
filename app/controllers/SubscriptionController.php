@@ -168,7 +168,7 @@ class SubscriptionController extends \BaseController {
         $tx_log->tx_chnl = 'alipay';
         $tx_log->tx_type = '1';
         $tx_log->remark = '认购付款';
-        $tx_log->order_no = $sub->sub_order;
+        $tx_log->order_id = $sub->sub_order;
         $tx_log->save();
     }
 	
