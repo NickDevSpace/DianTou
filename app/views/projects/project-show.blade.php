@@ -16,7 +16,9 @@
         show_subscriptions : '{{{action('ProjectController@getShowSubscriptions')}}}/' + Project.id,
         show_project_life_events : '{{{action('ProjectController@getShowProjectLifeEvents')}}}/' + Project.id,
         show_comments : '{{{action('ProjectController@getShowComments')}}}/' + Project.id,
-        post_comments : '{{{action('ProjectCommentController@postSave')}}}'
+        post_comments : '{{{action('ProjectCommentController@postSave')}}}',
+        create_follow: "{{{action('FollowController@postSave')}}}",
+        delete_follow: "{{{action('FollowController@postDelete')}}}"
     };
 </script>
 @stop
@@ -55,7 +57,13 @@
         <div class="banner-title">
             <h1>{{{$project->project_name}}}</h1>
             <span class="banner-sub-title">{{{$project->sub_title}}}</span>
-            <a href="#" style="position: absolute; top:0; right:0"><span class="am-badge am-badge-warning am-text-default" >加关注</span></a>
+            <a href="javascript:;" style="position: absolute; top:0; right:0">
+                    @if($follow != null)
+                    <span class="follow-toggle followed am-badge am-badge-warning am-text-default" data-project-id="{{{$project->id}}}">取消关注</span>
+                    @else
+                    <span class="follow-toggle am-badge am-badge-warning am-text-default" data-project-id="{{{$project->id}}}">加关注</span>
+                    @endif
+            </a>
         </div>
         <div class="banner-base-info">
             <span class="banner-text">发起人：{{{$project->user['nickname']}}}</span>
@@ -245,6 +253,43 @@
             });
             return false;
         });
+
+        $('.follow-toggle').on('click', function(){
+            var $e = $(this);
+            var followed = $(this).hasClass('followed');
+            if(followed){
+                //取消关注
+                $.ajax({
+                    url:Route.delete_follow,
+                    data:{project_id: $e.attr('data-project-id')},
+                    method:'post',
+                    type:'json',
+                    success:function(data){
+                        if(data.errno == 'SUCCESS'){
+                            $e.removeClass('followed');
+                            $e.html('加关注');
+                        }
+                    }
+                });
+            }else{
+                //关注
+                $.ajax({
+                    url:Route.create_follow,
+                    method:'post',
+                    type:'json',
+                    data:{project_id: $e.attr('data-project-id')},
+                    success:function(data){
+                        if(data.errno == 'SUCCESS'){
+                            $e.addClass('followed');
+                            $e.html('取消关注');
+                        }
+
+                    }
+                });
+            }
+
+        });
+
 
         function checkSubForm(){
             var $sub_prompt = $('#sub-prompt');

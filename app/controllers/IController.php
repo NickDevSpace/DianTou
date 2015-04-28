@@ -92,28 +92,28 @@ class IController extends \BaseController {
 	}
 	
 	public function getProjectFollow(){
-		$uid = Auth::id();
-		$projects = DB::table('projects')
-					->join('follows', function($join) use($uid)
-					{
-						$join->on('projects.id', '=', 'follows.project_id')
-							 ->where('projects.user_id', '=', $uid);
-					})
-					->select('projects.*')
-					->simplePaginate(10);
-		return View::make('i.project-follow', array('menu'=>'project', 'projects'=>$projects));
+
+		$follows = Follow::with('Project')->where('user_id','=',Auth::id())->simplePaginate(10);
+		return View::make('i.project-follow', array('menu'=>'project', 'follows'=>$follows));
 	}
 	
 	public function getProjectSub(){
 		$uid = Auth::id();
-		$results = DB::table('projects')
-					->join('subscriptions', function($join) use($uid)
-					{
-						$join->on('projects.id', '=', 'subscriptions.project_id')
-							 ->where('subscriptions.user_id', '=', $uid)->where('subscriptions.state', '=' ,'1');
-					})
-					->select('projects.*', 'subscriptions.sub_amt', 'subscriptions.sub_share', 'subscriptions.sub_time', 'subscriptions.state')
-					->simplePaginate(10);
+
+        $dataset = "select p.id, p.project_name, p.raised_bal, p.raise_quota, p.raise_end_date, p.state, s.total_sub_amt, s.total_sub_share, s.max_sub_time ".
+                    "from projects p ".
+                    "inner join ".
+                    "( ".
+                    "select project_id, sum(sub_amt) total_sub_amt, sum(sub_share) total_sub_share, max(sub_time) max_sub_time ".
+                    "from subscriptions ".
+                    "where user_id = 1 and state = '2' ".
+                    "group by project_id ".
+                    ") s on p.id = s.project_id ";
+
+        $results = DB::table(DB::raw("($dataset) as t"))
+            ->orderBy("t.max_sub_time", "desc")->simplePaginate(10);
+
+
 		return View::make('i.project-sub', array('menu'=>'project', 'results'=>$results));
 	}
 	
@@ -204,6 +204,12 @@ class IController extends \BaseController {
         $msg = SystemMessage::where('id','=',$md->message_id)->first();
 
         return View::make('i.ms-detail', array('menu'=>'message', 'msg'=>$msg));
+    }
+
+    //个人中心-投资记录
+    public function getSubHistory(){
+        $subs = Subscription::where('user_id', '=', Auth::id())->orderBy('sub_time','desc')->simplePaginate(10);
+        return View::make('i.sub-list', array('menu'=>'sub', 'subs'=>$subs));
     }
 	
 

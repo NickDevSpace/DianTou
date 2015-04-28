@@ -266,8 +266,8 @@ class ProjectController extends \BaseController {
     {
         $project = Project::find($id);
         $user = $project->user;
-        $comments = $project->comments;
-        return View::make('projects.project-show', array('project' => $project,'user' => $user , 'comments' => $comments));
+        $follow = Follow::where('project_id','=',$project->id)->where('user_id','=',$user->id)->first();
+        return View::make('projects.project-show', array('project' => $project,'user' => $user, 'follow'=>$follow));
     }
 
     public function getShowSubscriptions($project_id){
