@@ -190,8 +190,9 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 
 	),
-
-    'tmpUploadDir' => 'upload/tmp',
+    'avatar_default' => 'assets/i/avatar-default.png',
+    'tmp_upload_dir' => 'upload/tmp',
+    'user_avatar_dir' => 'upload/user/avatar',
     'project_resource_dir' => 'upload/project/resource',
     'project_show_dir' => 'upload/project/show',
     'alipay_config'=> array('partner'=>'',

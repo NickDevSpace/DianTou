@@ -24,6 +24,16 @@ class IController extends \BaseController {
 		return Redirect::action('IController@getAccountInfo')->with('message', '保存成功！');
 		//return View::make('i.info', array('user'=>$user, 'province_select'=>$province_select, 'city_select'=>$city_select));
 	}
+
+    public function getAccountAvatar(){
+        $user = Auth::id();
+        return View::make('i.acct-avatar', array('menu'=>'account', 'user'=>$user));
+    }
+
+    public function postAccountAvatar(){
+
+    }
+
 	
 	public function getAccountAuth(){
 		$user = Auth::user();

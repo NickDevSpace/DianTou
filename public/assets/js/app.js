@@ -39,6 +39,14 @@
       });
 
 
+      //个人中心里更改头像按钮事件
+      $('.i-avatar').on('mouseover', function(){
+          $('.i-change-avatar').show();
+      }).on('mouseout',function(){
+          $('.i-change-avatar').hide();
+      });
+
+
   });
 })(jQuery);
 

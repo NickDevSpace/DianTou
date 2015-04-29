@@ -5,6 +5,7 @@
 @section('i-nav')
     <ul class="am-nav am-nav-pills">
         <li class="am-active"><a href="{{{action('IController@getAccountInfo')}}}">基本信息</a></li>
+        <li><a href="{{{action('IController@getAccountAvatar')}}}">头像修改</a></li>
         <li><a href="{{{action('IController@getAccountAuth')}}}">实名认证</a></li>
         <li><a href="{{{action('IController@getAccountPasswd')}}}">密码修改</a></li>
     </ul>
