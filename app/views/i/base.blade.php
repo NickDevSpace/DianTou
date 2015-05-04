@@ -52,7 +52,7 @@
 
 				    <div style="text-align:center; margin-top:15px">
 				        <div class="i-avatar" style="position:relative">
-                            <img src="{{{asset(Config::get('app.avatar_default'))}}}" width="200"  class="am-img-thumbnail"/>
+                            <img src="{{{asset(Auth::user()->avatar)}}}" width="200"  class="am-img-thumbnail"/>
                             <a href="{{{action('IController@getAccountAvatar')}}}" class="i-change-avatar" style="position:absolute; bottom:5px; right:40px; display:none;"><span class="am-icon-edit" >更换头像</span></a>
                         </div>
 

@@ -14,8 +14,12 @@
 
 
 <form id="i-info-form" action="{{{action('IController@postAccountAvatar')}}}" method="post" class="am-form am-form-horizontal">
-
     <div class="am-g">
+        <input type="hidden" name="path">
+        <input type="hidden" name="w">
+        <input type="hidden" name="h">
+        <input type="hidden" name="x">
+        <input type="hidden" name="y">
 
         <div class="am-u-sm-9" style="border-right:1px solid #e7e9ec">
             <p>请选择本地图片，并上传编辑自己的头像（支持jpg、jpeg、gif、png、bmp格式的图片）。</p>
@@ -27,7 +31,7 @@
             </div>
 
             <div class="am-u-sm-3 am-u-sm-centered">
-                <button id="save-btn" type="submit" class="am-btn am-btn-success am-u-centered" disabled>保存修改</button>
+                <button id="save-btn" type="button" class="am-btn am-btn-success am-u-centered" disabled="true">保存修改</button>
             </div>
 
         </div>
@@ -57,6 +61,30 @@
 @section('page_js')
 <script>
     $(function(){
+
+        $('#save-btn').on('click', function(){
+//            $.ajax({
+//                url: BASE_URL + '/x/save-avatar',
+//                type: 'POST',
+//                data: {path: AvatarCrop.image_path, x:AvatarCrop.jcrop_api.tellSelect().x, y: AvatarCrop.jcrop_api.tellSelect().y, w: AvatarCrop.jcrop_api.tellSelect().w, h: AvatarCrop.jcrop_api.tellSelect().h },
+//                async: false,
+//                dataType: 'json',
+//                success: function(data){
+//                    if(data.errno == 'SUCCESS'){
+//                        alert('SUCCESS');
+//                    }else{
+//                        alert('ERROR');
+//                    }
+//
+//                }
+//            });
+            $('input[name="path"]').val(AvatarCrop.image_path);
+            $('input[name="w"]').val(AvatarCrop.jcrop_api.tellSelect().w);
+            $('input[name="h"]').val(AvatarCrop.jcrop_api.tellSelect().h);
+            $('input[name="x"]').val(AvatarCrop.jcrop_api.tellSelect().x);
+            $('input[name="y"]').val(AvatarCrop.jcrop_api.tellSelect().y);
+            $('#i-info-form').submit();
+        });
 
         var AvatarCrop = {
             $container: $('#crop-container'),
@@ -130,6 +158,7 @@
                 if(response.errno == 'SUCCESS') {
                     $('#crop-container').show();
                     AvatarCrop.init(response.path);
+                    AvatarCrop.image_path = response.path;
                     $('#save-btn').removeAttr('disabled');
                 }
             }

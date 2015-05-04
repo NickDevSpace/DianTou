@@ -31,7 +31,27 @@ class IController extends \BaseController {
     }
 
     public function postAccountAvatar(){
+        $AVATAR_DIR = Config::get('app.user_avatar_dir');
+        if (!file_exists($AVATAR_DIR)) {
+            @mkdir($AVATAR_DIR);
+        }
 
+        $jpeg_quality = 100;
+
+        $dst100 = $AVATAR_DIR.'/'.'avatar_u'.Auth::id().'_100.jpg';
+        $dst55 = $AVATAR_DIR.'/'.'avatar_u'.Auth::id().'_55.jpg';
+
+
+        $ret =  ImageUtil::cropImage(Input::get('path'), Input::get('x'), Input::get('y'), 100, 100, Input::get('w'), Input::get('h'), $dst100);
+
+        if($ret == true){
+            $user = Auth::user();
+            $user->avatar = $dst100;
+            $user->save();
+            return Redirect::action('IController@getAccountAvatar')->with('message', '保存成功！');
+        }else{
+            return Redirect::action('IController@getAccountAvatar')->with('message', '保存失败！');
+        }
     }
 
 	

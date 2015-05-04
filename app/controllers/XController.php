@@ -190,15 +190,11 @@ class XController extends \BaseController {
         if (Input::hasFile('avatar'))
         {
             $TMP_DIR = Config::get('app.tmp_upload_dir');
-            $AVATAR_DIR = Config::get('app.user_avatar_dir');
 
             if (!file_exists($TMP_DIR)) {
                 @mkdir($TMP_DIR);
             }
 
-            if (!file_exists($AVATAR_DIR)) {
-                @mkdir($AVATAR_DIR);
-            }
 
             $this->cleanTmpDir();
 
@@ -209,13 +205,13 @@ class XController extends \BaseController {
             }
 
             $image_path = $upload_file->getRealPath();
-            $image = $this->createImage($image_path);
+            $image = ImageUtil::createImage($image_path);
 
             if($image == null){
                 Response::json(array('errno'=>'ERROR', 'message'=>'ERROR_TRANSFORM_IMAGE'));
             }
 
-            $this->resizeImage($image, 400, 300, $TMP_DIR.'/'.time(),'.jpg',100);
+            ImageUtil::resizeImage($image, 400, 300, $TMP_DIR.'/'.time(),'.jpg',100);
 
 
             return Response::json(array('errno'=>'SUCCESS', 'path'=>$TMP_DIR.'/'.time().'.jpg'));
@@ -224,49 +220,7 @@ class XController extends \BaseController {
         return Response::json(array('errno'=>'ERROR', 'message'=> 'ERROR_FILE_NOT_UPLOADED'));
     }
 
-    public function postSaveAvatar(){
-        $AVATAR_DIR = Config::get('app.user_avatar_dir');
-        if (!file_exists($AVATAR_DIR)) {
-            @mkdir($AVATAR_DIR);
-        }
-        $targ_w = 460;
-        $targ_h = 350;
-        $jpeg_quality = 90;
 
-        $src = Input::get('path');
-        $cons_with = Input::get('cons_with');
-        $dst = $PROJECT_DIR.'/'.pathinfo($src, PATHINFO_BASENAME);
-
-        $size=getimagesize($src);
-        $img_r = null;
-        switch($size["mime"]){
-            case "image/jpeg":
-                $img_r = imagecreatefromjpeg($src); //jpeg file
-                break;
-            case "image/gif":
-                $img_r = imagecreatefromgif($src); //gif file
-                break;
-            case "image/png":
-                $img_r = imagecreatefrompng($src); //png file
-                break;
-            default:
-                break;
-        }
-
-        if($img_r == null){
-            Response::json(array('errno'=>1, 'message'=>'图片处理失败'));
-        }
-
-
-        $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
-
-        $rate =  ($size[0] / $cons_with);
-        imagecopyresampled($dst_r,$img_r,0,0,Input::get('x') * $rate,Input::get('y') * $rate,
-            $targ_w,$targ_h,Input::get('w') * $rate,Input::get('h') * $rate);
-
-        imagejpeg($dst_r,$dst,$jpeg_quality);
-        return Response::json(array('errno'=>0, 'path'=>$dst));
-    }
 
     private function cleanTmpDir(){
         $TMP_DIR = Config::get('app.tmp_upload_dir');
@@ -291,94 +245,7 @@ class XController extends \BaseController {
         }
     }
 
-    private function createImage($image_path){
-        $size=getimagesize($image_path);
-        $image = null;
-        switch($size["mime"]){
-            case "image/jpeg":
-                $image = imagecreatefromjpeg($image_path); //jpeg file
-                break;
-            case "image/gif":
-                $image = imagecreatefromgif($image_path); //gif file
-                break;
-            case "image/png":
-                $image = imagecreatefrompng($image_path); //png file
-                break;
-            default:
-                break;
-        }
-        return $image;
-    }
 
-    /**
-     * @param $im
-     * @param $maxwidth
-     * @param $maxheight
-     * @param $name
-     * @param $filetype
-     */
-    private function resizeImage($im,$maxwidth,$maxheight,$name,$filetype,$quality)
-    {
-        $pic_width = imagesx($im);
-        $pic_height = imagesy($im);
-        $resizewidth_tag = false;
-        $resizeheight_tag = false;
-
-        if(($maxwidth && $pic_width > $maxwidth) || ($maxheight && $pic_height > $maxheight))
-        {
-            if($maxwidth && $pic_width>$maxwidth)
-            {
-                $widthratio = $maxwidth/$pic_width;
-                $resizewidth_tag = true;
-            }
-
-            if($maxheight && $pic_height>$maxheight)
-            {
-                $heightratio = $maxheight/$pic_height;
-                $resizeheight_tag = true;
-            }
-
-            if($resizewidth_tag && $resizeheight_tag)
-            {
-                if($widthratio<$heightratio)
-                    $ratio = $widthratio;
-                else
-                    $ratio = $heightratio;
-            }
-
-            if($resizewidth_tag && !$resizeheight_tag)
-                $ratio = $widthratio;
-            if($resizeheight_tag && !$resizewidth_tag)
-                $ratio = $heightratio;
-
-            $newwidth = $pic_width * $ratio;
-            $newheight = $pic_height * $ratio;
-
-            if(function_exists("imagecopyresampled"))
-            {
-                $newim = imagecreatetruecolor($newwidth,$newheight);
-                imagecopyresampled($newim,$im,0,0,0,0,$newwidth,$newheight,$pic_width,$pic_height);
-            }
-            else
-            {
-                $newim = imagecreate($newwidth,$newheight);
-                imagecopyresized($newim,$im,0,0,0,0,$newwidth,$newheight,$pic_width,$pic_height);
-            }
-
-            $name = $name.$filetype;
-            imagejpeg($newim,$name,$quality);
-            imagedestroy($newim);
-        }
-        else
-        {
-            $name = $name.$filetype;
-            imagejpeg($im,$name,$quality);
-        }
-    }
-
-    private function cropImage($image_path, $w, $h, $x, $y){
-        //reuturn $path;
-    }
 
     public function getTest(){
         $project = Project::find(11);
